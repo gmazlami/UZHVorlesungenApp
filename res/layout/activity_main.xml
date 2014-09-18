@@ -17,16 +17,13 @@
         android:layout_marginTop="34dp"
         android:text="Load VVZ data" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/button1"
-        android:layout_marginTop="21dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="169dp" >
+    </ListView>
 
 </RelativeLayout>

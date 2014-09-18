@@ -14,9 +14,14 @@ import android.widget.TextView;
 public class ParsingAsyncTask extends AsyncTask<String, Void, String> {
 
 	private TextView text = null;
+	private CallBackInterface callback;
 	
 	public ParsingAsyncTask(TextView text){
 		this.text = text;
+	}
+	
+	public ParsingAsyncTask(CallBackInterface callbackClass){
+		this.callback = callbackClass;
 	}
 	
 	@Override
@@ -48,6 +53,7 @@ public class ParsingAsyncTask extends AsyncTask<String, Void, String> {
 	@Override
 	protected void onPostExecute(String str){
 		text.setText(str);
+		callback.onTaskCompleted();
 	}
 
 }

@@ -16,17 +16,18 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements CallBackInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        final TextView text = (TextView) findViewById(R.id.textView1);
+        final ListView list = (ListView) findViewById(R.id.listView1);
         
         Button button = (Button) findViewById(R.id.button1);
         
@@ -34,7 +35,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				new ParsingAsyncTask(text).execute();
+//				new ParsingAsyncTask(text).execute();
 			}
 		});
     }
@@ -58,4 +59,10 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+	@Override
+	public void onTaskCompleted() {
+		
+	}
 }
