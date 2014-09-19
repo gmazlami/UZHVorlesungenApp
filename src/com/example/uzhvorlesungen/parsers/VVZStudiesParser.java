@@ -42,7 +42,7 @@ public class VVZStudiesParser {
 				facName = faculty;
 			}
 			
-			
+			if(!facName.contains("Weitere Angebote")){
 			NodeList childList = node.getChildren();
 			NodeList listChilds = childList.elementAt(1).getChildren();
 			
@@ -52,8 +52,9 @@ public class VVZStudiesParser {
 				String name = null;
 				
 				if (!str.contains("&uuml;") && !str.contains("&ouml;")
-						&& !str.contains("&Auml") && !str.contains("Weiter")
-						&& !str.contains("Double") && !str.contains("Joint")) {
+						&& !str.contains("&Auml") && !str.contains("Weitere")
+						&& !str.contains("Double") && !str.contains("Joint")
+						&& !str.contains("Angebote")) {
 					
 					if(str.contains("&auml;")){
 						name = str.replace("&auml;", "ä");
@@ -65,6 +66,7 @@ public class VVZStudiesParser {
 				}
 			}
 			facultyMap.put(facName, list);
+			}
 		}
 		return facultyMap;
 	}
