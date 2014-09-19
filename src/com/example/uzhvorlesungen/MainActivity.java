@@ -24,19 +24,14 @@ public class MainActivity extends Activity implements CallBackInterface {
          * This is a new line for testing. Blablabla.
          */
         
-        Button button = (Button) findViewById(R.id.button1);
+        String[] array = Utils.faculties;
         
-        button.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-//				new ParsingAsyncTask(text).execute();
-				String[] array = {"Theologische Fakultät","Rechtswissenschaftliche Fakultät","Wirtschaftswissenschaftliche Fakultät"};
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, array);
-				list.setAdapter(adapter);
-			
-			}
-		});
+        
+        
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, array);
+        list.setAdapter(adapter);
+
+    
     }
 
 
