@@ -29,6 +29,10 @@ public class MainActivity extends Activity implements CallBackInterface {
         
         final ListView list = (ListView) findViewById(R.id.listView1);
         
+        /*
+         * This is a new line for testing. Blablabla.
+         */
+        
         Button button = (Button) findViewById(R.id.button1);
         
         button.setOnClickListener(new OnClickListener() {
