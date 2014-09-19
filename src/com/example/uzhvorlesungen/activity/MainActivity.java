@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.threading.FacultiesCallback;
-import com.example.uzhvorlesungen.threading.ParsingAsyncTask;
+import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements FacultiesCallback {
 
 		});
 
-		ParsingAsyncTask task = new ParsingAsyncTask(this);
+		ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
 		task.execute();
 
 	}
