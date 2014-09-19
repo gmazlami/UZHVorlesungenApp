@@ -1,23 +1,14 @@
 package com.example.uzhvorlesungen;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-
-import org.htmlparser.util.ParserException;
-
-import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
 public class MainActivity extends Activity implements CallBackInterface {
@@ -40,6 +31,10 @@ public class MainActivity extends Activity implements CallBackInterface {
 			@Override
 			public void onClick(View v) {
 //				new ParsingAsyncTask(text).execute();
+				String[] array = {"Theologische Fakultät","Rechtswissenschaftliche Fakultät","Wirtschaftswissenschaftliche Fakultät"};
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, array);
+				list.setAdapter(adapter);
+			
 			}
 		});
     }
