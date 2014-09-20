@@ -41,7 +41,6 @@ public class MainActivity extends Activity implements FacultiesCallback {
 				if(facultiesMap != null){
 					Intent intent = new Intent(getApplicationContext(),
 							TitlesActivity.class);
-//					intent.putExtra(name, value)
 					
 					String faculty = facultiesList.get(position);
 					List<String> passedList = facultiesMap.get(faculty);

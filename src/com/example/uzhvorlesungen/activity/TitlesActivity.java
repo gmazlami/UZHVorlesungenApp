@@ -22,6 +22,7 @@ import com.example.uzhvorlesungen.threading.FacultiesCallback;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.example.uzhvorlesungen.threading.ParsingTitlesCategoriesAsyncTask;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class TitlesActivity extends Activity implements FacultiesCallback{
 
@@ -88,8 +89,21 @@ public class TitlesActivity extends Activity implements FacultiesCallback{
 		majorStudiesMap = map;
 		majorList = majors;
 		studiesLinksMap = studiesMap;
+		
+		Gson gson = new GsonBuilder().create();
+		
+		String serializedMajors = gson.toJson(majorList);
+		String serializedMajorStudiesMap = gson.toJson(majorStudiesMap);
+		String serializedStudiesLinksMap = gson.toJson(studiesLinksMap);
+		
+		
 		progress.dismiss();
+		
+		
 		Intent intent  = new Intent(getApplicationContext(), MajorMinorActivity.class);
+		intent.putExtra("majors", serializedMajors);
+		intent.putExtra("links", serializedStudiesLinksMap);
+		intent.putExtra("studies", serializedMajorStudiesMap);
 		startActivity(intent);
 		
 	}

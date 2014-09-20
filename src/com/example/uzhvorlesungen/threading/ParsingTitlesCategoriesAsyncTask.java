@@ -32,6 +32,7 @@ public class ParsingTitlesCategoriesAsyncTask extends
 		String URLPrefix = "www.vorlesungen.uzh.ch/HS14/";
 		// TODO: avoid hardcoding those links. Include config files instead.
 
+		System.out.println(URL);
 		try {
 			if(!URL.contains("http")){
 				URL = "http://" + URL;

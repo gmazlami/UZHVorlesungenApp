@@ -84,19 +84,30 @@ public class VVZStudiesParser {
 			Node node = nl.elementAt(i);
 			str = node.getFirstChild().getText().trim();
 
-			if (!str.contains("Fakul") && !str.contains("&auml;")
-					&& !str.contains("&uuml;") && !str.contains("&ouml;")
+			if (!str.contains("&uuml;") && !str.contains("&ouml;")
 					&& !str.contains("&Auml") && !str.contains("Weiter")
 					&& !str.contains("Double") && !str.contains("Joint")
-					&& !str.contains("Haupt") && !str.contains("fach")
-					&& !str.contains("Neben")) {
+					&& !str.contains("Haupt") && !str.contains("fach")) {
 
-				if (node instanceof Tag) {
-					link = ((Tag) node).getAttribute("href");
-					if(link.contains("../../")){
-						link = link.replace("../../", "");
+				if(str.contains("Fakult&auml;t") || str.contains("&auml;")){
+					if(str.contains("Master") || str.contains("Bachelor") || str.contains("Doktor") || str.contains("PhD")){
+						if(str.contains("&auml;")){str = str.replace("&auml;", "ä");}
+						if (node instanceof Tag) {
+							link = ((Tag) node).getAttribute("href");
+							if(link.contains("../../")){
+								link = link.replace("../../", "");
+							}
+							studiesMap.put(str, URLPrefix + link);
+						}
 					}
-					studiesMap.put(str, URLPrefix + link);
+				}else{
+					if (node instanceof Tag) {
+						link = ((Tag) node).getAttribute("href");
+						if(link.contains("../../")){
+							link = link.replace("../../", "");
+						}
+						studiesMap.put(str, URLPrefix + link);
+					}
 				}
 
 			}

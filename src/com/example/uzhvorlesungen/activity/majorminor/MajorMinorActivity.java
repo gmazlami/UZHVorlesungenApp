@@ -3,28 +3,45 @@ package com.example.uzhvorlesungen.activity.majorminor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.uzhvorlesungen.R;
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 public class MajorMinorActivity extends Activity {
 
-	ExpandableListAdapter listAdapter;
-	List<String> listDataHeader;
-	HashMap<String, List<String>> listDataChild;
+	private ExpandableListAdapter listAdapter;
+	private List<String> listDataHeader;
+	private HashMap<String, List<String>> listDataChild;
+	private HashMap<String, List<String>> majorsStudies;
+	private HashMap<String, String> studiesLinks;
+	private List<String> majors;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_major_minor);
         getActionBar().setTitle("Hauptfach / Nebenfach");
+        
+        String majorsExtra = getIntent().getExtras().getString("majors");
+        String studiesLinksExtra = getIntent().getExtras().getString("links");
+        String majorsStudiesExtra = getIntent().getExtras().getString("studies");
+        
+        Gson gson = new Gson();
+        
+        majorsStudies = gson.fromJson(majorsStudiesExtra, HashMap.class);
+        studiesLinks = gson.fromJson(studiesLinksExtra, HashMap.class);
+        majors = gson.fromJson(majorsExtra, ArrayList.class);
+        
         ExpandableListView expandableList = (ExpandableListView) findViewById(R.id.expandableListView1);
         
         prepareListData();
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        listAdapter = new ExpandableListAdapter(this, majors, majorsStudies);
         
         // setting list adapter
         expandableList.setAdapter(listAdapter);
