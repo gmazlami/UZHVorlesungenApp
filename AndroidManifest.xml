@@ -22,9 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.uzhvorlesungen.activity.TitlesActivity"
-            ></activity>
+        <activity android:name="com.example.uzhvorlesungen.activity.TitlesActivity" >
+        </activity>
+        <activity android:name="com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity" >
+        </activity>
     </application>
-	<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

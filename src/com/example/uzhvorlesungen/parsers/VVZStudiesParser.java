@@ -87,10 +87,15 @@ public class VVZStudiesParser {
 			if (!str.contains("Fakul") && !str.contains("&auml;")
 					&& !str.contains("&uuml;") && !str.contains("&ouml;")
 					&& !str.contains("&Auml") && !str.contains("Weiter")
-					&& !str.contains("Double") && !str.contains("Joint")) {
+					&& !str.contains("Double") && !str.contains("Joint")
+					&& !str.contains("Haupt") && !str.contains("fach")
+					&& !str.contains("Neben")) {
 
 				if (node instanceof Tag) {
 					link = ((Tag) node).getAttribute("href");
+					if(link.contains("../../")){
+						link = link.replace("../../", "");
+					}
 					studiesMap.put(str, URLPrefix + link);
 				}
 

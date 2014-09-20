@@ -16,6 +16,7 @@ public class ParsingFacultiesTitlesAsyncTask extends
 
 	private FacultiesCallback callback;
 	private Map<String, List<String>> facultiesMap = null;
+	private Map<String, String> titlesLinksMap = null;
 
 	public ParsingFacultiesTitlesAsyncTask(FacultiesCallback callbackClass) {
 		this.callback = callbackClass;
@@ -30,6 +31,7 @@ public class ParsingFacultiesTitlesAsyncTask extends
 		try {
 			VVZStudiesParser parser = new VVZStudiesParser(URL, URLPrefix);
 			facultiesMap = parser.parseFaculties();
+			titlesLinksMap = parser.parseStudies();
 		} catch (ParserException e) {
 			e.printStackTrace();
 			// TODO: add internet error handling
@@ -49,7 +51,7 @@ public class ParsingFacultiesTitlesAsyncTask extends
 
 	@Override
 	protected void onPostExecute(ArrayList<String> list) {
-		callback.onTaskCompleted(list, facultiesMap);
+		callback.onTaskCompleted(list, facultiesMap, titlesLinksMap);
 	}
 
 }

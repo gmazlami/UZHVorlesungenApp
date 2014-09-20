@@ -25,18 +25,19 @@ public class MainActivity extends Activity implements FacultiesCallback {
 
 	private ListView list = null;
 	private Map<String, List<String>> facultiesMap = null;
+	private Map<String, String> titlesLinksMap = null;
 	private ArrayList<String> facultiesList = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		getActionBar().setTitle("Fakultäten");
 		list = (ListView) findViewById(R.id.listView1);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 				if(facultiesMap != null){
 					Intent intent = new Intent(getApplicationContext(),
 							TitlesActivity.class);
@@ -44,11 +45,20 @@ public class MainActivity extends Activity implements FacultiesCallback {
 					
 					String faculty = facultiesList.get(position);
 					List<String> passedList = facultiesMap.get(faculty);
-
+					List<String> linksList = new ArrayList<String>();
+					
+					for(int i =0; i < passedList.size(); i++){
+						String title = passedList.get(i);
+						linksList.add(titlesLinksMap.get(title));
+					}
+					
 					Gson gson = new GsonBuilder().create();
-					String serialized = gson.toJson(passedList);
-
-					intent.putExtra("test", serialized);
+					
+					String serializedTitles = gson.toJson(passedList);
+					intent.putExtra("titles", serializedTitles);
+					
+					String serializedLinks = gson.toJson(linksList);
+					intent.putExtra("links", serializedLinks);
 					startActivity(intent);
 				}
 
@@ -82,11 +92,11 @@ public class MainActivity extends Activity implements FacultiesCallback {
 
 	@Override
 	public void onTaskCompleted(ArrayList<String> faculties,
-			Map<String, List<String>> map) {
+			Map<String, List<String>> map, Map<String, String> titlesMap) {
 		facultiesMap = map;
 		facultiesList = faculties;
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				getApplicationContext(), R.layout.list_row_item, faculties);
+		titlesLinksMap = titlesMap;
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, faculties);
 		list.setAdapter(adapter);
 	}
 }

@@ -8,28 +8,37 @@ import java.util.Map;
 import org.htmlparser.util.ParserException;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 
 public class ParsingTitlesCategoriesAsyncTask extends
-		AsyncTask<String, Void, ArrayList<String>> {
+		AsyncTask<String, Void, ArrayList<String>>{
 
 	private FacultiesCallback callback;
 	private Map<String, List<String>> facultiesMap = null;
-
-	public ParsingTitlesCategoriesAsyncTask(FacultiesCallback callbackClass) {
+	private Map<String, String> titlesLinksMap = null;
+	private String URL = null;
+	
+	
+	public ParsingTitlesCategoriesAsyncTask(FacultiesCallback callbackClass, String link) {
 		this.callback = callbackClass;
+		this.URL = link;
 	}
 
 	@Override
 	protected ArrayList<String> doInBackground(String... params) {
-		String URL = "http://www.vorlesungen.uzh.ch/HS14/lehrangebot.html";
+//		String URL = "http://www.vorlesungen.uzh.ch/HS14/lehrangebot.html";
 		String URLPrefix = "www.vorlesungen.uzh.ch/HS14/";
 		// TODO: avoid hardcoding those links. Include config files instead.
 
 		try {
+			if(!URL.contains("http")){
+				URL = "http://" + URL;
+			}
 			VVZStudiesParser parser = new VVZStudiesParser(URL, URLPrefix);
 			facultiesMap = parser.parseFaculties();
+			titlesLinksMap = parser.parseStudies();
 		} catch (ParserException e) {
 			e.printStackTrace();
 			// TODO: add internet error handling
@@ -49,7 +58,7 @@ public class ParsingTitlesCategoriesAsyncTask extends
 
 	@Override
 	protected void onPostExecute(ArrayList<String> list) {
-		callback.onTaskCompleted(list, facultiesMap);
+		callback.onTaskCompleted(list, facultiesMap, titlesLinksMap);
 	}
 
 }

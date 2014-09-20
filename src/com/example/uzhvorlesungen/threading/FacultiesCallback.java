@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface FacultiesCallback{
 
-	void onTaskCompleted(ArrayList<String> faculties, Map<String, List<String>> map);
+	void onTaskCompleted(ArrayList<String> faculties, Map<String, List<String>> facultiesMap, Map<String, String> titlesMap);
 }
