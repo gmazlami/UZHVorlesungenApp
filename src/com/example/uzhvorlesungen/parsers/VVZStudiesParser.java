@@ -50,7 +50,24 @@ public class VVZStudiesParser {
 			for(int j = 0 ; j < listChilds.size(); j++){
 				String str = listChilds.elementAt(j).toPlainTextString().trim();
 				String name = null;
-				
+//				if(str.contains("Bachelor of Science")){
+//					str = str.replace("Bachelor of Science", "BSc");
+//				}
+//				if(str.contains("Master of Science")){
+//					str = str.replace("Master of Science", "MSc");
+//				}
+//				if(str.contains("Bachelor of Arts")){
+//					str = str.replace("Bachelor of Arts", "BA");
+//				}
+//				if(str.contains("Master of Arts")){
+//					str = str.replace("Master of Arts", "MA");
+//				}
+//				if(str.contains("Bachelor")){
+//					str = str.replace("Bachelor", "Bach.");
+//				}
+//				if(str.contains("Master")){
+//					str = str.replace("Master", "Mast.");
+//				}
 				if (!str.contains("&uuml;") && !str.contains("&ouml;")
 						&& !str.contains("&Auml") && !str.contains("Weitere")
 						&& !str.contains("Double") && !str.contains("Joint")
@@ -92,6 +109,24 @@ public class VVZStudiesParser {
 				if(str.contains("Fakult&auml;t") || str.contains("&auml;")){
 					if(str.contains("Master") || str.contains("Bachelor") || str.contains("Doktor") || str.contains("PhD")){
 						if(str.contains("&auml;")){str = str.replace("&auml;", "ä");}
+//						if(str.contains("Bachelor of Science")){
+//							str = str.replace("Bachelor of Science", "BSc");
+//						}
+//						if(str.contains("Master of Science")){
+//							str = str.replace("Master of Science", "MSc");
+//						}
+//						if(str.contains("Bachelor of Arts")){
+//							str = str.replace("Bachelor of Arts", "BA");
+//						}
+//						if(str.contains("Master of Arts")){
+//							str = str.replace("Master of Arts", "MA");
+//						}
+//						if(str.contains("Bachelor")){
+//							str = str.replace("Bachelor", "BA");
+//						}
+//						if(str.contains("Master")){
+//							str = str.replace("Master", "MA");
+//						}
 						if (node instanceof Tag) {
 							link = ((Tag) node).getAttribute("href");
 							if(link.contains("../../")){
@@ -101,6 +136,25 @@ public class VVZStudiesParser {
 						}
 					}
 				}else{
+//					if(str.contains("Bachelor of Science")){
+//						str = str.replace("Bachelor of Science", "BSc");
+//					}
+//					if(str.contains("Master of Science")){
+//						str = str.replace("Master of Science", "MSc");
+//					}
+//					if(str.contains("Bachelor of Arts")){
+//						str = str.replace("Bachelor of Arts", "BA");
+//					}
+//					if(str.contains("Master of Arts")){
+//						str = str.replace("Master of Arts", "MA");
+//					}
+//					if(str.contains("Bachelor")){
+//						str = str.replace("Bachelor", "BA");
+//					}
+//					if(str.contains("Master")){
+//						str = str.replace("Master", "MA");
+//					}
+					
 					if (node instanceof Tag) {
 						link = ((Tag) node).getAttribute("href");
 						if(link.contains("../../")){

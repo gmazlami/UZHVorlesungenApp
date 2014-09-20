@@ -1,0 +1,72 @@
+<com.example.uzhvorlesungen.activity.DashboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:background="#f8f9fe" >
+
+    <!-- News Feed Button -->
+
+    <Button
+        android:id="@+id/btn_mnf"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_mnf"
+        android:text="MNF" />
+
+    <!-- Friends Button -->
+
+    <Button
+        android:id="@+id/btn_wwf"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_wwf"
+        android:text="WWF" />
+
+    <!-- Messages Button -->
+
+    <Button
+        android:id="@+id/btn_phf"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_phf"
+        android:text="PhF" />
+
+    <!-- Places Button -->
+
+    <Button
+        android:id="@+id/btn_medf"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_medf"
+        android:text="MedF" />
+
+    <!-- Events Button -->
+
+    <Button
+        android:id="@+id/btn_vetf"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_vetf"
+        android:text="VetF" />
+
+    <!-- Photos Button -->
+
+    <Button
+        android:id="@+id/btn_rwf"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_rwf"
+        android:text="RWF" />
+    <!-- Photos Button -->
+
+    <Button
+        android:id="@+id/btn_thf"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_thf"
+        android:text="ThF" />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:paddingTop="5dp"
+        android:textSize="25dp" >
+    </TextView>
+
+</com.example.uzhvorlesungen.activity.DashboardLayout>

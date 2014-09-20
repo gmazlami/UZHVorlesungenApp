@@ -4,14 +4,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.uzhvorlesungen.activity.MainActivity" >
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <ExpandableListView
+        android:id="@+id/expandableListView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:divider="@color/DarkBlue"
-        android:dividerHeight="2px" >
-    </ListView>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+    </ExpandableListView>
 
 </RelativeLayout>
