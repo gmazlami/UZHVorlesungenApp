@@ -5,29 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.activity.LecturesActivity;
-import com.example.uzhvorlesungen.threading.LecturesCallbackInterface;
-import com.example.uzhvorlesungen.threading.ParsingLecturesAsyncTask;
-import com.google.gson.Gson;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.activity.LecturesActivity;
+import com.example.uzhvorlesungen.threading.LecturesCallbackInterface;
+import com.example.uzhvorlesungen.threading.ParsingLecturesAsyncTask;
+import com.google.gson.Gson;
 
 public class MajorMinorActivity extends Activity implements LecturesCallbackInterface{
 
@@ -38,7 +33,8 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 	private Gson gson = null;
 	private ProgressDialog progress;
 	
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String majorsExtra = getIntent().getExtras().getString("majors");

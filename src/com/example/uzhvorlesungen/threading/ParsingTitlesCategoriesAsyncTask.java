@@ -8,7 +8,6 @@ import java.util.Map;
 import org.htmlparser.util.ParserException;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 

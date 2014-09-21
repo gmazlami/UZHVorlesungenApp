@@ -13,13 +13,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity;
-import com.example.uzhvorlesungen.threading.CallBackInterface;
 import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
-import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.example.uzhvorlesungen.threading.ParsingTitlesCategoriesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,7 +33,8 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 	private ArrayList<String> majorList = null;
 	private ProgressDialog progress;
 	
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_titles);

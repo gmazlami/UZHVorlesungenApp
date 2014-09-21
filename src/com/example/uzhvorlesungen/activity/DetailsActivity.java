@@ -14,6 +14,7 @@ public class DetailsActivity extends Activity {
 	Gson gson;
 	Lecture lecture;
 	TextView textDescription;
+	TextView textExam;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,22 @@ public class DetailsActivity extends Activity {
 		textDescription.setVisibility(View.GONE);
 		textDescription.setText(lecture.getDescription());
 		
+		textExam = (TextView) findViewById(R.id.textExamInfo);
+		textExam.setVisibility(View.GONE);
+		textExam.setText(lecture.getExam());
+		
 		TextView dayTimeTextView = (TextView) findViewById(R.id.dayTime);
-		dayTimeTextView.setText(lecture.getDay() + " um " + lecture.getBeginTime() + "-" + lecture.getEndTime());
+		dayTimeTextView.setText(lecture.getDay()+" "+ lecture.getBeginTime() + "-" + lecture.getEndTime());
+	
+		TextView pointsTextView = (TextView) findViewById(R.id.pointsTextView);
+		pointsTextView.setText(lecture.getPoints() + " ECTS");
+		
+		TextView docentTextView = (TextView) findViewById(R.id.docentTextView);
+		docentTextView.setText(lecture.getDocent());
+		
+		TextView locationTextView = (TextView) findViewById(R.id.roomTextView);
+		locationTextView.setText(lecture.getLocation());
+	
 	}
 
 	/**
@@ -41,5 +56,9 @@ public class DetailsActivity extends Activity {
 	public void toggle_contents(View v) {
 		textDescription.setVisibility(textDescription.isShown() ? View.GONE
 				: View.VISIBLE);
+	}
+	
+	public void toggle_contents_exam(View v){
+		textExam.setVisibility(textExam.isShown() ? View.GONE : View.VISIBLE);
 	}
 }

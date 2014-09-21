@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
     <!-- content to hide/show -->
 
     <ScrollView
@@ -17,14 +16,91 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1sp"
+                android:background="@color/Gray" />
+
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:paddingBottom="2sp"
                 android:paddingTop="2sp"
-                android:textColor="@color/DarkBlue"
+                android:textColor="@color/White"
+                android:background="@color/DarkBlue"
                 android:textSize="25sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1sp"
+                android:background="@color/Gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/dayTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:paddingBottom="2sp"
+                    android:paddingTop="2sp"
+                    android:textSize="16sp" 
+                    android:gravity="center"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Gray" />
+
+                <TextView
+                    android:id="@+id/roomTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text=""
+                    android:gravity="center"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1sp"
+                android:background="@color/Gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/docentTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:paddingBottom="2sp"
+                    android:paddingTop="2sp"
+                    android:textSize="16sp" 
+                    android:gravity="center"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Gray" />
+
+                <TextView
+                    android:id="@+id/pointsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="" 
+                    android:gravity="center"
+                    android:textSize="16sp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="fill_parent"
@@ -36,20 +112,19 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/help_title_gest"
+                    android:id="@+id/descriptionTitle"
                     style="@style/AppBaseTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="false"
                     android:layout_centerVertical="true"
-                    android:background="@color/White"
                     android:clickable="true"
                     android:onClick="toggle_contents"
                     android:paddingBottom="2sp"
                     android:paddingTop="2sp"
                     android:text="Beschreibung"
                     android:textColor="@color/DarkBlue"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <ImageButton
                     android:id="@+id/imageButton1"
@@ -58,8 +133,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
-                    android:onClick="toggle_contents"
                     android:background="@null"
+                    android:onClick="toggle_contents"
                     android:src="@android:drawable/btn_dropdown" />
             </RelativeLayout>
 
@@ -68,30 +143,56 @@
                 style="@style/AppBaseTheme"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/Gray"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1sp"
                 android:background="@color/Gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/examInfoTitle"
+                    style="@style/AppBaseTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="false"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:onClick="toggle_contents_exam"
+                    android:paddingBottom="2sp"
+                    android:paddingTop="2sp"
+                    android:text="Leistungsnachweis"
+                    android:textColor="@color/DarkBlue"
+                    android:textSize="20sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:onClick="toggle_contents_exam"
+                    android:src="@android:drawable/btn_dropdown" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/dayTime"
-                android:layout_width="match_parent"
+                android:id="@+id/textExamInfo"
+                style="@style/AppBaseTheme"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="2sp"
-                android:paddingTop="2sp"
-                android:textColor="@color/DarkBlue"
-                android:textSize="25sp" />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1sp"
                 android:background="@color/Gray" />
-
         </LinearLayout>
-
     </ScrollView>
 
 </LinearLayout>
