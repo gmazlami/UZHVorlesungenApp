@@ -20,7 +20,6 @@ import com.google.gson.GsonBuilder;
 public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallbackInterface{
     
     private Map<String, List<String>> facultiesMap;
-	private ArrayList<String> facultiesList;
 	private Map<String, String> titlesLinksMap;
 	private ProgressDialog progress;
 
@@ -28,6 +27,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
+        getActionBar().setTitle("Fakultät wählen");
         progress = ProgressDialog.show(this, "Hole Daten","Bitte warten", true);
 		ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
 		task.execute();
@@ -131,7 +131,6 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			Map<String, String> titlesMap) {
 		
 		facultiesMap = map;
-		facultiesList = faculties;
 		titlesLinksMap = titlesMap;
 		progress.dismiss();
 	}

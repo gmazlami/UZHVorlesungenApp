@@ -9,6 +9,14 @@ package com.example.uzhvorlesungen;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int trimLength=0x7f010000;
     }
     public static final class color {
         public static final int AliceBlue=0x7f04002c;
@@ -181,34 +189,41 @@ public final class R {
         public static final int wwf=0x7f02000e;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000f;
-        public static final int alternativeMajorsList=0x7f090003;
-        public static final int btn_medf=0x7f090009;
-        public static final int btn_mnf=0x7f090006;
-        public static final int btn_phf=0x7f090008;
-        public static final int btn_rwf=0x7f09000b;
-        public static final int btn_thf=0x7f09000c;
-        public static final int btn_vetf=0x7f09000a;
-        public static final int btn_wwf=0x7f090007;
-        public static final int expandableListView1=0x7f090002;
-        public static final int expandableListView2=0x7f090000;
-        public static final int home_root=0x7f090005;
-        public static final int lblListHeader=0x7f09000d;
-        public static final int lblListItem=0x7f09000e;
-        public static final int listView1=0x7f090001;
-        public static final int titlesList=0x7f090004;
+        public static final int action_settings=0x7f090015;
+        public static final int alternativeMajorsList=0x7f090009;
+        public static final int btn_medf=0x7f09000f;
+        public static final int btn_mnf=0x7f09000c;
+        public static final int btn_phf=0x7f09000e;
+        public static final int btn_rwf=0x7f090011;
+        public static final int btn_thf=0x7f090012;
+        public static final int btn_vetf=0x7f090010;
+        public static final int btn_wwf=0x7f09000d;
+        public static final int dayTime=0x7f090005;
+        public static final int expandableListView1=0x7f090008;
+        public static final int expandableListView2=0x7f090006;
+        public static final int help_title_gest=0x7f090002;
+        public static final int home_root=0x7f09000b;
+        public static final int imageButton1=0x7f090003;
+        public static final int lblListHeader=0x7f090013;
+        public static final int lblListItem=0x7f090014;
+        public static final int listView1=0x7f090007;
+        public static final int scrollView1=0x7f090000;
+        public static final int textDescription=0x7f090004;
+        public static final int titleTextView=0x7f090001;
+        public static final int titlesList=0x7f09000a;
     }
     public static final class layout {
-        public static final int activity_faculty=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_major_minor=0x7f030002;
-        public static final int activity_major_minor_single=0x7f030003;
-        public static final int activity_titles=0x7f030004;
-        public static final int dashboard_layout=0x7f030005;
-        public static final int fragment_layout=0x7f030006;
-        public static final int list_group=0x7f030007;
-        public static final int list_item=0x7f030008;
-        public static final int list_row_item=0x7f030009;
+        public static final int activity_details=0x7f030000;
+        public static final int activity_faculty=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_major_minor=0x7f030003;
+        public static final int activity_major_minor_single=0x7f030004;
+        public static final int activity_titles=0x7f030005;
+        public static final int dashboard_layout=0x7f030006;
+        public static final int fragment_layout=0x7f030007;
+        public static final int list_group=0x7f030008;
+        public static final int list_item=0x7f030009;
+        public static final int list_row_item=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -248,4 +263,33 @@ public final class R {
         public static final int DashboardButton=0x7f070002;
         public static final int FooterBar=0x7f070003;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a ExpandableTextView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ExpandableTextView_trimLength com.example.uzhvorlesungen:trimLength}</code></td><td></td></tr>
+           </table>
+           @see #ExpandableTextView_trimLength
+         */
+        public static final int[] ExpandableTextView = {
+            0x7f010000
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.example.uzhvorlesungen.R.attr#trimLength}
+          attribute's value can be found in the {@link #ExpandableTextView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.uzhvorlesungen:trimLength
+        */
+        public static final int ExpandableTextView_trimLength = 0;
+    };
 }

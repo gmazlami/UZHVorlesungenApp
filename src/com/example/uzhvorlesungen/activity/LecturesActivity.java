@@ -26,6 +26,7 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
 	ProgressDialog progress;
 	Gson gson;
 	
+	@SuppressWarnings("unchecked")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
