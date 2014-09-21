@@ -28,8 +28,8 @@
                 android:gravity="center"
                 android:paddingBottom="2sp"
                 android:paddingTop="2sp"
-                android:textColor="@color/White"
-                android:background="@color/DarkBlue"
+                android:textColor="@color/DarkBlue"
+                android:background="@color/LightBlue"
                 android:textSize="25sp" />
 
             <View
@@ -49,7 +49,7 @@
                     android:layout_weight="0.5"
                     android:paddingBottom="2sp"
                     android:paddingTop="2sp"
-                    android:textSize="16sp" 
+                    android:textSize="20sp" 
                     android:gravity="center"/>
 
                 <View
@@ -64,7 +64,7 @@
                     android:layout_weight="0.5"
                     android:text=""
                     android:gravity="center"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <View
@@ -84,7 +84,7 @@
                     android:layout_weight="0.5"
                     android:paddingBottom="2sp"
                     android:paddingTop="2sp"
-                    android:textSize="16sp" 
+                    android:textSize="20sp" 
                     android:gravity="center"/>
 
                 <View
@@ -99,7 +99,7 @@
                     android:layout_weight="0.5"
                     android:text="" 
                     android:gravity="center"
-                    android:textSize="16sp"/>
+                    android:textSize="20sp"/>
             </LinearLayout>
 
             <View
@@ -109,7 +109,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content" 
+                android:background="@color/LightBlue">
 
                 <TextView
                     android:id="@+id/descriptionTitle"
@@ -135,7 +136,7 @@
                     android:layout_centerVertical="true"
                     android:background="@null"
                     android:onClick="toggle_contents"
-                    android:src="@android:drawable/btn_dropdown" />
+                    android:src="@drawable/ic_action_navigation_expand" />
             </RelativeLayout>
 
             <TextView
@@ -143,7 +144,7 @@
                 style="@style/AppBaseTheme"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="fill_parent"
@@ -152,7 +153,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@color/LightBlue" >
 
                 <TextView
                     android:id="@+id/examInfoTitle"
@@ -178,7 +180,7 @@
                     android:layout_centerVertical="true"
                     android:background="@null"
                     android:onClick="toggle_contents_exam"
-                    android:src="@android:drawable/btn_dropdown" />
+                    android:src="@drawable/ic_action_navigation_expand" />
             </RelativeLayout>
 
             <TextView
@@ -186,7 +188,7 @@
                 style="@style/AppBaseTheme"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="fill_parent"
