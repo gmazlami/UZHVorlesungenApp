@@ -16,12 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.threading.FacultiesCallback;
+import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class MainActivity extends Activity implements FacultiesCallback {
+public class MainActivity extends Activity implements FacultiesCallbackInterface {
 
 	private ListView list = null;
 	private Map<String, List<String>> facultiesMap = null;

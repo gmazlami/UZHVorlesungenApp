@@ -14,11 +14,11 @@ import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 public class ParsingFacultiesTitlesAsyncTask extends
 		AsyncTask<String, Void, ArrayList<String>> {
 
-	private FacultiesCallback callback;
+	private FacultiesCallbackInterface callback;
 	private Map<String, List<String>> facultiesMap = null;
 	private Map<String, String> titlesLinksMap = null;
 
-	public ParsingFacultiesTitlesAsyncTask(FacultiesCallback callbackClass) {
+	public ParsingFacultiesTitlesAsyncTask(FacultiesCallbackInterface callbackClass) {
 		this.callback = callbackClass;
 	}
 

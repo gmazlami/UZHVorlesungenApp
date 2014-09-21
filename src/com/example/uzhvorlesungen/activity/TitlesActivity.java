@@ -18,13 +18,13 @@ import android.widget.Toast;
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity;
 import com.example.uzhvorlesungen.threading.CallBackInterface;
-import com.example.uzhvorlesungen.threading.FacultiesCallback;
+import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.example.uzhvorlesungen.threading.ParsingTitlesCategoriesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class TitlesActivity extends Activity implements FacultiesCallback{
+public class TitlesActivity extends Activity implements FacultiesCallbackInterface{
 
 	private ListView mListView = null;
 	private ArrayList<String> mListTitles = null;

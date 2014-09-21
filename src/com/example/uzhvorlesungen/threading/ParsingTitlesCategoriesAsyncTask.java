@@ -15,13 +15,13 @@ import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 public class ParsingTitlesCategoriesAsyncTask extends
 		AsyncTask<String, Void, ArrayList<String>>{
 
-	private FacultiesCallback callback;
+	private FacultiesCallbackInterface callback;
 	private Map<String, List<String>> facultiesMap = null;
 	private Map<String, String> titlesLinksMap = null;
 	private String URL = null;
 	
 	
-	public ParsingTitlesCategoriesAsyncTask(FacultiesCallback callbackClass, String link) {
+	public ParsingTitlesCategoriesAsyncTask(FacultiesCallbackInterface callbackClass, String link) {
 		this.callback = callbackClass;
 		this.URL = link;
 	}
@@ -32,7 +32,6 @@ public class ParsingTitlesCategoriesAsyncTask extends
 		String URLPrefix = "www.vorlesungen.uzh.ch/HS14/";
 		// TODO: avoid hardcoding those links. Include config files instead.
 
-		System.out.println(URL);
 		try {
 			if(!URL.contains("http")){
 				URL = "http://" + URL;

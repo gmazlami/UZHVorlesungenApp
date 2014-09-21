@@ -26,6 +26,8 @@
         </activity>
         <activity android:name="com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity" >
         </activity>
+        <activity android:name="com.example.uzhvorlesungen.activity.DetailsActivity"></activity>
+        <activity android:name="com.example.uzhvorlesungen.activity.LecturesActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -6,31 +6,43 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.activity.LecturesActivity;
+import com.example.uzhvorlesungen.threading.LecturesCallbackInterface;
+import com.example.uzhvorlesungen.threading.ParsingLecturesAsyncTask;
 import com.google.gson.Gson;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MajorMinorActivity extends Activity {
+public class MajorMinorActivity extends Activity implements LecturesCallbackInterface{
 
 	private ExpandableListAdapter listAdapter;
 	private HashMap<String, List<String>> majorsStudies;
 	private HashMap<String, String> studiesLinks;
 	private List<String> majors;
+	private Gson gson = null;
+	private ProgressDialog progress;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Gson gson = new Gson();
         String majorsExtra = getIntent().getExtras().getString("majors");
+        gson = new Gson();
         majors = gson.fromJson(majorsExtra, ArrayList.class);
 
         if(majors.size() < 2){
@@ -50,6 +62,23 @@ public class MajorMinorActivity extends Activity {
         	ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, array);
         	singleList.setAdapter(adapter);
         	
+        	singleList.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					TextView textView = (TextView) view;
+					String study = textView.getText().toString();
+					String link = studiesLinks.get(study);
+					progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
+					ParsingLecturesAsyncTask asyncTask = new ParsingLecturesAsyncTask(link, MajorMinorActivity.this);
+					asyncTask.execute();
+					
+				}
+        		
+			});
+
+        	
         }else{
         	
         	setContentView(R.layout.activity_major_minor);
@@ -66,8 +95,34 @@ public class MajorMinorActivity extends Activity {
         	
         	// setting list adapter
         	expandableList.setAdapter(listAdapter);
+        	
+        	expandableList.setOnChildClickListener(new OnChildClickListener() {
+				
+				@Override
+				public boolean onChildClick(ExpandableListView parent, View v,
+						int groupPosition, int childPosition, long id) {
+					// TODO Auto-generated method stub
+					TextView textView = (TextView) v;
+					String study = textView.getText().toString();
+					String link = studiesLinks.get(study);
+					progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
+					ParsingLecturesAsyncTask asyncTask = new ParsingLecturesAsyncTask(link, MajorMinorActivity.this);
+					asyncTask.execute();
+					
+					return false;
+				}
+			});
         }
     }
+
+	@Override
+	public void onTaskCompleted(Map<String, String> map) {
+		String serializedMap = gson.toJson(map);
+		Intent intent = new Intent(getApplicationContext(), LecturesActivity.class);
+		intent.putExtra("lectures", serializedMap);
+		progress.dismiss();
+		startActivity(intent);
+	}
     
     
     

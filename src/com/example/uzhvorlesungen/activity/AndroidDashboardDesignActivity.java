@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.threading.FacultiesCallback;
+import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallback{
+public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallbackInterface{
     
     private Map<String, List<String>> facultiesMap;
 	private ArrayList<String> facultiesList;
