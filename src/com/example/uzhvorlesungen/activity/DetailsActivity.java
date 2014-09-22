@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class DetailsActivity extends Activity {
@@ -22,6 +23,10 @@ public class DetailsActivity extends Activity {
 	Lecture lecture;
 	TextView textDescription;
 	TextView textExam;
+	ImageButton btnDescUp;
+	ImageButton btnDescDown;
+	ImageButton btnExUp;
+	ImageButton btnExDown;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,16 @@ public class DetailsActivity extends Activity {
 		gson = new Gson();
 		lecture = gson.fromJson(serialized, Lecture.class);
 
+		btnDescDown = (ImageButton) findViewById(R.id.dscButtonDown);
+		btnDescDown.setVisibility(View.VISIBLE);
+		btnDescUp = (ImageButton) findViewById(R.id.dscButtonUp);
+		btnDescUp.setVisibility(View.GONE);
+		
+		btnExDown = (ImageButton) findViewById(R.id.exButtonDown);
+		btnExDown.setVisibility(View.VISIBLE);
+		btnExUp = (ImageButton) findViewById(R.id.exButtonUp);
+		btnExUp.setVisibility(View.GONE);
+		
 		TextView title = (TextView) findViewById(R.id.titleTextView);
 		title.setText(lecture.getTitle());
 
@@ -71,11 +86,28 @@ public class DetailsActivity extends Activity {
 	 * onClick handler
 	 */
 	public void toggle_contents(View v) {
-		textDescription.setVisibility(textDescription.isShown() ? View.GONE
-				: View.VISIBLE);
+		if(textDescription.isShown()){
+			textDescription.setVisibility(View.GONE);
+			btnDescUp.setVisibility(View.GONE);
+			btnDescDown.setVisibility(View.VISIBLE);
+		}else{
+			textDescription.setVisibility(View.VISIBLE);
+			btnDescDown.setVisibility(View.GONE);
+			btnDescUp.setVisibility(View.VISIBLE);
+			btnDescUp.setBackgroundResource(R.drawable.ic_action_navigation_collapse);
+		}
 	}
 	
 	public void toggle_contents_exam(View v){
-		textExam.setVisibility(textExam.isShown() ? View.GONE : View.VISIBLE);
+		if(textExam.isShown()){
+			textExam.setVisibility(View.GONE);
+			btnExUp.setVisibility(View.GONE);
+			btnExDown.setVisibility(View.VISIBLE);
+		}else{
+			textExam.setVisibility(View.VISIBLE);
+			btnExDown.setVisibility(View.GONE);
+			btnExUp.setVisibility(View.VISIBLE);
+			btnExUp.setBackgroundResource(R.drawable.ic_action_navigation_collapse);
+		}
 	}
 }

@@ -25,11 +25,11 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/LightBlue"
                 android:gravity="center"
                 android:paddingBottom="2sp"
                 android:paddingTop="2sp"
                 android:textColor="@color/DarkBlue"
-                android:background="@color/LightBlue"
                 android:textSize="25sp" />
 
             <View
@@ -47,10 +47,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:gravity="center"
                     android:paddingBottom="2sp"
                     android:paddingTop="2sp"
-                    android:textSize="20sp" 
-                    android:gravity="center"/>
+                    android:textSize="20sp" />
 
                 <View
                     android:layout_width="1dp"
@@ -62,8 +62,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text=""
                     android:gravity="center"
+                    android:text=""
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -82,10 +82,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:gravity="center"
                     android:paddingBottom="2sp"
                     android:paddingTop="2sp"
-                    android:textSize="20sp" 
-                    android:gravity="center"/>
+                    android:textSize="20sp" />
 
                 <View
                     android:layout_width="1dp"
@@ -97,9 +97,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="" 
                     android:gravity="center"
-                    android:textSize="20sp"/>
+                    android:text=""
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <View
@@ -109,8 +109,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" 
-                android:background="@color/LightBlue">
+                android:layout_height="wrap_content"
+                android:background="@color/LightBlue"
+                android:onClick="toggle_contents" >
 
                 <TextView
                     android:id="@+id/descriptionTitle"
@@ -125,10 +126,19 @@
                     android:paddingTop="2sp"
                     android:text="Beschreibung"
                     android:textColor="@color/DarkBlue"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton1"
+                    android:id="@+id/dscButtonUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/ic_action_navigation_collapse"
+                    android:onClick="toggle_contents" />
+
+                <ImageButton
+                    android:id="@+id/dscButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -154,7 +164,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/LightBlue" >
+                android:background="@color/LightBlue"
+                android:onClick="toggle_contents_exam" >
 
                 <TextView
                     android:id="@+id/examInfoTitle"
@@ -169,10 +180,19 @@
                     android:paddingTop="2sp"
                     android:text="Leistungsnachweis"
                     android:textColor="@color/DarkBlue"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/exButtonUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/ic_action_navigation_collapse"
+                    android:onClick="toggle_contents_exam" />
+
+                <ImageButton
+                    android:id="@+id/exButtonDown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
