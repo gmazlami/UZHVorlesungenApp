@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity;
@@ -94,7 +95,9 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		String serializedMajorStudiesMap = gson.toJson(majorStudiesMap);
 		String serializedStudiesLinksMap = gson.toJson(studiesLinksMap);
 		
-		
+		System.out.println(serializedStudiesLinksMap);
+//		System.out.println(serializedMajorStudiesMap);
+		//TODO: HERE IS THE MSC MNF BUG!!!! (serializedStudiesLinksMap)
 		progress.dismiss();
 		
 		

@@ -144,6 +144,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 		for(int i =0; i < passedList.size(); i++){
 			String title = passedList.get(i);
 			linksList.add(titlesLinksMap.get(title));
+//			System.out.println(title + "  :  " + titlesLinksMap.get(title));
 		}
 		
 		Gson gson = new GsonBuilder().create();

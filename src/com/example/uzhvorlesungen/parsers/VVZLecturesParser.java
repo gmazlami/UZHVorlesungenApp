@@ -34,6 +34,7 @@ public class VVZLecturesParser {
 	
 	private ArrayList<String> parseSites() throws ParserException{
 		ArrayList<String> links = new ArrayList<String>();
+		links.add(resourceURL);
 		Parser parser = new Parser();
 		parser.setResource(resourceURL);
 		HasAttributeFilter filter = new HasAttributeFilter("class", "pages");
