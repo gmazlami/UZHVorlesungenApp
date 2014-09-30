@@ -100,7 +100,8 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 					// TODO Auto-generated method stub
 					TextView textView = (TextView) v;
 					String study = textView.getText().toString();
-					String link = studiesLinks.get(study);
+					String link = PassedDataContainer.getLinkForGroupChild(groupPosition, study);
+//					String link = studiesLinks.get(study);
 					progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
 					ParsingLecturesAsyncTask asyncTask = new ParsingLecturesAsyncTask(link, MajorMinorActivity.this);
 					asyncTask.execute();

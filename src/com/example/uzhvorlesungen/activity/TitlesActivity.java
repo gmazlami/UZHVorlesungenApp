@@ -1,6 +1,7 @@
 package com.example.uzhvorlesungen.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,16 +20,18 @@ import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
+import com.example.uzhvorlesungen.threading.MMCallBackInterface;
+import com.example.uzhvorlesungen.threading.ParsingMMAsyncTask;
 import com.example.uzhvorlesungen.threading.ParsingTitlesCategoriesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class TitlesActivity extends Activity implements FacultiesCallbackInterface{
+public class TitlesActivity extends Activity implements FacultiesCallbackInterface, MMCallBackInterface{
 
 	private ListView mListView = null;
 	private ArrayList<String> mListTitles = null;
 	private ArrayList<String> mListLinks = null;
-	private ParsingTitlesCategoriesAsyncTask asyncTask = null;
+	private ParsingMMAsyncTask asyncTask = null;
 	
 	private Map<String, List<String>> majorStudiesMap = null;
 	private Map<String, String> studiesLinksMap = null;
@@ -69,7 +72,7 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 				String link = mListLinks.get(position);
 
 //				Toast.makeText(getApplicationContext(), link, Toast.LENGTH_LONG).show();
-				asyncTask = new ParsingTitlesCategoriesAsyncTask(TitlesActivity.this, link);
+				asyncTask = new ParsingMMAsyncTask(TitlesActivity.this, link);
 				asyncTask.execute();
 				
 			}
@@ -98,6 +101,40 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		String serializedStudiesLinksMap = gson.toJson(studiesLinksMap);
 		
 		System.out.println(serializedStudiesLinksMap);
+//		System.out.println(serializedMajorStudiesMap);
+		//TODO: HERE IS THE MSC MNF BUG!!!! (serializedStudiesLinksMap)
+		progress.dismiss();
+		
+		
+		Intent intent  = new Intent(getApplicationContext(), MajorMinorActivity.class);
+		intent.putExtra("majors", serializedMajors);
+		intent.putExtra("links", serializedStudiesLinksMap);
+		intent.putExtra("studies", serializedMajorStudiesMap);
+		startActivity(intent);
+		
+	}
+
+
+	@Override
+	public void onTaskCompleted(HashMap<String, String> map,
+			ArrayList<String> faculties,
+			Map<String, List<String>> facultiesMap,
+			Map<String, String> titlesMap) {
+		// TODO Auto-generated method stub
+		majorStudiesMap = facultiesMap;
+		majorList = faculties;
+		studiesLinksMap = titlesMap;
+		
+		PassedDataContainer.majors = faculties;
+		PassedDataContainer.studiesLinks = map;
+		
+		Gson gson = new GsonBuilder().create();
+		
+		String serializedMajors = gson.toJson(majorList);
+		String serializedMajorStudiesMap = gson.toJson(majorStudiesMap);
+		String serializedStudiesLinksMap = gson.toJson(studiesLinksMap);
+		
+//		System.out.println(serializedStudiesLinksMap);
 //		System.out.println(serializedMajorStudiesMap);
 		//TODO: HERE IS THE MSC MNF BUG!!!! (serializedStudiesLinksMap)
 		progress.dismiss();
