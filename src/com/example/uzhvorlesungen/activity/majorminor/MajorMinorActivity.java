@@ -39,8 +39,8 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
         super.onCreate(savedInstanceState);
         String majorsExtra = getIntent().getExtras().getString("majors");
         gson = new Gson();
-        majors = gson.fromJson(majorsExtra, ArrayList.class);
-
+//        majors = gson.fromJson(majorsExtra, ArrayList.class);
+        majors = PassedDataContainer.majors;
         if(majors.size() < 2){
         	setContentView(R.layout.activity_major_minor_single);
         	ListView singleList = (ListView) findViewById(R.id.alternativeMajorsList);

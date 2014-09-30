@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity;
+import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.threading.ParsingTitlesCategoriesAsyncTask;
 import com.google.gson.Gson;
@@ -87,6 +88,7 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		
 		majorStudiesMap = map;
 		majorList = majors;
+		PassedDataContainer.majors = majors;
 		studiesLinksMap = studiesMap;
 		
 		Gson gson = new GsonBuilder().create();
