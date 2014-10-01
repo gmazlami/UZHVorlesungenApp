@@ -1,21 +1,16 @@
 package com.example.uzhvorlesungen.activity;
 
-import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.parsers.Lecture;
-import com.google.gson.Gson;
-
-import android.app.ActionBar;
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.parsers.Lecture;
+import com.google.gson.Gson;
 
 public class DetailsActivity extends Activity {
 
@@ -76,9 +71,6 @@ public class DetailsActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.actionbar, menu);
-//	    getActionBar().setDisplayShowTitleEnabled(false);
-//	    getActionBar().setDisplayShowHomeEnabled(false);
-
 	    return true;
 	}
 	

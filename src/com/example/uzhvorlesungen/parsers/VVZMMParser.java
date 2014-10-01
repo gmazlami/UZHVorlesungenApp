@@ -35,7 +35,6 @@ public class VVZMMParser {
 		Parser parser = new Parser();
 		parser.setResource(URL);
 
-		HashMap<String, HashMap<String, String>> majorMinorMap = new HashMap<String, HashMap<String, String>>();
 		NodeList nl = parser.parse(filter);
 		HashMap<String, String> linksMap = new HashMap<String, String>();
 		for (int i = 0; i < nl.size(); i++) {

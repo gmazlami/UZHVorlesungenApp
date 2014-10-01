@@ -33,8 +33,6 @@ public class PassedDataContainer {
 	}
 	
 	public static String getLinkForGroupChild(int group, String study){
-		HashMap<String, String> resultMap = new HashMap<String, String>();
-		
 		String major = majors.get(group);
 		String postFix = "";
 		if(major.contains("Hauptfach")){

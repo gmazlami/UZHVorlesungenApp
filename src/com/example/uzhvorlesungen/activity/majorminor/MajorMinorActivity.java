@@ -1,6 +1,5 @@
 package com.example.uzhvorlesungen.activity.majorminor;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +37,7 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String majorsExtra = getIntent().getExtras().getString("majors");
         gson = new Gson();
-//        majors = gson.fromJson(majorsExtra, ArrayList.class);
         majors = PassedDataContainer.majors;
         if(majors.size() < 2){
         	setContentView(R.layout.activity_major_minor_single);
@@ -104,11 +101,9 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 				@Override
 				public boolean onChildClick(ExpandableListView parent, View v,
 						int groupPosition, int childPosition, long id) {
-					// TODO Auto-generated method stub
 					TextView textView = (TextView) v;
 					String study = textView.getText().toString();
 					String link = PassedDataContainer.getLinkForGroupChild(groupPosition, study);
-//					String link = studiesLinks.get(study);
 					progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
 					ParsingLecturesAsyncTask asyncTask = new ParsingLecturesAsyncTask(link, MajorMinorActivity.this);
 					asyncTask.execute();
