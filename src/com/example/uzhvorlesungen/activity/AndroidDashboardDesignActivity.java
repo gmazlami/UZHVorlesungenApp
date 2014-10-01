@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
+import com.example.uzhvorlesungen.callbacks.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

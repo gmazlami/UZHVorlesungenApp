@@ -9,6 +9,7 @@ import org.htmlparser.util.ParserException;
 
 import android.os.AsyncTask;
 
+import com.example.uzhvorlesungen.callbacks.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 
 public class ParsingFacultiesTitlesAsyncTask extends

@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.LecturesActivity;
-import com.example.uzhvorlesungen.threading.LecturesCallbackInterface;
+import com.example.uzhvorlesungen.callbacks.LecturesCallbackInterface;
 import com.example.uzhvorlesungen.threading.ParsingLecturesAsyncTask;
 import com.example.uzhvorlesungen.threading.ParsingMedLecturesAsyncTask;
 import com.google.gson.Gson;

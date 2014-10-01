@@ -1,4 +1,4 @@
-package com.example.uzhvorlesungen.threading;
+package com.example.uzhvorlesungen.callbacks;
 
 import java.util.ArrayList;
 import java.util.List;

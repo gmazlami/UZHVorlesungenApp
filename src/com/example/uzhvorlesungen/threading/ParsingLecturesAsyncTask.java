@@ -6,6 +6,7 @@ import org.htmlparser.util.ParserException;
 
 import android.os.AsyncTask;
 
+import com.example.uzhvorlesungen.callbacks.LecturesCallbackInterface;
 import com.example.uzhvorlesungen.parsers.VVZLecturesParser;
 
 

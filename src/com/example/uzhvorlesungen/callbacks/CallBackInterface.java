@@ -1,4 +1,4 @@
-package com.example.uzhvorlesungen.threading;
+package com.example.uzhvorlesungen.callbacks;
 
 public interface CallBackInterface {
 	void onTaskCompleted();

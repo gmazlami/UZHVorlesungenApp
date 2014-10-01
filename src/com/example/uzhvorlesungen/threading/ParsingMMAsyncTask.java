@@ -10,6 +10,7 @@ import org.htmlparser.util.ParserException;
 
 import android.os.AsyncTask;
 
+import com.example.uzhvorlesungen.callbacks.MMCallBackInterface;
 import com.example.uzhvorlesungen.parsers.VVZMMParser;
 import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 
