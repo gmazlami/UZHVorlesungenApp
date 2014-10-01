@@ -1,8 +1,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/rwf"
+    <item android:drawable="@drawable/rwf_pressed"
         android:state_focused="true"
         android:state_pressed="true" />
-    <item android:drawable="@drawable/rwf"
+    <item android:drawable="@drawable/rwf_pressed"
         android:state_focused="false"
         android:state_pressed="true" />
     <item android:drawable="@drawable/rwf" android:state_focused="true" />

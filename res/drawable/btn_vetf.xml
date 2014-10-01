@@ -1,8 +1,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/vetf"
+    <item android:drawable="@drawable/vetf_pressed"
         android:state_focused="true"
         android:state_pressed="true" />
-    <item android:drawable="@drawable/vetf"
+    <item android:drawable="@drawable/vetf_pressed"
         android:state_focused="false"
         android:state_pressed="true" />
     <item android:drawable="@drawable/vetf" android:state_focused="true" />
