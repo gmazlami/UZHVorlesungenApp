@@ -22,6 +22,7 @@ import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.LecturesActivity;
 import com.example.uzhvorlesungen.threading.LecturesCallbackInterface;
 import com.example.uzhvorlesungen.threading.ParsingLecturesAsyncTask;
+import com.example.uzhvorlesungen.threading.ParsingMedLecturesAsyncTask;
 import com.google.gson.Gson;
 
 public class MajorMinorActivity extends Activity implements LecturesCallbackInterface{
@@ -66,10 +67,16 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 					TextView textView = (TextView) view;
 					String study = textView.getText().toString();
 					String link = studiesLinks.get(study);
-					progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
-					ParsingLecturesAsyncTask asyncTask = new ParsingLecturesAsyncTask(link, MajorMinorActivity.this);
-					asyncTask.execute();
 					
+					if(PassedDataContainer.bscMscMed == true){
+						progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
+						ParsingMedLecturesAsyncTask asyncTask = new ParsingMedLecturesAsyncTask(MajorMinorActivity.this, link);
+						asyncTask.execute();
+					}else{
+						progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
+						ParsingLecturesAsyncTask asyncTask = new ParsingLecturesAsyncTask(link, MajorMinorActivity.this);
+						asyncTask.execute();
+					}
 				}
         		
 			});

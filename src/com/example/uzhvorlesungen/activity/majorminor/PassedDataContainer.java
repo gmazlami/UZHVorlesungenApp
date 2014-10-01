@@ -11,6 +11,8 @@ public class PassedDataContainer {
 	
 	public static HashMap<String, String> studiesLinks;
 	
+	public static boolean bscMscMed = false;
+	
 	public static HashMap<String, String> getStudiesLinksForMajor(String majors){
 		HashMap<String, String> resultMap = new HashMap<String, String>();
 		

@@ -22,7 +22,6 @@ import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.threading.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.threading.MMCallBackInterface;
 import com.example.uzhvorlesungen.threading.ParsingMMAsyncTask;
-import com.example.uzhvorlesungen.threading.ParsingTitlesCategoriesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -68,7 +67,13 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				progress = ProgressDialog.show(TitlesActivity.this, "Hole Daten","Bitte warten", true);
-				
+				TextView textView = (TextView) view;
+				String title = textView.getText().toString();
+				if(title.contains("Bachelor") && title.contains("Humanmedizin")){
+					PassedDataContainer.bscMscMed = true;
+				}else if(title.contains("Master") && title.contains("Humanmedizin")){
+					PassedDataContainer.bscMscMed = true;
+				}
 				String link = mListLinks.get(position);
 
 //				Toast.makeText(getApplicationContext(), link, Toast.LENGTH_LONG).show();
