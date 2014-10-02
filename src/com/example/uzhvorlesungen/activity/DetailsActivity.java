@@ -1,5 +1,8 @@
 package com.example.uzhvorlesungen.activity;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.parsers.Lecture;
+import com.example.uzhvorlesungen.model.BeginEndLocation;
+import com.example.uzhvorlesungen.model.Lecture;
 import com.google.gson.Gson;
 
 public class DetailsActivity extends Activity {
@@ -54,7 +58,7 @@ public class DetailsActivity extends Activity {
 		textExam.setText(lecture.getExam());
 		
 		TextView dayTimeTextView = (TextView) findViewById(R.id.dayTime);
-		dayTimeTextView.setText(lecture.getDay()+" "+ lecture.getBeginTime() + "-" + lecture.getEndTime());
+		dayTimeTextView.setText(createDayTimeText(lecture.getDayBeginEndTime()));
 	
 		TextView pointsTextView = (TextView) findViewById(R.id.pointsTextView);
 		pointsTextView.setText(lecture.getPoints() + " ECTS");
@@ -63,7 +67,7 @@ public class DetailsActivity extends Activity {
 		docentTextView.setText(lecture.getDocent());
 		
 		TextView locationTextView = (TextView) findViewById(R.id.roomTextView);
-		locationTextView.setText(lecture.getLocation());
+		locationTextView.setText(createLocationText(lecture.getDayBeginEndTime()));
 	
 	}
 
@@ -101,5 +105,37 @@ public class DetailsActivity extends Activity {
 			btnExUp.setVisibility(View.VISIBLE);
 			btnExUp.setBackgroundResource(R.drawable.ic_action_navigation_collapse);
 		}
+	}
+	
+	private String createDayTimeText(HashMap<String, BeginEndLocation> map){
+		StringBuilder sb = new StringBuilder();
+		for (String iterator : map.keySet()) {
+			if(iterator.equals("Nach Ankündigung")){
+				return "keine Angaben";
+			}
+			BeginEndLocation bel =  map.get(iterator);
+			sb.append(iterator).append(" : ").append(bel.begin).append(" - ").append(bel.end).append("\n");
+		}
+		String str = sb.toString();
+		str = str.substring(0, str.length()-1);
+		return str;
+	}
+	
+	private String createLocationText(HashMap<String, BeginEndLocation> map){
+		BeginEndLocation location = null;
+		for(BeginEndLocation bel : map.values()){
+			location = bel;
+			break;
+		}
+		if(location == null || location.locations == null){
+			return "keine Angaben";
+		}
+		StringBuilder sb = new StringBuilder();
+		for(String loc : location.locations){
+			sb.append(loc).append("\n");
+		}
+		String str = sb.toString();
+		str = str.substring(0,str.length()-1);
+		return str;
 	}
 }

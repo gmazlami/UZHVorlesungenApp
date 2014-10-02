@@ -3,7 +3,7 @@ package com.example.uzhvorlesungen.threading;
 import org.htmlparser.util.ParserException;
 
 import com.example.uzhvorlesungen.callbacks.DetailsCallbackInterface;
-import com.example.uzhvorlesungen.parsers.Lecture;
+import com.example.uzhvorlesungen.model.Lecture;
 import com.example.uzhvorlesungen.parsers.VVZDetailsParser;
 
 import android.os.AsyncTask;

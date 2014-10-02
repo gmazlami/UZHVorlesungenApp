@@ -11,6 +11,7 @@ public class Utils {
 		newString = newString.replace("&uuml;", "ü");
 		newString = newString.replace("&Ouml;", "Ö");
 		newString = newString.replace("&ouml;", "ö");
+		newString = newString.replace("&nbsp;", " ");
 		return newString;
 	}
 }

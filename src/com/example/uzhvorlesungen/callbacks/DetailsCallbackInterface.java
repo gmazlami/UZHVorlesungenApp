@@ -1,6 +1,6 @@
 package com.example.uzhvorlesungen.callbacks;
 
-import com.example.uzhvorlesungen.parsers.Lecture;
+import com.example.uzhvorlesungen.model.Lecture;
 
 public interface DetailsCallbackInterface {
 

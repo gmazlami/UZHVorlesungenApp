@@ -1,6 +1,9 @@
 package com.example.uzhvorlesungen.parsers;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.Tag;
@@ -8,6 +11,9 @@ import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
+
+import com.example.uzhvorlesungen.model.BeginEndLocation;
+import com.example.uzhvorlesungen.model.Lecture;
 
 public class VVZDetailsParser {
 
@@ -30,31 +36,72 @@ public class VVZDetailsParser {
 		parser = new Parser();
 		parser.setResource(resourceURL);
 		String title = parseTitle(parser);
+		title = Utils.fixUmlauts(title);
 
-		parser = new Parser();
-		parser.setResource(resourceURL);
-		String link = parseDetailsLink(parser);
-
-		Parser locationParser = new Parser(
-				correctDetailsLink(resourceURL, link));
-		String[] locationAndTime = parseLocation(locationParser);
-
-		return new Lecture(title, pointsDescExam[1], locationAndTime[1],
-				locationAndTime[2], locationAndTime[0], docent,
-				locationAndTime[3], pointsDescExam[2], pointsDescExam[0]);
+		HashMap<String, BeginEndLocation> locationAndTime =  new HashMap<String, BeginEndLocation>();
+		if(!resourceURL.contains("details")){
+			parser = new Parser();
+			parser.setResource(resourceURL);
+			String link = parseDetailsLink(parser);
+			Parser locationParser = new Parser(correctDetailsLink(resourceURL, link));
+			locationAndTime = parseLocationAndTime(locationParser);
+		}else{
+			Parser locationParser = new Parser(correctAlreadyDetailsLink(resourceURL));
+			locationAndTime = parseLocationAndTime(locationParser);
+		}
+		return new Lecture(title, pointsDescExam[1], docent, pointsDescExam[2], pointsDescExam[0], locationAndTime);
 	}
 
-	public String[] parseLocation(Parser parser) throws ParserException {
-		TagNameFilter f = new TagNameFilter("td");
-		NodeList nl = parser.parse(f);
-		String day = nl.elementAt(0).toPlainTextString().trim().split(" ")[0];
-		String beginTime = nl.elementAt(1).toPlainTextString().trim()
-				.split("-")[0].trim();
-		String endTime = nl.elementAt(1).toPlainTextString().trim().split("-")[1]
-				.trim();
-		String room = nl.elementAt(2).toPlainTextString();
-		String[] arr = { day, beginTime, endTime, room };
+	private Object[] getDayBeginEndTimeLocation(Node trNode){
+		if(trNode == null || trNode.getFirstChild() == null){
+			Object[] array = {"Nach Ankündigung", new BeginEndLocation("", "", null)};
+			return array;
+		}
+			
+			
+
+		String dayString = trNode.getFirstChild().toPlainTextString().trim().split(" ")[0].trim();
+		String beginTime = trNode.getFirstChild().getNextSibling().toPlainTextString().trim().split("-")[0].trim();
+		String endTime = trNode.getFirstChild().getNextSibling().toPlainTextString().trim().split("-")[1].trim();
+		ArrayList<String> locations = new ArrayList<String>();
+		Node locationNode = trNode.getFirstChild().getNextSibling().getNextSibling().getFirstChild();
+		
+		while(locationNode != null){
+			String str = locationNode.toPlainTextString().trim();
+			if(!str.equals(",")){
+				str = str.trim();
+				locations.add(str);
+			}
+			locationNode = locationNode.getNextSibling();
+		}
+		BeginEndLocation bel = new BeginEndLocation(beginTime, endTime, locations);
+		Object[] arr = {dayString,bel}; 
 		return arr;
+	}
+	
+	public HashMap<String, BeginEndLocation> parseLocationAndTime(Parser parser) throws ParserException{
+		TagNameFilter filter = new TagNameFilter("tr");
+		NodeList nl = parser.parse(filter);
+		Node root = nl.elementAt(1);
+		getDayBeginEndTimeLocation(root);
+		HashMap<String, BeginEndLocation> map = new HashMap<String, BeginEndLocation>();
+		
+		boolean all = false;
+		int i = 1;
+		
+		while(!all){
+			Node currentTermin = nl.elementAt(i);
+			Object[] array = getDayBeginEndTimeLocation(currentTermin);
+			if(map.containsKey((String)array[0])){
+				all = true;
+			}else{
+				map.put((String)array[0],(BeginEndLocation)array[1]);
+				i++;
+			}
+		}
+		
+		
+		return map;
 	}
 
 	public String parseDetailsLink(Parser parser) throws ParserException {
@@ -75,11 +122,20 @@ public class VVZDetailsParser {
 	public String parseTitle(Parser parser) throws ParserException {
 		TagNameFilter f = new TagNameFilter("acronym");
 		NodeList nl = parser.parse(f);
-		return Utils.fixUmlauts(nl.elementAt(0).getParent()
-				.getPreviousSibling().getFirstChild().getFirstChild()
-				.toPlainTextString());
+		if(nl.size() == 0){
+			parser = new Parser(resourceURL);
+			TagNameFilter tagFilter = new TagNameFilter("tr");
+			NodeList nodeList = parser.parse(tagFilter);
+			return nodeList.elementAt(15).getFirstChild().getNextSibling().getFirstChild().toPlainTextString().trim();
+		}else{
+			return Utils.fixUmlauts(nl.elementAt(0).getParent()
+					.getPreviousSibling().getFirstChild().getFirstChild()
+					.toPlainTextString());
+		}
+		
 	}
 
+	//TODO: fix the desc and exam parsing for medical faculty (hint: there is NO desc and exam info for medical faculty)
 	public String[] parsePointsDescriptionExam(Parser parser)
 			throws ParserException {
 		TagNameFilter f = new TagNameFilter("td");
@@ -91,6 +147,9 @@ public class VVZDetailsParser {
 				.toPlainTextString().trim()); // description
 		pointsDescExam[2] = Utils.fixUmlauts(nl.elementAt(9)
 				.toPlainTextString().trim()); // exam info
+		if(Float.parseFloat(pointsDescExam[0]) > 45){
+			pointsDescExam[0] = " ";
+		}
 		return pointsDescExam;
 	}
 
@@ -98,8 +157,30 @@ public class VVZDetailsParser {
 		HasAttributeFilter f = new HasAttributeFilter("style",
 				"white-space: nowrap");
 		NodeList nl = parser.parse(f);
-		Node node = nl.elementAt(0).getParent().getParent().getNextSibling();
-		return Utils.fixUmlauts(node.toPlainTextString().trim());
+		Node node = nl.elementAt(0);
+		if(node != null){
+			if(node.getParent() != null && node.getParent().getParent() != null && node.getParent().getParent().getNextSibling() != null){
+				node = node.getParent().getParent().getNextSibling();
+				return Utils.fixUmlauts(node.toPlainTextString().trim());
+			}
+		}
+			StringBuilder sb = new StringBuilder();
+			parser = new Parser(resourceURL);
+			TagNameFilter filter = new TagNameFilter("tr");
+			NodeList nodeList = parser.parse(filter);
+			Node firstTr = nodeList.elementAt(0);
+			Node docentNode = firstTr.getNextSibling().getNextSibling().getNextSibling().getNextSibling().getNextSibling();
+			docentNode = docentNode.getFirstChild().getNextSibling().getFirstChild();
+
+			
+			while(docentNode != null){
+				sb.append(docentNode.toPlainTextString().trim());
+				docentNode = docentNode.getNextSibling();
+			}
+			
+			return Utils.fixUmlauts(sb.toString().trim());
+		
+		
 	}
 
 	public String[] parseDayTime(Parser parser) throws ParserException {
@@ -124,13 +205,12 @@ public class VVZDetailsParser {
 		return dayBeginEndTime;
 	}
 
-	public String[] parseTimeAndDay(Parser parser) {
-
-		return null;
-	}
-
 	private String correctDetailsLink(String prefix, String postfix) {
 		String newPostfix = postfix.replace(".details.html", ".termine.html");
 		return prefix.replace(".modveranst.html", "") + "/" + newPostfix;
+	}
+	
+	private String correctAlreadyDetailsLink(String link){
+		return link.replace(".details.html", ".termine.html");
 	}
 }

@@ -96,10 +96,12 @@
                     android:id="@+id/pointsTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_weight="0.5"
                     android:gravity="center"
                     android:text=""
                     android:textSize="20sp" />
+
             </LinearLayout>
 
             <View

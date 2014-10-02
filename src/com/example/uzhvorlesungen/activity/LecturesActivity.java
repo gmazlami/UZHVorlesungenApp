@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.callbacks.DetailsCallbackInterface;
-import com.example.uzhvorlesungen.parsers.Lecture;
+import com.example.uzhvorlesungen.model.Lecture;
 import com.example.uzhvorlesungen.threading.ParsingDetailsAsyncTask;
 import com.google.gson.Gson;
 
