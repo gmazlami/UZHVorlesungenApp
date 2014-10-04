@@ -66,6 +66,7 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 					String link = studiesLinks.get(study);
 					
 					if(PassedDataContainer.bscMscMed == true){
+						PassedDataContainer.bscMscMed = false;
 						progress = ProgressDialog.show(MajorMinorActivity.this, "Hole Daten", "Bitte warten.",true);
 						ParsingMedLecturesAsyncTask asyncTask = new ParsingMedLecturesAsyncTask(MajorMinorActivity.this, link);
 						asyncTask.execute();

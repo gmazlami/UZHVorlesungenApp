@@ -1,7 +1,6 @@
 package com.example.uzhvorlesungen.activity;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -74,7 +73,7 @@ public class DetailsActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.actionbar, menu);
+	    inflater.inflate(R.menu._actionbar, menu);
 	    return true;
 	}
 	

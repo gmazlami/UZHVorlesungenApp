@@ -4,6 +4,8 @@
     android:layout_weight="1"
     android:background="#f8f9fe" >
 
+    
+    
     <!-- News Feed Button -->
 
     <Button
