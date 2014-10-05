@@ -42,7 +42,7 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_titles);
-        getActionBar().setTitle("Abschlüsse");
+        getActionBar().setTitle("Abschlï¿½sse");
         
         //find UI views
         mListView = (ListView) findViewById(R.id.titlesList);
@@ -76,7 +76,6 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 				}
 				String link = mListLinks.get(position);
 
-//				Toast.makeText(getApplicationContext(), link, Toast.LENGTH_LONG).show();
 				asyncTask = new ParsingMMAsyncTask(TitlesActivity.this, link);
 				asyncTask.execute();
 				
@@ -106,8 +105,6 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		String serializedStudiesLinksMap = gson.toJson(studiesLinksMap);
 		
 		System.out.println(serializedStudiesLinksMap);
-//		System.out.println(serializedMajorStudiesMap);
-		//TODO: HERE IS THE MSC MNF BUG!!!! (serializedStudiesLinksMap)
 		progress.dismiss();
 		
 		
@@ -125,7 +122,7 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 			ArrayList<String> faculties,
 			Map<String, List<String>> facultiesMap,
 			Map<String, String> titlesMap) {
-		// TODO Auto-generated method stub
+
 		majorStudiesMap = facultiesMap;
 		majorList = faculties;
 		studiesLinksMap = titlesMap;
@@ -139,9 +136,6 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		String serializedMajorStudiesMap = gson.toJson(majorStudiesMap);
 		String serializedStudiesLinksMap = gson.toJson(studiesLinksMap);
 		
-//		System.out.println(serializedStudiesLinksMap);
-//		System.out.println(serializedMajorStudiesMap);
-		//TODO: HERE IS THE MSC MNF BUG!!!! (serializedStudiesLinksMap)
 		progress.dismiss();
 		
 		

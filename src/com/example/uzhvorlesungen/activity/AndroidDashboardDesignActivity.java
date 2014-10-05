@@ -38,7 +38,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-//        getActionBar().setTitle("Fakultät wählen");
+//        getActionBar().setTitle("Fakultï¿½t wï¿½hlen");
         getActionBar().setDisplayHomeAsUpEnabled(true);
         progress = ProgressDialog.show(this, "Hole Daten","Bitte warten", true);
 		ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
@@ -85,7 +85,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Mathematisch-naturwissenschaftliche Fakultät";
+				String faculty = "Mathematisch-naturwissenschaftliche Fakultï¿½t";
 				startTitlesActivity(faculty);
 			}
 		});
@@ -95,7 +95,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Wirtschaftswissenschaftliche Fakultät";
+				String faculty = "Wirtschaftswissenschaftliche Fakultï¿½t";
 				startTitlesActivity(faculty);
 			}
 		});
@@ -105,7 +105,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Rechtswissenschaftliche Fakultät";
+				String faculty = "Rechtswissenschaftliche Fakultï¿½t";
 				startTitlesActivity(faculty);
 			}
 		});
@@ -115,7 +115,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Medizinische Fakultät";
+				String faculty = "Medizinische Fakultï¿½t";
 				startTitlesActivity(faculty);
 			}
 		});
@@ -125,7 +125,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Philosophische Fakultät";
+				String faculty = "Philosophische Fakultï¿½t";
 				startTitlesActivity(faculty);
 			}
 		});
@@ -135,7 +135,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Vetsuisse-Fakultät";
+				String faculty = "Vetsuisse-Fakultï¿½t";
 				startTitlesActivity(faculty);
 			}
 		});
@@ -144,7 +144,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Theologische Fakultät";
+				String faculty = "Theologische Fakultï¿½t";
 				startTitlesActivity(faculty);
 			}
 		});
@@ -216,12 +216,19 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     public void onSideNavigationItemClick(int itemId) {
         switch (itemId) {
             case R.id.side_navigation_menu_item1:
-                invokeActivity(getString(R.string.title1), R.drawable.ic_android1);
+//                invokeActivity(getString(R.string.title1), R.drawable.ic_android1);
+            	invokeActivity(AndroidDashboardDesignActivity.class);
                 break;
 
             case R.id.side_navigation_menu_item2:
-            	invokeActivity(AndroidDashboardDesignActivity.class);
-//                invokeActivity(getString(R.string.title2), R.drawable.ic_android2);
+            	//TODO: invoke TimetableActivity or something similar
+                Intent intent = new Intent(this, TimeTableActivity.class);
+                intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(intent);
+                // no animation of transition
+                overridePendingTransition(0, 0);
                 break;
 
             default:
@@ -238,28 +245,6 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         } else {
             super.onBackPressed();
         }
-    }
-
-    /**
-     * Start activity from SideNavigation.
-     * 
-     * @param title title of Activity
-     * @param resId resource if of background image
-     */
-    private void invokeActivity(String title, int resId) {
-        Intent intent = new Intent(this, NavigationActivity.class);
-        intent.putExtra(EXTRA_TITLE, title);
-        intent.putExtra(EXTRA_RESOURCE_ID, resId);
-        intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-
-        // all of the other activities on top of it will be closed and this
-        // Intent will be delivered to the (now on top) old activity as a
-        // new Intent.
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        startActivity(intent);
-        // no animation of transition
-        overridePendingTransition(0, 0);
     }
     
     /**

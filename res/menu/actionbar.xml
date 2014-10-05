@@ -6,7 +6,8 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:icon="@drawable/ic_action_content_save"
-        android:title="In Stundenplan speichern"/>
+        android:title="In Stundenplan speichern"
+        />
 
         <item
         android:id="@+id/action_share"

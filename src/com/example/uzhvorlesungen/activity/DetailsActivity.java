@@ -1,16 +1,21 @@
 package com.example.uzhvorlesungen.activity;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.model.BeginEndLocation;
 import com.example.uzhvorlesungen.model.Lecture;
 import com.google.gson.Gson;
@@ -73,7 +78,7 @@ public class DetailsActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu._actionbar, menu);
+	    inflater.inflate(R.menu.actionbar, menu);
 	    return true;
 	}
 	
@@ -109,7 +114,7 @@ public class DetailsActivity extends Activity {
 	private String createDayTimeText(HashMap<String, BeginEndLocation> map){
 		StringBuilder sb = new StringBuilder();
 		for (String iterator : map.keySet()) {
-			if(iterator.equals("Nach Ankündigung")){
+			if(iterator.equals("Nach Ankï¿½ndigung")){
 				return "keine Angaben";
 			}
 			BeginEndLocation bel =  map.get(iterator);
@@ -136,5 +141,33 @@ public class DetailsActivity extends Activity {
 		String str = sb.toString();
 		str = str.substring(0,str.length()-1);
 		return str;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.action_save:
+	        	saveLecture();
+	        	return true;
+	        case R.id.action_share:
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	public void saveLecture(){
+		try{
+			String serializedLecture = gson.toJson(lecture);
+			FileOutputStream fos = openFileOutput(GlobalAppData.PRIVATE_FILE_NAME, MODE_PRIVATE);
+			fos.write(serializedLecture.getBytes());
+			Toast.makeText(getApplicationContext(), "WROTE IT!", 2000).show();
+		}catch(IOException e){
+			//leave empty on purpose
+			e.printStackTrace();
+			Toast.makeText(getApplicationContext(), "ERROR: couldn't save the lecture.", 2000).show();
+		}
+		
 	}
 }
