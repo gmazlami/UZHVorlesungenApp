@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.callbacks.DetailsCallbackInterface;
 import com.example.uzhvorlesungen.model.Lecture;
 import com.example.uzhvorlesungen.threading.ParsingDetailsAsyncTask;
@@ -13,6 +14,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -31,6 +33,7 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         
         ListView listView = (ListView) findViewById(R.id.listView1);
         
@@ -62,12 +65,21 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
 	@Override
 	public void onTaskCompleted(Lecture lecture) {
 		progress.dismiss();
-		String serialized = gson.toJson(lecture);
-		
+		PassedDataContainer.passedLecture = lecture;
 		Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
-		intent.putExtra("details", serialized);
 		startActivity(intent);
 		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) { 
+	        switch (item.getItemId()) {
+	        case android.R.id.home: 
+	            onBackPressed();
+	            return true;
+	        }
+
+	    return super.onOptionsItemSelected(item);
 	}
 	
 }

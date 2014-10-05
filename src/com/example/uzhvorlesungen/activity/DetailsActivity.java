@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.model.BeginEndLocation;
 import com.example.uzhvorlesungen.model.Lecture;
@@ -22,7 +23,6 @@ import com.google.gson.Gson;
 
 public class DetailsActivity extends Activity {
 
-	Gson gson;
 	Lecture lecture;
 	TextView textDescription;
 	TextView textExam;
@@ -35,10 +35,9 @@ public class DetailsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-		String serialized = getIntent().getStringExtra("details");
 
-		gson = new Gson();
-		lecture = gson.fromJson(serialized, Lecture.class);
+		lecture = PassedDataContainer.passedLecture;
+		PassedDataContainer.passedLecture = null;
 
 		btnDescDown = (ImageButton) findViewById(R.id.dscButtonDown);
 		btnDescDown.setVisibility(View.VISIBLE);
@@ -72,7 +71,8 @@ public class DetailsActivity extends Activity {
 		
 		TextView locationTextView = (TextView) findViewById(R.id.roomTextView);
 		locationTextView.setText(createLocationText(lecture.getDayBeginEndTime()));
-	
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class DetailsActivity extends Activity {
 	}
 	
 	/**
-	 * onClick handler
+	 * onClick handler for description
 	 */
 	public void toggle_contents(View v) {
 		if(textDescription.isShown()){
@@ -98,6 +98,9 @@ public class DetailsActivity extends Activity {
 		}
 	}
 	
+	/*
+	 * on click handler for exam info
+	 */
 	public void toggle_contents_exam(View v){
 		if(textExam.isShown()){
 			textExam.setVisibility(View.GONE);
@@ -114,8 +117,8 @@ public class DetailsActivity extends Activity {
 	private String createDayTimeText(HashMap<String, BeginEndLocation> map){
 		StringBuilder sb = new StringBuilder();
 		for (String iterator : map.keySet()) {
-			if(iterator.equals("Nach Ank�ndigung")){
-				return "keine Angaben";
+			if(iterator.equals("Nach Ankündigung")){
+				return getString(R.string.no_info);
 			}
 			BeginEndLocation bel =  map.get(iterator);
 			sb.append(iterator).append(" : ").append(bel.begin).append(" - ").append(bel.end).append("\n");
@@ -132,7 +135,7 @@ public class DetailsActivity extends Activity {
 			break;
 		}
 		if(location == null || location.locations == null){
-			return "keine Angaben";
+			return getString(R.string.no_info);
 		}
 		StringBuilder sb = new StringBuilder();
 		for(String loc : location.locations){
@@ -152,6 +155,9 @@ public class DetailsActivity extends Activity {
 	        	return true;
 	        case R.id.action_share:
 	            return true;
+	        case android.R.id.home:
+	        	onBackPressed();
+	        	return super.onOptionsItemSelected(item);
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -159,15 +165,16 @@ public class DetailsActivity extends Activity {
 	
 	public void saveLecture(){
 		try{
+			Gson gson = new Gson();
 			String serializedLecture = gson.toJson(lecture);
-			FileOutputStream fos = openFileOutput(GlobalAppData.PRIVATE_FILE_NAME, MODE_PRIVATE);
+			FileOutputStream fos = openFileOutput(GlobalAppData.PRIVATE_FILE_NAME, MODE_APPEND);
 			fos.write(serializedLecture.getBytes());
-			Toast.makeText(getApplicationContext(), "WROTE IT!", 2000).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.no_info), Toast.LENGTH_LONG).show();
 		}catch(IOException e){
-			//leave empty on purpose
-			e.printStackTrace();
-			Toast.makeText(getApplicationContext(), "ERROR: couldn't save the lecture.", 2000).show();
+			Toast.makeText(getApplicationContext(), "FEHLER: Vorlesung konnte nicht gespeichert werden.", Toast.LENGTH_LONG).show();
 		}
 		
 	}
+	
+	
 }

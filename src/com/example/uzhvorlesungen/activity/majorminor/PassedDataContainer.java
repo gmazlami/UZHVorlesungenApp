@@ -3,6 +3,9 @@ package com.example.uzhvorlesungen.activity.majorminor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+
+import com.example.uzhvorlesungen.model.Lecture;
 
 public class PassedDataContainer {
 
@@ -12,6 +15,12 @@ public class PassedDataContainer {
 	public static HashMap<String, String> studiesLinks;
 	
 	public static boolean bscMscMed = false;
+	
+	public static Lecture passedLecture;
+	
+	public static List<String> passedTitles;
+	
+	public static List<String> passedTitlesLinks;
 	
 	public static HashMap<String, String> getStudiesLinksForMajor(String majors){
 		HashMap<String, String> resultMap = new HashMap<String, String>();

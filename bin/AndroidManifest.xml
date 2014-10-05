@@ -26,8 +26,6 @@
         </activity>
         <activity android:name="com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity" >
         </activity>
-          <!--  <activity android:name="com.example.uzhvorlesungen.activity.AndroidDashboardDesignActivity" >
-        </activity>  -->  
         <activity android:name="com.example.uzhvorlesungen.activity.DetailsActivity"></activity>
         <activity android:name="com.example.uzhvorlesungen.activity.LecturesActivity"></activity>
         <activity android:name="com.example.uzhvorlesungen.activity.TimeTableActivity"></activity>

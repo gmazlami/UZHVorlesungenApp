@@ -305,8 +305,6 @@ containing a value of this type.
         public static final int side_navigation_menu_item1=0x7f0a002e;
         public static final int side_navigation_menu_item2=0x7f0a002f;
         public static final int side_navigation_menu_item3=0x7f0a0030;
-        public static final int side_navigation_menu_item4=0x7f0a0031;
-        public static final int side_navigation_menu_item5=0x7f0a0032;
         public static final int side_navigation_outside_view=0x7f0a0023;
         public static final int side_navigation_view=0x7f0a0014;
         public static final int testTextView=0x7f0a0015;
@@ -344,16 +342,26 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f070002;
         public static final int app_name=0x7f070000;
+        public static final int as_instructed=0x7f070011;
+        public static final int choose_faculty=0x7f070013;
+        public static final int gathering_data=0x7f07000c;
         public static final int hello_world=0x7f070001;
         public static final int image_desc=0x7f07000b;
+        public static final int lecture_saved=0x7f07000e;
+        public static final int mnf=0x7f070015;
         public static final int mode=0x7f070008;
         public static final int mode_left=0x7f070009;
         public static final int mode_right=0x7f07000a;
+        public static final int no_info=0x7f070010;
+        public static final int please_wait=0x7f07000d;
+        public static final int storage_error=0x7f070012;
         public static final int title1=0x7f070003;
         public static final int title2=0x7f070004;
         public static final int title3=0x7f070005;
         public static final int title4=0x7f070006;
         public static final int title5=0x7f070007;
+        public static final int titles=0x7f07000f;
+        public static final int wwf=0x7f070014;
     }
     public static final class style {
         public static final int ActionBar_Solid_Uzh=0x7f080005;

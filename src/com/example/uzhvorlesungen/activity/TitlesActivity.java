@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,8 +29,8 @@ import com.google.gson.GsonBuilder;
 public class TitlesActivity extends Activity implements FacultiesCallbackInterface, MMCallBackInterface{
 
 	private ListView mListView = null;
-	private ArrayList<String> mListTitles = null;
-	private ArrayList<String> mListLinks = null;
+	private List<String> mListTitles = null;
+	private List<String> mListLinks = null;
 	private ParsingMMAsyncTask asyncTask = null;
 	
 	private Map<String, List<String>> majorStudiesMap = null;
@@ -37,23 +38,20 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 	private ArrayList<String> majorList = null;
 	private ProgressDialog progress;
 	
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_titles);
         getActionBar().setTitle("Abschl�sse");
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         
         //find UI views
         mListView = (ListView) findViewById(R.id.titlesList);
         
         //get data from previous activity
-        Intent intent = getIntent();
-        String jsonTitles = intent.getExtras().getString("titles");
-        String jsonLinks = intent.getExtras().getString("links");
-        Gson gson = new Gson();
-        mListTitles = gson.fromJson(jsonTitles, ArrayList.class);
-        mListLinks = gson.fromJson(jsonLinks,ArrayList.class);
+        mListTitles = PassedDataContainer.passedTitles;
+        mListLinks = PassedDataContainer.passedTitlesLinks;
         
         //display data from previous activity on list
         String[] array = new String[mListTitles.size()];
@@ -66,7 +64,7 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				progress = ProgressDialog.show(TitlesActivity.this, "Hole Daten","Bitte warten", true);
+				progress = ProgressDialog.show(TitlesActivity.this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
 				TextView textView = (TextView) view;
 				String title = textView.getText().toString();
 				if(title.contains("Bachelor") && title.contains("Humanmedizin")){
@@ -145,5 +143,16 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		intent.putExtra("studies", serializedMajorStudiesMap);
 		startActivity(intent);
 		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) { 
+	        switch (item.getItemId()) {
+	        case android.R.id.home: 
+	            onBackPressed();
+	            return true;
+	        }
+
+	    return super.onOptionsItemSelected(item);
 	}
 }

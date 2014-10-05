@@ -13,5 +13,15 @@
     <string name="mode_left">Left</string>
     <string name="mode_right">Right</string>
     <string name="image_desc">Image</string>
+    <string name="gathering_data">Hole Daten</string>
+    <string name="please_wait">Bitte warten</string>
+    <string name="lecture_saved">Vorlesung wurde gespeichert!</string>
+    <string name="titles">Abschlüsse</string>
+    <string name="no_info">keine Angaben</string>
+    <string name="as_instructed">Nach Ankündigung</string>
+    <string name="storage_error">FEHLER: Vorlesung konnte nicht gespeichert werden.</string>
+    <string name="choose_faculty">Fakultät wählen</string>
+    <string name="wwf">Wirtschaftswissenschaftliche Fakultät</string>
+    <string name="mnf">Mathematisch-naturwissenschaftliche Fakultät</string>
 
 </resources>

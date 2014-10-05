@@ -18,7 +18,9 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.devspark.sidenavigation.SideNavigationView.Mode;
 import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.callbacks.FacultiesCallbackInterface;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,9 +40,9 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_layout);
-//        getActionBar().setTitle("Fakult�t w�hlen");
+        getActionBar().setTitle(getString(R.string.choose_faculty));
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        progress = ProgressDialog.show(this, "Hole Daten","Bitte warten", true);
+        progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
 		ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
 		task.execute();
         icon = (ImageView) findViewById(android.R.id.icon);
@@ -171,13 +173,9 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			linksList.add(titlesLinksMap.get(title));
 		}
 		
-		Gson gson = new GsonBuilder().create();
 		
-		String serializedTitles = gson.toJson(passedList);
-		intent.putExtra("titles", serializedTitles);
-		
-		String serializedLinks = gson.toJson(linksList);
-		intent.putExtra("links", serializedLinks);
+		PassedDataContainer.passedTitles = passedList;
+		PassedDataContainer.passedTitlesLinks = linksList;
 		startActivity(intent);
 	}
     @Override
@@ -216,12 +214,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     public void onSideNavigationItemClick(int itemId) {
         switch (itemId) {
             case R.id.side_navigation_menu_item1:
-//                invokeActivity(getString(R.string.title1), R.drawable.ic_android1);
             	invokeActivity(AndroidDashboardDesignActivity.class);
                 break;
 
             case R.id.side_navigation_menu_item2:
-            	//TODO: invoke TimetableActivity or something similar
                 Intent intent = new Intent(this, TimeTableActivity.class);
                 intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -266,4 +262,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         // no animation of transition
         overridePendingTransition(0, 0);
     }
+    
+    
+    
 }

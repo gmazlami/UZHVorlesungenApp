@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -39,6 +40,8 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
         super.onCreate(savedInstanceState);
         gson = new Gson();
         majors = PassedDataContainer.majors;
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         if(majors.size() < 2){
         	setContentView(R.layout.activity_major_minor_single);
         	ListView singleList = (ListView) findViewById(R.id.alternativeMajorsList);
@@ -122,6 +125,17 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 		intent.putExtra("lectures", serializedMap);
 		progress.dismiss();
 		startActivity(intent);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) { 
+	        switch (item.getItemId()) {
+	        case android.R.id.home: 
+	            onBackPressed();
+	            return true;
+	        }
+
+	    return super.onOptionsItemSelected(item);
 	}
     
     
