@@ -167,9 +167,10 @@ public class DetailsActivity extends Activity {
 		try{
 			Gson gson = new Gson();
 			String serializedLecture = gson.toJson(lecture);
+			serializedLecture = "_&_" + serializedLecture;
 			FileOutputStream fos = openFileOutput(GlobalAppData.PRIVATE_FILE_NAME, MODE_APPEND);
 			fos.write(serializedLecture.getBytes());
-			Toast.makeText(getApplicationContext(), getString(R.string.no_info), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.lecture_saved), Toast.LENGTH_LONG).show();
 		}catch(IOException e){
 			Toast.makeText(getApplicationContext(), "FEHLER: Vorlesung konnte nicht gespeichert werden.", Toast.LENGTH_LONG).show();
 		}

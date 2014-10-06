@@ -5,20 +5,21 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.devspark.sidenavigation.ISideNavigationCallback;
-import com.devspark.sidenavigation.SideNavigationView;
-import com.devspark.sidenavigation.SideNavigationView.Mode;
-import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.data.GlobalAppData;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.devspark.sidenavigation.ISideNavigationCallback;
+import com.devspark.sidenavigation.SideNavigationView;
+import com.devspark.sidenavigation.SideNavigationView.Mode;
+import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 
 public class TimeTableActivity extends Activity  implements ISideNavigationCallback {
 	
@@ -47,16 +48,14 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
             sideNavigationView.setMode(getIntent().getIntExtra(EXTRA_MODE, 0) == 0 ? Mode.LEFT : Mode.RIGHT);
         }
 
-//        invokeActivity(AndroidDashboardDesignActivity.class);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         
         TextView text = (TextView) findViewById(R.id.testTextView);
-        String str = "";
+        String string = "";
         try{
         	FileInputStream fis = openFileInput(GlobalAppData.PRIVATE_FILE_NAME);
         	BufferedReader br = new BufferedReader(new InputStreamReader(fis));
         	String current = null;
-        	String string = "";
         	while((current = br.readLine())!=null){
         		string += current;
         	}
@@ -67,6 +66,14 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         	e.printStackTrace();
         }
         
+        String[] array = new String[5];
+        for (int i = 0; i < array.length; i++) {
+			array[i] = string;
+		}
+        
+        
+        ListView list = (ListView) findViewById(R.id.savedList);
+        list.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, array));
 	}
 	
 	
@@ -123,11 +130,12 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
     
     @Override
     public void onBackPressed() {
-        // hide menu if it shown
+        // hide menu if its shown
         if (sideNavigationView.isShown()) {
             sideNavigationView.hideMenu();
         } else {
-            super.onBackPressed();
+        	sideNavigationView.showMenu();
+//            super.onBackPressed();
         }
     }
     
@@ -141,12 +149,10 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
     private void invokeActivity(Class<AndroidDashboardDesignActivity> class1) {
         Intent intent = new Intent(this, class1);
         intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-
         // all of the other activities on top of it will be closed and this
         // Intent will be delivered to the (now on top) old activity as a
         // new Intent.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
         startActivity(intent);
         // no animation of transition
         overridePendingTransition(0, 0);

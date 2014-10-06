@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    
-        <ListView
+
+
+    <ListView
         android:id="@+id/savedList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,14 +15,6 @@
         android:layout_alignParentTop="true"
         android:divider="@color/DarkBlue"
         android:dividerHeight="2px" />
-
-    <TextView
-        android:id="@+id/testTextView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="" />
     
         <com.devspark.sidenavigation.SideNavigationView
         android:id="@+id/side_navigation_view"
