@@ -10,9 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.devspark.sidenavigation.ISideNavigationCallback;
@@ -72,8 +70,6 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 		}
         
         
-        ListView list = (ListView) findViewById(R.id.savedList);
-        list.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, array));
 	}
 	
 	
@@ -118,7 +114,7 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
                 break;
 
             case R.id.side_navigation_menu_item2:
-            	invokeActivity(AndroidDashboardDesignActivity.class);
+            	invokeActivity(AndroidDashboardDesignActivity.class);//FIXME: here the SavedLEcturesActivity should be invoked
 //                invokeActivity(getString(R.string.title2), R.drawable.ic_android2);
                 break;
 

@@ -32,7 +32,7 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_lectures);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         
         ListView listView = (ListView) findViewById(R.id.listView1);

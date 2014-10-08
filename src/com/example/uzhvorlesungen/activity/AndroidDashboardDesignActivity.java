@@ -6,13 +6,17 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
@@ -39,9 +43,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         setContentView(R.layout.dashboard_layout);
         getActionBar().setTitle(getString(R.string.choose_faculty));
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
-		ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
-		task.execute();
+        
+        if(isInternetActive()){
+        	progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
+        	ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
+        	task.execute();
+        }
 		
         icon = (ImageView) findViewById(android.R.id.icon);
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
@@ -85,8 +92,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Mathematisch-naturwissenschaftliche Fakult�t";
-				startTitlesActivity(faculty);
+				if(isInternetActive()){
+					String faculty = "Mathematisch-naturwissenschaftliche Fakult�t";
+					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
         
@@ -95,8 +106,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Wirtschaftswissenschaftliche Fakult�t";
-				startTitlesActivity(faculty);
+				if(isInternetActive()){
+					String faculty = "Wirtschaftswissenschaftliche Fakult�t";
+					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
         
@@ -105,8 +120,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Rechtswissenschaftliche Fakult�t";
-				startTitlesActivity(faculty);
+				if(isInternetActive()){
+					String faculty = "Rechtswissenschaftliche Fakult�t";
+					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
         
@@ -115,8 +134,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Medizinische Fakult�t";
-				startTitlesActivity(faculty);
+				if(isInternetActive()){
+					String faculty = "Medizinische Fakult�t";
+					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
         
@@ -125,8 +148,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Philosophische Fakult�t";
-				startTitlesActivity(faculty);
+				if(isInternetActive()){
+					String faculty = "Philosophische Fakult�t";
+					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
         
@@ -135,8 +162,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Vetsuisse-Fakult�t";
-				startTitlesActivity(faculty);
+				if(isInternetActive()){
+					String faculty = "Vetsuisse-Fakult�t";
+					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
         
@@ -144,8 +175,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			
 			@Override
 			public void onClick(View view) {
-				String faculty = "Theologische Fakult�t";
-				startTitlesActivity(faculty);
+				if(isInternetActive()){
+					String faculty = "Theologische Fakult�t";
+					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+				}
 			}
 		});
     }
@@ -224,7 +259,16 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
                 // no animation of transition
                 overridePendingTransition(0, 0);
                 break;
+                
+            case R.id.side_navigation_menu_item3:
+                Intent timeTableIntent = new Intent(this, TimeTableActivity.class);
+                timeTableIntent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
+                timeTableIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+                startActivity(timeTableIntent);
+                // no animation of transition
+                overridePendingTransition(0, 0);
+                break;
             default:
                 return;
         }
@@ -261,6 +305,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         overridePendingTransition(0, 0);
     }
     
-    
+    private boolean isInternetActive(){
+    	ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    	NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
     
 }

@@ -39,6 +39,8 @@ public class DetailsActivity extends Activity {
 		lecture = PassedDataContainer.passedLecture;
 		PassedDataContainer.passedLecture = null;
 
+//		boolean savedLEcture = getIntent().getBooleanExtra(SaveLecturesActivity.EXTRA_SAVED_LECTURE, false);
+		
 		btnDescDown = (ImageButton) findViewById(R.id.dscButtonDown);
 		btnDescDown.setVisibility(View.VISIBLE);
 		btnDescUp = (ImageButton) findViewById(R.id.dscButtonUp);

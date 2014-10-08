@@ -33,6 +33,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
     public static final String EXTRA_TITLE = "com.devspark.sidenavigation.sample.extra.MTGOBJECT";
     public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
     public static final String EXTRA_MODE = "com.devspark.sidenavigation.sample.extra.MODE";
+    public static final String EXTRA_SAVED_LECTURE = "com.gmazlami.uzh.vorlesungen.SAVED";
     
     private ImageView icon;
     private SideNavigationView sideNavigationView;
@@ -81,13 +82,13 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
 			lectures[i] = gson.fromJson(array[i], Lecture.class);
 		}
         
-        
+        String[] shortenedArray = new String[array.length -1];
         for (int i = 1; i < lectures.length; i++) {
-        	array[i] = lectures[i].getTitle();
+        	shortenedArray[i-1] = lectures[i].getTitle();
 		}
         
         ListView listview = (ListView) findViewById(R.id.savedList);
-        listview.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, array));
+        listview.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, shortenedArray));
         listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -100,6 +101,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
 					return;
 				}else{
 					Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+					intent.putExtra(EXTRA_SAVED_LECTURE,true);
 					PassedDataContainer.passedLecture = lecture;
 					startActivity(intent);
 				}
