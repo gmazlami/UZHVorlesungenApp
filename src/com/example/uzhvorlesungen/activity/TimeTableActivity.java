@@ -24,7 +24,7 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_timetable);
+        setContentView(R.layout.activity_stundenplan);
         icon = (ImageView) findViewById(android.R.id.icon);
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
         sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
