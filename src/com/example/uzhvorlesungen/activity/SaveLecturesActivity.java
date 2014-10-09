@@ -63,7 +63,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
         
         dao = new LecturesDAO(getApplicationContext());
         dao.openDataBase();
-        List<Lecture> lectures = dao.getAllLectures();
+        final List<Lecture> lectures = dao.getAllLectures();
         dao.closeDataBase();
         
         lectureArray = new Lecture[lectures.size()];
@@ -82,7 +82,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				String lectureTitle = ((TextView) view).getText().toString();
+				String  lectureTitle = lectures.get(position).getTitle();
 				Lecture lecture = searchLecture(lectureTitle, SaveLecturesActivity.this.lectureArray);
 				if(lecture==null){
 					Toast.makeText(getApplicationContext(), "Fehler beim Laden der Vorlesung!", Toast.LENGTH_SHORT).show();
