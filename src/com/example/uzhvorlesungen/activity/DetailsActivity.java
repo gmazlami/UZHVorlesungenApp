@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.data.GlobalAppData;
+import com.example.uzhvorlesungen.database.LecturesDAO;
 import com.example.uzhvorlesungen.model.BeginEndLocation;
 import com.example.uzhvorlesungen.model.Lecture;
 import com.google.gson.Gson;
@@ -39,8 +40,6 @@ public class DetailsActivity extends Activity {
 		lecture = PassedDataContainer.passedLecture;
 		PassedDataContainer.passedLecture = null;
 
-//		boolean savedLEcture = getIntent().getBooleanExtra(SaveLecturesActivity.EXTRA_SAVED_LECTURE, false);
-		
 		btnDescDown = (ImageButton) findViewById(R.id.dscButtonDown);
 		btnDescDown.setVisibility(View.VISIBLE);
 		btnDescUp = (ImageButton) findViewById(R.id.dscButtonUp);
@@ -177,6 +176,10 @@ public class DetailsActivity extends Activity {
 			Toast.makeText(getApplicationContext(), "FEHLER: Vorlesung konnte nicht gespeichert werden.", Toast.LENGTH_LONG).show();
 		}
 		
+		LecturesDAO dao = new LecturesDAO(getApplicationContext());
+		dao.openDataBase();
+		dao.insertLecture(lecture);
+		dao.closeDataBase();
 	}
 	
 	

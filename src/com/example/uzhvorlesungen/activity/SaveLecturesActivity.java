@@ -1,19 +1,21 @@
 package com.example.uzhvorlesungen.activity;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,9 +26,8 @@ import com.devspark.sidenavigation.SideNavigationView;
 import com.devspark.sidenavigation.SideNavigationView.Mode;
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
-import com.example.uzhvorlesungen.data.GlobalAppData;
+import com.example.uzhvorlesungen.database.LecturesDAO;
 import com.example.uzhvorlesungen.model.Lecture;
-import com.google.gson.Gson;
 
 public class SaveLecturesActivity extends Activity implements ISideNavigationCallback {
 
@@ -37,6 +38,8 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
     
     private ImageView icon;
     private SideNavigationView sideNavigationView;
+	private Lecture[] lectureArray;
+	private LecturesDAO dao;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,45 +60,30 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
         }
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        String string = "";
         
-        try{
-        	FileInputStream fis = openFileInput(GlobalAppData.PRIVATE_FILE_NAME);
-        	BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-        	String current = null;
-        	while((current = br.readLine())!=null){
-        		string += current;
-        	}
-        	
-        	
-        }catch(IOException e){
-        	e.printStackTrace();
+        dao = new LecturesDAO(getApplicationContext());
+        dao.openDataBase();
+        List<Lecture> lectures = dao.getAllLectures();
+        dao.closeDataBase();
+        
+        lectureArray = new Lecture[lectures.size()];
+        lectureArray = lectures.toArray(lectureArray);
+        
+        ArrayList<String> titlesList = new ArrayList<String>();
+        for(Lecture l : lectures){
+        	titlesList.add(l.getTitle());
         }
         
-        Gson gson = new Gson();
-        String[] array = string.split("_&_");
-        for (int i = 0; i < array.length; i++) {
-			System.out.println(array[i]);
-		}
-        final Lecture[] lectures = new Lecture[array.length];
-        for (int i = 0; i < array.length; i++) {
-			lectures[i] = gson.fromJson(array[i], Lecture.class);
-		}
-        
-        String[] shortenedArray = new String[array.length -1];
-        for (int i = 1; i < lectures.length; i++) {
-        	shortenedArray[i-1] = lectures[i].getTitle();
-		}
-        
         ListView listview = (ListView) findViewById(R.id.savedList);
-        listview.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, shortenedArray));
+        listview.setAdapter(new SavedLecturesAdapter(getApplicationContext(), R.layout.saved_list_row_item,  titlesList));
+//        listview.setAdapter(new ArrayAdapter<Lecture>(getApplicationContext(), R.layout.list_row_item, lectureArray));
         listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				String lectureTitle = ((TextView) view).getText().toString();
-				Lecture lecture = searchLecture(lectureTitle, lectures);
+				Lecture lecture = searchLecture(lectureTitle, SaveLecturesActivity.this.lectureArray);
 				if(lecture==null){
 					Toast.makeText(getApplicationContext(), "Fehler beim Laden der Vorlesung!", Toast.LENGTH_SHORT).show();
 					return;
@@ -109,19 +97,6 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
         	
 		});
 	}
-	
-	
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (sideNavigationView.getMode() == Mode.RIGHT) {
-            menu.findItem(R.id.mode_right).setChecked(true);
-        } else {
-            menu.findItem(R.id.mode_left).setChecked(true);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-    
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -174,7 +149,6 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
             sideNavigationView.hideMenu();
         } else {
         	sideNavigationView.showMenu();
-//            super.onBackPressed();
         }
     }
     
@@ -198,11 +172,68 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
     }
     
     private Lecture searchLecture(String title, Lecture[] array){
-    	for (int i = 1; i < array.length; i++) {
+    	for (int i = 0; i < array.length; i++) {
 			if(array[i].getTitle().equals(title)){
+				System.out.println(array[i].getTitle());
 				return array[i];
 			}
 		}
     	return null;
+    }
+    
+    public class SavedLecturesAdapter extends ArrayAdapter<String> {
+
+    	private List<String> lectures;
+    	public SavedLecturesAdapter(Context context,int textViewResourceId, List<String> objects) {
+    		super(context, textViewResourceId, objects);
+    		this.lectures = objects;
+    		
+    	}
+    	
+    	@Override
+    	public View getView(int position, View convertView, ViewGroup parent){
+    	    if( convertView == null ){
+    	        //We must create a View:
+    	    	convertView = LayoutInflater.from(getContext()).inflate(R.layout.saved_list_row_item, parent, false);
+//    	        convertView = getLayoutInflater().inflate(R.layout.saved_list_row_item, parent, false);
+    	        Button deleteBtn = (Button) convertView.findViewById(R.id.deleteButton);
+    	        TextView lectureTextView = (TextView) convertView.findViewById(R.id.savedLectureTextView);
+    	        final String title = lectures.get(position);
+    	        lectureTextView.setText(title);		
+    	        deleteBtn.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						dao.openDataBase();
+						dao.deleteLecture(title);
+						dao.closeDataBase();
+						remove(title);
+						notifyDataSetChanged();
+						
+					}
+				});
+    	    }else{
+    	        Button deleteBtn = (Button) convertView.findViewById(R.id.deleteButton);
+    	        TextView lectureTextView = (TextView) convertView.findViewById(R.id.savedLectureTextView);
+    	        final String title = lectures.get(position);
+    	        lectureTextView.setText(title);		
+    	        deleteBtn.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						dao.openDataBase();
+						dao.deleteLecture(title);
+						dao.closeDataBase();
+						remove(title);
+						notifyDataSetChanged();
+						
+					}
+				});
+    	    }
+    	    //Here we can do changes to the convertView, such as set a text on a TextView 
+    	    //or an image on an ImageView.
+    	    return convertView;
+    	}
+
     }
 }

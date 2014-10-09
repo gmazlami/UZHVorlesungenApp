@@ -1,23 +1,15 @@
 package com.example.uzhvorlesungen.activity;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.devspark.sidenavigation.SideNavigationView.Mode;
 import com.example.uzhvorlesungen.R;
-import com.example.uzhvorlesungen.data.GlobalAppData;
 
 public class TimeTableActivity extends Activity  implements ISideNavigationCallback {
 	
@@ -48,43 +40,10 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         
-        TextView text = (TextView) findViewById(R.id.testTextView);
-        String string = "";
-        try{
-        	FileInputStream fis = openFileInput(GlobalAppData.PRIVATE_FILE_NAME);
-        	BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-        	String current = null;
-        	while((current = br.readLine())!=null){
-        		string += current;
-        	}
-        	
-        	text.setText(string);
-        	
-        }catch(IOException e){
-        	e.printStackTrace();
-        }
-        
-        String[] array = new String[5];
-        for (int i = 0; i < array.length; i++) {
-			array[i] = string;
-		}
-        
         
 	}
 	
 	
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (sideNavigationView.getMode() == Mode.RIGHT) {
-            menu.findItem(R.id.mode_right).setChecked(true);
-        } else {
-            menu.findItem(R.id.mode_left).setChecked(true);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-    
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -10,7 +10,7 @@ public class UZHSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String DATABASE_NAME ="ch.uzh.gmazlami.lectures.db";
 
 	public static final String TABLE_LECTURE = "lecture";
-	public static final String LECTURE_ID = "id";
+	public static final String LECTURE_ID = "_id";
 	public static final String LECTURE_TITLE = "title";
 	public static final String LECTURE_DESC = "description";
 	public static final String LECTURE_DOCENT = "docent";
@@ -18,7 +18,7 @@ public class UZHSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String LECTURE_POINTS = "points";
 	
 	public static final String TABLE_TERMIN = "termin";
-	public static final String TERMIN_ID = "id";
+	public static final String TERMIN_ID = "_id";
 	public static final String TERMIN_DAY = "day";
 	public static final String TERMIN_BEGIN = "begintime";
 	public static final String TERMIN_END = "endtime";
@@ -26,7 +26,7 @@ public class UZHSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String TERMIN_LEC_ID = "lecture_id";
 	
 	private static final String DATABASE_CREATE_LECTURE_STATEMENT = "CREATE TABLE lecture(" +
-																	"id INTEGER PRIMARY KEY," +
+																	"_id INTEGER PRIMARY KEY," +
 																	"title TEXT NOT NULL,"+
 																	"description TEXT,"+
 																	"docent TEXT,"+
@@ -35,13 +35,13 @@ public class UZHSQLiteOpenHelper extends SQLiteOpenHelper {
 																	");";
 	
 	private static final String DATABASE_CREATE_TERMIN_STATEMENT ="CREATE TABLE termin(" +
-																	"id INTEGER PRIMARY KEY,"+
+																	"_id INTEGER PRIMARY KEY,"+
 																	"day TEXT NOT NULL,"+
 																	"begintime TEXT NOT NULL,"+
 																	"endtime TEXT NOT NULL,"+
 																	"locations TEXT NOT NULL,"+
 																	"lecture_id INTEGER,"+
-																	"FOREIGN KEY(lecture_id) REFERENCES lecture(id)"+
+																	"FOREIGN KEY(lecture_id) REFERENCES lecture(_id)"+
 																	");";
 	
 	public UZHSQLiteOpenHelper(Context context) {
@@ -57,6 +57,8 @@ public class UZHSQLiteOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		//TODO: implement correct onupgrade method
+	    db.execSQL("DROP TABLE IF EXISTS " + TABLE_LECTURE);
+	    onCreate(db);
 	}
 	
 	

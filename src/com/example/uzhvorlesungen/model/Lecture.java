@@ -73,7 +73,7 @@ public class Lecture {
 	
 	
 	public String toString(){
-		return "Lecture: {"+title+","+dayBeginEndTimeLocation+","+docent+","+points+","+"}" ;
+		return title;
 		
 	}
 		
