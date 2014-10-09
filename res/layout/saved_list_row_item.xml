@@ -29,6 +29,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="false"
         android:layout_centerVertical="true"
-        android:text="Button" />
+        android:background="@drawable/ic_content_discard"
+        android:text="" />
 
 </RelativeLayout>
