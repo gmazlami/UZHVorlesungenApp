@@ -1,21 +1,25 @@
 package com.example.uzhvorlesungen.activity;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import main.java.com.u1aryz.android.lib.newpopupmenu.PopupMenu;
-import main.java.com.u1aryz.android.lib.newpopupmenu.PopupMenu.OnItemSelectedListener;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,7 +44,8 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
     public static final String EXTRA_TITLE = "com.devspark.sidenavigation.sample.extra.MTGOBJECT";
     public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
     public static final String EXTRA_MODE = "com.devspark.sidenavigation.sample.extra.MODE";
-    
+	int index = 0;
+	
     private ImageView icon;
     private SideNavigationView sideNavigationView;
 
@@ -99,20 +104,23 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 		}
 		int marginTop = computeTopMargin(begin);
 
-		//seperators
-		View sep1 = new View(this);
-		sep1.setBackgroundColor(Color.BLUE);
-		RelativeLayout.LayoutParams paramsSep1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,2);
-		paramsSep1.setMargins(0, marginTop-2, 0, 0);
-		sep1.setLayoutParams(paramsSep1);
-		relativeLayoutForDay.addView(sep1);
+		float d = getApplicationContext().getResources().getDisplayMetrics().density;
 
 		//textview
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int)(time * 80));
+		int[] colors = {Color.LTGRAY, Color.MAGENTA, Color.GREEN, Color.CYAN, Color.YELLOW, Color.RED, Color.GRAY};
+		int color = -1;
+		if(index >= colors.length){
+			index = 0;
+			color = colors[index];
+		}else{
+			color = colors[index];
+			index++;
+		}
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int)(time * 40 * d));
 		params.setMargins(0,marginTop, 0, 0);
 		TextView v = new TextView(this);
 		v.setText(computeCrop(title, (int)time));
-		v.setBackgroundColor(Color.LTGRAY);
+		v.setBackgroundColor(color);
 		v.setLayoutParams(params);
 		relativeLayoutForDay.addView(v);
 		
@@ -128,18 +136,22 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 		sb.append("\n");
 		sb.append(docent);
 		final String info = sb.toString();
+		final String dayString = day;
+		final String beginString = begin;
+		final String endString = end;
 		v.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 			     PopupMenu menu = new PopupMenu(TimeTableActivity.this);
-			        menu.setHeaderTitle("Info");
+			        menu.setHeaderTitle(dayString + " " + beginString + " - " + endString);
 			        menu.add(0, info);
 			        menu.show(v);
 			}
 		});
 		
 	}
+	
 	
 	private String computeCrop(String title, int time){
 		int textLines = title.length()/20;
@@ -200,7 +212,11 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
                 sideNavigationView.toggleMenu();
                 break;
             case R.id.action_share:
-
+            	try{
+            		shareTimeTable();
+            	}catch(FileNotFoundException e){
+            		e.printStackTrace();
+            	}
             	break;
             case R.id.action_save:
             	saveTimeTableBitMap();
@@ -243,8 +259,8 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         if (sideNavigationView.isShown()) {
             sideNavigationView.hideMenu();
         } else {
-        	sideNavigationView.showMenu();
-//            super.onBackPressed();
+//        	sideNavigationView.showMenu();
+            super.onBackPressed();
         }
     }
     
@@ -274,11 +290,26 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         overridePendingTransition(0, 0);
     }
     
+    private void shareTimeTable() throws FileNotFoundException{
+    	FileOutputStream fos = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +"/timetable.jpg" );
+        loadBitmapFromView().compress(CompressFormat.JPEG, 100, fos);
+        String path = "file://" + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +"/timetable.jpg";
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+        shareIntent.setType("image/jpeg");
+        startActivity(Intent.createChooser(shareIntent, "Stundenplan senden"));
+    
+    
+    
+    }
+    
     private void saveTimeTableBitMap(){
     	Bitmap bitmap = loadBitmapFromView();
         saveBitmap(bitmap);
     }
     
+    @SuppressLint("WorldReadableFiles") 
     public void saveBitmap(Bitmap bitmap) {
         try {
         	FileOutputStream fos = openFileOutput(GlobalAppData.PRIVATE_FILE_NAME, MODE_WORLD_READABLE);

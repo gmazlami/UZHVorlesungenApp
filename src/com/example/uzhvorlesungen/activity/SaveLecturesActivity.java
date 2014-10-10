@@ -154,7 +154,8 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
         if (sideNavigationView.isShown()) {
             sideNavigationView.hideMenu();
         } else {
-        	sideNavigationView.showMenu();
+//        	sideNavigationView.showMenu();
+        	super.onBackPressed();
         }
     }
     
