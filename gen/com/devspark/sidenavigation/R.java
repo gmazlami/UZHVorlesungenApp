@@ -32,19 +32,19 @@ public final class R {
 		public static final int side_navigation_width = 0x7f060000;
 	}
 	public static final class drawable {
-		public static final int side_navigation_shadow_left = 0x7f020033;
-		public static final int side_navigation_shadow_right = 0x7f020034;
+		public static final int side_navigation_shadow_left = 0x7f020034;
+		public static final int side_navigation_shadow_right = 0x7f020035;
 	}
 	public static final class id {
-		public static final int shadow = 0x7f0a004c;
-		public static final int side_navigation_item_text = 0x7f0a0048;
-		public static final int side_navigation_listview = 0x7f0a004b;
-		public static final int side_navigation_menu = 0x7f0a004a;
-		public static final int side_navigation_outside_view = 0x7f0a0049;
+		public static final int shadow = 0x7f0a0050;
+		public static final int side_navigation_item_text = 0x7f0a004c;
+		public static final int side_navigation_listview = 0x7f0a004f;
+		public static final int side_navigation_menu = 0x7f0a004e;
+		public static final int side_navigation_outside_view = 0x7f0a004d;
 	}
 	public static final class layout {
-		public static final int side_navigation_item = 0x7f030010;
-		public static final int side_navigation_left = 0x7f030011;
-		public static final int side_navigation_right = 0x7f030012;
+		public static final int side_navigation_item = 0x7f030012;
+		public static final int side_navigation_left = 0x7f030013;
+		public static final int side_navigation_right = 0x7f030014;
 	}
 }

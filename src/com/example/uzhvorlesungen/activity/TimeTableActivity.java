@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import main.java.com.u1aryz.android.lib.newpopupmenu.PopupMenu;
+import main.java.com.u1aryz.android.lib.newpopupmenu.PopupMenu.OnItemSelectedListener;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,14 +73,14 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         	HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();
         	for(String day : belMap.keySet()){
         		BeginEndLocation bel = belMap.get(day);
-        		addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end);
+        		addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end, lecture.getPoints(), lecture.getDocent());
         	}
         }
         
         
 	}
 	
-	private void addTerminTextView(String title, String location, String day, String begin, String end){
+	private void addTerminTextView(String title, String location, String day, String begin, String end, String points, String docent){
 		float time = computeLectureLengthInHours(begin, end);
 		RelativeLayout relativeLayoutForDay = null;
 		if(day.equals("Mo")){
@@ -108,20 +111,31 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int)(time * 80));
 		params.setMargins(0,marginTop, 0, 0);
 		TextView v = new TextView(this);
-		StringBuilder sb = new StringBuilder();
-		sb.append(title);
-		sb.append("\n");
-		sb.append(location);
-		v.setText(computeCrop(sb.toString(), (int)time));
+		v.setText(computeCrop(title, (int)time));
 		v.setBackgroundColor(Color.LTGRAY);
 		v.setLayoutParams(params);
 		relativeLayoutForDay.addView(v);
 		
+		StringBuilder sb = new StringBuilder();
+		sb.append(title);
+		sb.append("\n");
+		sb.append("\n");
+		sb.append(location);
+		sb.append("\n");
+		sb.append("\n");
+		sb.append(points).append(" ECTS");
+		sb.append("\n");
+		sb.append("\n");
+		sb.append(docent);
+		final String info = sb.toString();
 		v.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				
+			     PopupMenu menu = new PopupMenu(TimeTableActivity.this);
+			        menu.setHeaderTitle("Info");
+			        menu.add(0, info);
+			        menu.show(v);
 			}
 		});
 		
