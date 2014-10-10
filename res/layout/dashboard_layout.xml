@@ -4,12 +4,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <include layout="@layout/fragment_layout" />
+
     <com.devspark.sidenavigation.SideNavigationView
         android:id="@+id/side_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <!-- Include Fragmented dashboard -->
-
-    <include layout="@layout/fragment_layout" />
 
 </LinearLayout>

@@ -1,7 +1,5 @@
 package com.example.uzhvorlesungen.activity;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -16,11 +14,9 @@ import android.widget.Toast;
 
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
-import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.database.LecturesDAO;
 import com.example.uzhvorlesungen.model.BeginEndLocation;
 import com.example.uzhvorlesungen.model.Lecture;
-import com.google.gson.Gson;
 
 public class DetailsActivity extends Activity {
 
@@ -164,22 +160,13 @@ public class DetailsActivity extends Activity {
 	    }
 	}
 	
-	public void saveLecture(){
-		try{
-			Gson gson = new Gson();
-			String serializedLecture = gson.toJson(lecture);
-			serializedLecture = "_&_" + serializedLecture;
-			FileOutputStream fos = openFileOutput(GlobalAppData.PRIVATE_FILE_NAME, MODE_APPEND);
-			fos.write(serializedLecture.getBytes());
+	private void saveLecture(){
+			LecturesDAO dao = new LecturesDAO(getApplicationContext());
+			dao.openDataBase();
+			dao.insertLecture(lecture);
+			dao.closeDataBase();
 			Toast.makeText(getApplicationContext(), getString(R.string.lecture_saved), Toast.LENGTH_LONG).show();
-		}catch(IOException e){
-			Toast.makeText(getApplicationContext(), "FEHLER: Vorlesung konnte nicht gespeichert werden.", Toast.LENGTH_LONG).show();
-		}
 		
-		LecturesDAO dao = new LecturesDAO(getApplicationContext());
-		dao.openDataBase();
-		dao.insertLecture(lecture);
-		dao.closeDataBase();
 	}
 	
 	

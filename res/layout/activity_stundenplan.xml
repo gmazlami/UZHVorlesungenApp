@@ -9,6 +9,8 @@
         android:layout_height="wrap_content" >
 
         <RelativeLayout
+            android:id="@+id/timetableView"
+            android:background="@color/White"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
@@ -34,7 +36,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/MondayTextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -42,7 +44,7 @@
                         android:text="Mo" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/TuesdayTextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -50,7 +52,7 @@
                         android:text="Di" />
 
                     <TextView
-                        android:id="@+id/textView6"
+                        android:id="@+id/WednesdayTextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -58,7 +60,7 @@
                         android:text="Mi" />
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/ThursdayTextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -66,7 +68,7 @@
                         android:text="Do" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/FridayTextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
@@ -392,7 +394,7 @@
                                 android:padding="0dp" >
 
                                 <RelativeLayout
-                                    android:id="@+id/relativeLayout4"
+                                    android:id="@+id/Monday"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1" >
@@ -404,49 +406,7 @@
                                     android:background="@color/LightGrey" />
 
                                 <RelativeLayout
-                                    android:id="@+id/relativeLayout5"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1" >
-
-                                    <TextView
-                                        android:id="@+id/textView1"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="80dp"
-                                        android:layout_marginTop="40dp"
-                                        android:background="@color/LightBlue"
-                                        android:text="Datenbanksysteme"
-                                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                                </RelativeLayout>
-
-                                <View
-                                    android:layout_width="1dp"
-                                    android:layout_height="fill_parent"
-                                    android:background="@color/LightGrey" />
-
-                                <RelativeLayout
-                                    android:id="@+id/relativeLayout6"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1" >
-
-                                    <TextView
-                                        android:id="@+id/textView3"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="80dp"
-                                        android:layout_marginTop="60dp"
-                                        android:background="@color/LightBlue"
-                                        android:text="Objektorientierte Softwareentwicklung"
-                                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                                </RelativeLayout>
-
-                                <View
-                                    android:layout_width="1dp"
-                                    android:layout_height="fill_parent"
-                                    android:background="@color/LightGrey" />
-
-                                <RelativeLayout
-                                    android:id="@+id/relativeLayout7"
+                                    android:id="@+id/Tuesday"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1" >
@@ -458,7 +418,31 @@
                                     android:background="@color/LightGrey" />
 
                                 <RelativeLayout
-                                    android:id="@+id/relativeLayout8"
+                                    android:id="@+id/Wednesday"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1" >
+                                </RelativeLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="fill_parent"
+                                    android:background="@color/LightGrey" />
+
+                                <RelativeLayout
+                                    android:id="@+id/Thursday"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1" >
+                                </RelativeLayout>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="fill_parent"
+                                    android:background="@color/LightGrey" />
+
+                                <RelativeLayout
+                                    android:id="@+id/Friday"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1" >

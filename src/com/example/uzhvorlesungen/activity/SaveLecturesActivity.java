@@ -135,7 +135,13 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
                 // no animation of transition
                 overridePendingTransition(0, 0);
                 break;
-
+                
+            case R.id.side_navigation_menu_item3:
+            	Intent vintent = new Intent(this, TimeTableActivity.class);
+            	vintent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
+            	vintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            	startActivity(vintent);
+            	overridePendingTransition(0, 0);
             default:
                 return;
         }

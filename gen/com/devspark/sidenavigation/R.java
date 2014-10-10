@@ -36,12 +36,11 @@ public final class R {
 		public static final int side_navigation_shadow_right = 0x7f020034;
 	}
 	public static final class id {
-		public static final int shadow = 0x7f0a0042;
-		public static final int side_navigation_item_icon = 0x7f0a003d;
-		public static final int side_navigation_item_text = 0x7f0a003e;
-		public static final int side_navigation_listview = 0x7f0a0041;
-		public static final int side_navigation_menu = 0x7f0a0040;
-		public static final int side_navigation_outside_view = 0x7f0a003f;
+		public static final int shadow = 0x7f0a004c;
+		public static final int side_navigation_item_text = 0x7f0a0048;
+		public static final int side_navigation_listview = 0x7f0a004b;
+		public static final int side_navigation_menu = 0x7f0a004a;
+		public static final int side_navigation_outside_view = 0x7f0a0049;
 	}
 	public static final class layout {
 		public static final int side_navigation_item = 0x7f030010;

@@ -213,12 +213,6 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (sideNavigationView.getMode() == Mode.RIGHT) {
-            menu.findItem(R.id.mode_right).setChecked(true);
-        } else {
-            menu.findItem(R.id.mode_left).setChecked(true);
-        }
         return super.onCreateOptionsMenu(menu);
     }
 
