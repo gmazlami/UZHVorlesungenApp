@@ -29,13 +29,16 @@ import com.google.gson.Gson;
 public class MajorMinorActivity extends Activity implements LecturesCallbackInterface{
 
 	public static String EXTRA_LECTURES = "lectures";
+	public static String EXTRA_STUDY = "study";
 	
+	private String study;
 	private ExpandableListAdapter listAdapter;
 	private HashMap<String, List<String>> majorsStudies;
 	private HashMap<String, String> studiesLinks;
 	private List<String> majors;
 	private Gson gson = null;
 	private ProgressDialog progress;
+	private String title;
 	
     @SuppressWarnings("unchecked")
 	@Override
@@ -43,6 +46,8 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
         super.onCreate(savedInstanceState);
         gson = new Gson();
         majors = PassedDataContainer.majors;
+        title = getIntent().getStringExtra(TitlesActivity.EXTRA_TITLE);
+        getActionBar().setTitle(title);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(majors.size() < 2){
@@ -68,7 +73,7 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					TextView textView = (TextView) view;
-					String study = textView.getText().toString();
+					study = textView.getText().toString();
 					String link = studiesLinks.get(study);
 					
 					if(PassedDataContainer.bscMscMed == true){
@@ -105,11 +110,13 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
         	
         	expandableList.setOnChildClickListener(new OnChildClickListener() {
 				
+				
+
 				@Override
 				public boolean onChildClick(ExpandableListView parent, View v,
 						int groupPosition, int childPosition, long id) {
 					TextView textView = (TextView) v;
-					String study = textView.getText().toString();
+					study = textView.getText().toString();
 					String link = PassedDataContainer.getLinkForGroupChild(groupPosition, study);
 					progress = ProgressDialog.show(MajorMinorActivity.this, getString(R.string.gathering_data), getString(R.string.please_wait),true);
 					ParsingLecturesAsyncTask asyncTask = new ParsingLecturesAsyncTask(link, MajorMinorActivity.this);
@@ -126,6 +133,7 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 		String serializedMap = gson.toJson(map);
 		Intent intent = new Intent(getApplicationContext(), LecturesActivity.class);
 		intent.putExtra(EXTRA_LECTURES, serializedMap);
+		intent.putExtra(EXTRA_STUDY, study);
 		progress.dismiss();
 		startActivity(intent);
 	}

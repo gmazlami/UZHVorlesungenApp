@@ -32,5 +32,8 @@
     <string name="error_loading_lecture">Fehler beim Laden der Vorlesung aus dem Speicher. Lösche die Applikationsdaten in den Einstellungen deines Geräts.</string>
     <string name="error_loading_timetable">Fehler bei der Zusammenstellung des Stundenplans</string>
     <string name="intent_send_timetable">Stundenplan senden</string>
+    <string name="title_lecture">Vorlesung</string>
+    <string name="title_timetable">Stundenplan</string>
+    <string name="title_stored">Gespeicherte Vorlesungen</string>
 
 </resources>

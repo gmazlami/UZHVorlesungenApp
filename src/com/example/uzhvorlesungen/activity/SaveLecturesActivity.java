@@ -44,7 +44,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getActionBar().setTitle(getString(R.string.title_stored));
         setContentView(R.layout.activity_saved);
         icon = (ImageView) findViewById(android.R.id.icon);
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);

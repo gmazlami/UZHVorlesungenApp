@@ -33,7 +33,8 @@ public class DetailsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
-
+		getActionBar().setTitle(getString(R.string.title_lecture));
+		
 		lecture = PassedDataContainer.passedLecture;
 		PassedDataContainer.passedLecture = null;
 

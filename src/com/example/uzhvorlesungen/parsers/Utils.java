@@ -5,13 +5,14 @@ public class Utils {
 	
 	public static String fixUmlauts(String input) {
 		String newString = null;
-		newString = input.replace("&Auml;", "Ä");
-		newString = newString.replace("&auml;", "ä");
-		newString = newString.replace("&Uuml;", "Ü");
-		newString = newString.replace("&uuml;", "ü");
-		newString = newString.replace("&Ouml;", "Ö");
-		newString = newString.replace("&ouml;", "ö");
+		newString = input.replace("&Auml;", "Ã„");
+		newString = newString.replace("&auml;", "Ã¤");
+		newString = newString.replace("&Uuml;", "Ãœ");
+		newString = newString.replace("&uuml;", "Ã¼");
+		newString = newString.replace("&Ouml;", "Ã–");
+		newString = newString.replace("&ouml;", "Ã¶");
 		newString = newString.replace("&nbsp;", " ");
+		newString = newString.replace("&amp;", "&");
 		return newString;
 	}
 }

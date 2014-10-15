@@ -35,6 +35,8 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lectures);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        String study = getIntent().getStringExtra(MajorMinorActivity.EXTRA_STUDY);
+        getActionBar().setTitle(study);
         
         ListView listView = (ListView) findViewById(R.id.listView1);
         

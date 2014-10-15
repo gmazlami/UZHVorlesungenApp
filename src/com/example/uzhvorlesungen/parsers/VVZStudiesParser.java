@@ -27,6 +27,7 @@ public class VVZStudiesParser {
 	public Map<String, List<String>> parseFaculties() throws ParserException {
 		HasAttributeFilter f = new HasAttributeFilter("class", "links");
 		Parser parser = new Parser();
+		parser.setEncoding("UTF-8");
 		parser.setResource(URL);
 		NodeList nl = parser.parse(f);
 		String faculty = null;
@@ -37,7 +38,7 @@ public class VVZStudiesParser {
 			Node node = nl.elementAt(i);
 			faculty = node.getFirstChild().getFirstChild().getFirstChild().getText().trim();
 			if(faculty.contains("&auml;")){
-				facName = faculty.replace("&auml;", "ä");
+				facName = faculty.replace("&auml;", "Ã¤");
 			}else{
 				facName = faculty;
 			}
@@ -56,7 +57,7 @@ public class VVZStudiesParser {
 						&& !str.contains("Angebote")) {
 					
 					if(str.contains("&auml;")){
-						name = str.replace("&auml;", "ä");
+						name = str.replace("&auml;", "Ã¤");
 						list.add(name);
 					}else{
 						list.add(str);
@@ -95,7 +96,7 @@ public class VVZStudiesParser {
 			
 				if(str.contains("Fakult&auml;t") || str.contains("&auml;")){
 					if(str.contains("Master") || str.contains("Bachelor") || str.contains("Doktor") || str.contains("PhD")){
-						if(str.contains("&auml;")){str = str.replace("&auml;", "ä");}
+						if(str.contains("&auml;")){str = str.replace("&auml;", "Ã¤");}
 						if (node instanceof Tag) {
 							link = ((Tag) node).getAttribute("href");
 							if(link.contains("../../")){

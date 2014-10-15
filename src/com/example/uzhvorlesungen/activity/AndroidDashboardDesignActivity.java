@@ -32,13 +32,13 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 	public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
 	public static final String EXTRA_MODE = "com.devspark.sidenavigation.sample.extra.MODE";
 
-	private static final String MNF = "Mathematisch-naturwissenschaftliche Fakult�t";
-	private static final String WWF = "Wirtschaftswissenschaftliche Fakult�t";
-	private static final String PHF = "Philosophische Fakult�t";
-	private static final String RWF = "Rechtswissenschaftliche Fakult�t";
-	private static final String THF = "Theologische Fakult�t";
-	private static final String MEDF = "Medizinische Fakult�t";
-	private static final String VETF = "Vetsuisse-Fakult�t";
+	private static final String MNF = "Mathematisch-naturwissenschaftliche Fakultät";
+	private static final String WWF = "Wirtschaftswissenschaftliche Fakultät";
+	private static final String PHF = "Philosophische Fakultät";
+	private static final String RWF = "Rechtswissenschaftliche Fakultät";
+	private static final String THF = "Theologische Fakultät";
+	private static final String MEDF = "Medizinische Fakultät";
+	private static final String VETF = "Vetsuisse-Fakultät";
 	
 	private Map<String, List<String>> facultiesMap;
 	private Map<String, String> titlesLinksMap;
@@ -200,6 +200,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			Map<String, String> titlesMap) {
 		
 		facultiesMap = map;
+		System.out.println(facultiesMap);
 		titlesLinksMap = titlesMap;
 		progress.dismiss();
 	}
@@ -266,6 +267,14 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
                 timeTableIntent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
                 timeTableIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(timeTableIntent);
+                overridePendingTransition(0, 0);
+                break;
+                
+            case R.id.side_navigation_menu_item4:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                settingsIntent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
+                settingsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(settingsIntent);
                 overridePendingTransition(0, 0);
                 break;
                 
