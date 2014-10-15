@@ -28,12 +28,21 @@ import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 
 public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallbackInterface, ISideNavigationCallback{
     
-    private Map<String, List<String>> facultiesMap;
+	public static final String EXTRA_TITLE = "com.devspark.sidenavigation.sample.extra.MTGOBJECT";
+	public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
+	public static final String EXTRA_MODE = "com.devspark.sidenavigation.sample.extra.MODE";
+
+	private static final String MNF = "Mathematisch-naturwissenschaftliche Fakult�t";
+	private static final String WWF = "Wirtschaftswissenschaftliche Fakult�t";
+	private static final String PHF = "Philosophische Fakult�t";
+	private static final String RWF = "Rechtswissenschaftliche Fakult�t";
+	private static final String THF = "Theologische Fakult�t";
+	private static final String MEDF = "Medizinische Fakult�t";
+	private static final String VETF = "Vetsuisse-Fakult�t";
+	
+	private Map<String, List<String>> facultiesMap;
 	private Map<String, String> titlesLinksMap;
 	private ProgressDialog progress;
-    public static final String EXTRA_TITLE = "com.devspark.sidenavigation.sample.extra.MTGOBJECT";
-    public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
-    public static final String EXTRA_MODE = "com.devspark.sidenavigation.sample.extra.MODE";
     private ImageView icon;
     private SideNavigationView sideNavigationView;
 
@@ -93,10 +102,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			@Override
 			public void onClick(View view) {
 				if(isInternetActive()){
-					String faculty = "Mathematisch-naturwissenschaftliche Fakult�t";
+					String faculty = MNF;
 					startTitlesActivity(faculty);
 				}else{
-					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -107,10 +116,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			@Override
 			public void onClick(View view) {
 				if(isInternetActive()){
-					String faculty = "Wirtschaftswissenschaftliche Fakult�t";
+					String faculty = WWF;
 					startTitlesActivity(faculty);
 				}else{
-					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -121,10 +130,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			@Override
 			public void onClick(View view) {
 				if(isInternetActive()){
-					String faculty = "Rechtswissenschaftliche Fakult�t";
+					String faculty = RWF;
 					startTitlesActivity(faculty);
 				}else{
-					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -135,10 +144,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			@Override
 			public void onClick(View view) {
 				if(isInternetActive()){
-					String faculty = "Medizinische Fakult�t";
+					String faculty = MEDF;
 					startTitlesActivity(faculty);
 				}else{
-					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -149,10 +158,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			@Override
 			public void onClick(View view) {
 				if(isInternetActive()){
-					String faculty = "Philosophische Fakult�t";
+					String faculty = PHF;
 					startTitlesActivity(faculty);
 				}else{
-					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -163,10 +172,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			@Override
 			public void onClick(View view) {
 				if(isInternetActive()){
-					String faculty = "Vetsuisse-Fakult�t";
+					String faculty = VETF;
 					startTitlesActivity(faculty);
 				}else{
-					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -176,10 +185,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			@Override
 			public void onClick(View view) {
 				if(isInternetActive()){
-					String faculty = "Theologische Fakult�t";
+					String faculty = THF;
 					startTitlesActivity(faculty);
 				}else{
-					Toast.makeText(getApplicationContext(), "Bitte aktiviere die Internetverbindung auf deinem Gerät", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -248,9 +257,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
                 Intent intent = new Intent(this, SaveLecturesActivity.class);
                 intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                 startActivity(intent);
-                // no animation of transition
                 overridePendingTransition(0, 0);
                 break;
                 
@@ -258,11 +265,10 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
                 Intent timeTableIntent = new Intent(this, TimeTableActivity.class);
                 timeTableIntent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
                 timeTableIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                 startActivity(timeTableIntent);
-                // no animation of transition
                 overridePendingTransition(0, 0);
                 break;
+                
             default:
                 return;
         }
@@ -278,24 +284,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
             super.onBackPressed();
         }
     }
-    
-    /**
-     * Start activity from SideNavigation.
-     * 
-     * @param title title of Activity
-     * @param resId resource if of background image
-     */
+
     private void invokeActivity(Class<AndroidDashboardDesignActivity> class1) {
         Intent intent = new Intent(this, class1);
         intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-
-        // all of the other activities on top of it will be closed and this
-        // Intent will be delivered to the (now on top) old activity as a
-        // new Intent.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
         startActivity(intent);
-        // no animation of transition
         overridePendingTransition(0, 0);
     }
     

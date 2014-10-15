@@ -76,7 +76,6 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
         
         ListView listview = (ListView) findViewById(R.id.savedList);
         listview.setAdapter(new SavedLecturesAdapter(getApplicationContext(), R.layout.saved_list_row_item,  titlesList));
-//        listview.setAdapter(new ArrayAdapter<Lecture>(getApplicationContext(), R.layout.list_row_item, lectureArray));
         listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -85,7 +84,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
 				String  lectureTitle = lectures.get(position).getTitle();
 				Lecture lecture = searchLecture(lectureTitle, SaveLecturesActivity.this.lectureArray);
 				if(lecture==null){
-					Toast.makeText(getApplicationContext(), "Fehler beim Laden der Vorlesung!", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.error_loading_lecture), Toast.LENGTH_SHORT).show();
 					return;
 				}else{
 					Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
@@ -130,9 +129,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
                 Intent intent = new Intent(this, SaveLecturesActivity.class);
                 intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                 startActivity(intent);
-                // no animation of transition
                 overridePendingTransition(0, 0);
                 break;
                 
@@ -142,6 +139,8 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
             	vintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             	startActivity(vintent);
             	overridePendingTransition(0, 0);
+            	break;
+            	
             default:
                 return;
         }
@@ -154,27 +153,15 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
         if (sideNavigationView.isShown()) {
             sideNavigationView.hideMenu();
         } else {
-//        	sideNavigationView.showMenu();
         	super.onBackPressed();
         }
     }
-    
-    
-    /**
-     * Start activity from SideNavigation.
-     * 
-     * @param title title of Activity
-     * @param resId resource if of background image
-     */
+
     private void invokeActivity(Class<AndroidDashboardDesignActivity> class1) {
         Intent intent = new Intent(this, class1);
         intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-        // all of the other activities on top of it will be closed and this
-        // Intent will be delivered to the (now on top) old activity as a
-        // new Intent.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        // no animation of transition
         overridePendingTransition(0, 0);
     }
     
@@ -200,9 +187,7 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
     	@Override
     	public View getView(int position, View convertView, ViewGroup parent){
     	    if( convertView == null ){
-    	        //We must create a View:
     	    	convertView = LayoutInflater.from(getContext()).inflate(R.layout.saved_list_row_item, parent, false);
-//    	        convertView = getLayoutInflater().inflate(R.layout.saved_list_row_item, parent, false);
     	        Button deleteBtn = (Button) convertView.findViewById(R.id.deleteButton);
     	        TextView lectureTextView = (TextView) convertView.findViewById(R.id.savedLectureTextView);
     	        final String title = lectures.get(position);
@@ -237,8 +222,6 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
 					}
 				});
     	    }
-    	    //Here we can do changes to the convertView, such as set a text on a TextView 
-    	    //or an image on an ImageView.
     	    return convertView;
     	}
 

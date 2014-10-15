@@ -28,6 +28,10 @@ import com.google.gson.GsonBuilder;
 
 public class TitlesActivity extends Activity implements FacultiesCallbackInterface, MMCallBackInterface{
 
+	public static final String EXTRA_LINKS ="links";
+	public static final String EXTRA_MAJORS = "majors";
+	public static final String EXTRA_STUDIES = "studies";
+	
 	private ListView mListView = null;
 	private List<String> mListTitles = null;
 	private List<String> mListLinks = null;
@@ -42,7 +46,7 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_titles);
-        getActionBar().setTitle("Abschl�sse");
+        getActionBar().setTitle(getString(R.string.titles));
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         
@@ -107,9 +111,9 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		
 		
 		Intent intent  = new Intent(getApplicationContext(), MajorMinorActivity.class);
-		intent.putExtra("majors", serializedMajors);
-		intent.putExtra("links", serializedStudiesLinksMap);
-		intent.putExtra("studies", serializedMajorStudiesMap);
+		intent.putExtra(EXTRA_MAJORS, serializedMajors);
+		intent.putExtra(EXTRA_LINKS, serializedStudiesLinksMap);
+		intent.putExtra(EXTRA_STUDIES, serializedMajorStudiesMap);
 		startActivity(intent);
 		
 	}
@@ -138,9 +142,9 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		
 		
 		Intent intent  = new Intent(getApplicationContext(), MajorMinorActivity.class);
-		intent.putExtra("majors", serializedMajors);
-		intent.putExtra("links", serializedStudiesLinksMap);
-		intent.putExtra("studies", serializedMajorStudiesMap);
+		intent.putExtra(EXTRA_MAJORS, serializedMajors);
+		intent.putExtra(EXTRA_LINKS, serializedStudiesLinksMap);
+		intent.putExtra(EXTRA_STUDIES, serializedMajorStudiesMap);
 		startActivity(intent);
 		
 	}

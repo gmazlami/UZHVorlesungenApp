@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.callbacks.DetailsCallbackInterface;
 import com.example.uzhvorlesungen.model.Lecture;
@@ -38,7 +39,7 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
         ListView listView = (ListView) findViewById(R.id.listView1);
         
         gson = new Gson();
-        String serialized = getIntent().getStringExtra("lectures");
+        String serialized = getIntent().getStringExtra(MajorMinorActivity.EXTRA_LECTURES);
         map = gson.fromJson(serialized, HashMap.class);
         
         String[] lectureArray = new String[map.keySet().size()];
@@ -51,7 +52,7 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				progress = ProgressDialog.show(LecturesActivity.this, "Hole Daten", "Bitte warten", true);
+				progress = ProgressDialog.show(LecturesActivity.this, getString(R.string.gathering_data), getString(R.string.please_wait), true);
 				TextView textView = (TextView) view;
 				String lecture = textView.getText().toString();
 				String link = map.get(lecture);

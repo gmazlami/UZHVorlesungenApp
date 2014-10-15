@@ -390,13 +390,22 @@ containing a value of this type.
     }
     public static final class string {
         public static final int action_settings=0x7f070002;
+        public static final int actionbar_majorminor=0x7f070017;
+        public static final int activate_internet=0x7f070016;
         public static final int app_name=0x7f070000;
         public static final int as_instructed=0x7f070011;
         public static final int choose_faculty=0x7f070013;
+        public static final int error_loading_lecture=0x7f07001c;
+        public static final int error_loading_timetable=0x7f07001d;
         public static final int gathering_data=0x7f07000c;
         public static final int hello_world=0x7f070001;
         public static final int image_desc=0x7f07000b;
+        public static final int intent_send_timetable=0x7f07001e;
         public static final int lecture_saved=0x7f07000e;
+        public static final int major=0x7f07001a;
+        public static final int major_abbr=0x7f070018;
+        public static final int minor=0x7f07001b;
+        public static final int minor_abbr=0x7f070019;
         public static final int mnf=0x7f070015;
         public static final int mode=0x7f070008;
         public static final int mode_left=0x7f070009;

@@ -1,13 +1,10 @@
 package com.example.uzhvorlesungen.activity;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import main.java.com.u1aryz.android.lib.newpopupmenu.PopupMenu;
 import android.annotation.SuppressLint;
@@ -99,7 +96,7 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 		}else if(day.equals("Fr")){
 			relativeLayoutForDay = (RelativeLayout) findViewById(R.id.Friday);			
 		}else{
-			Toast.makeText(getApplicationContext(), "Fehler bei der Zusammenstellung des Stundenplans", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.error_loading_timetable), Toast.LENGTH_LONG).show();
 			return;
 		}
 		int marginTop = computeTopMargin(begin);
@@ -215,7 +212,8 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
             	try{
             		shareTimeTable();
             	}catch(FileNotFoundException e){
-            		e.printStackTrace();
+            		e.printStackTrace(); //TODO: better exception/error handling
+            		Toast.makeText(this, getString(R.string.error_loading_timetable), Toast.LENGTH_LONG).show();
             	}
             	break;
             case R.id.action_save:
@@ -238,12 +236,8 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
             case R.id.side_navigation_menu_item2:
                 Intent intent = new Intent(this, SaveLecturesActivity.class);
                 intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-                // all of the other activities on top of it will be closed and this
-                // Intent will be delivered to the (now on top) old activity as a
-                // new Intent.
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                // no animation of transition
                 overridePendingTransition(0, 0);
             	break;
 
@@ -259,7 +253,6 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         if (sideNavigationView.isShown()) {
             sideNavigationView.hideMenu();
         } else {
-//        	sideNavigationView.showMenu();
             super.onBackPressed();
         }
     }
@@ -281,12 +274,8 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
     private void invokeActivity(Class<AndroidDashboardDesignActivity> class1) {
         Intent intent = new Intent(this, class1);
         intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-        // all of the other activities on top of it will be closed and this
-        // Intent will be delivered to the (now on top) old activity as a
-        // new Intent.
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        // no animation of transition
         overridePendingTransition(0, 0);
     }
     
@@ -298,10 +287,7 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
         shareIntent.setType("image/jpeg");
-        startActivity(Intent.createChooser(shareIntent, "Stundenplan senden"));
-    
-    
-    
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.intent_send_timetable)));
     }
     
     private void saveTimeTableBitMap(){

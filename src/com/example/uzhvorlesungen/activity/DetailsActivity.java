@@ -3,6 +3,7 @@ package com.example.uzhvorlesungen.activity;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -151,6 +152,7 @@ public class DetailsActivity extends Activity {
 	        	saveLecture();
 	        	return true;
 	        case R.id.action_share:
+	        	shareLecture();
 	            return true;
 	        case android.R.id.home:
 	        	onBackPressed();
@@ -158,6 +160,33 @@ public class DetailsActivity extends Activity {
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	private void shareLecture(){
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		StringBuilder sb = new StringBuilder();
+		sb.append(lecture.getTitle());
+		sb.append("\n");
+		sb.append(lecture.getPoints() + " ECTS");
+		sb.append("\n");
+		sb.append(lecture.getDocent());
+		sb.append("\n");
+		for(String day : lecture.getDayBeginEndTime().keySet()){
+			sb.append(day);
+			sb.append(" ");
+			BeginEndLocation bel = lecture.getDayBeginEndTime().get(day);
+			sb.append(bel.begin + " - " + bel.end);
+			sb.append("\n");
+			for(String room : bel.locations){
+				sb.append(room);
+				sb.append("\n");
+			}
+		}
+		
+		sendIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
+		sendIntent.setType("text/plain");
+		startActivity(sendIntent);
 	}
 	
 	private void saveLecture(){

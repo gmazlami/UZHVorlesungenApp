@@ -23,5 +23,14 @@
     <string name="choose_faculty">Fakultät wählen</string>
     <string name="wwf">Wirtschaftswissenschaftliche Fakultät</string>
     <string name="mnf">Mathematisch-naturwissenschaftliche Fakultät</string>
+    <string name="activate_internet">Verbindung fehlgeschlagen. Bitte aktiviere deine Internetverbindung.</string>
+    <string name="actionbar_majorminor">Hauptfach / Nebenfach</string>
+    <string name="major_abbr">HF</string>
+    <string name="minor_abbr">HF</string>
+    <string name="major">Hauptfach</string>
+    <string name="minor">Nebenfach</string>
+    <string name="error_loading_lecture">Fehler beim Laden der Vorlesung aus dem Speicher. Lösche die Applikationsdaten in den Einstellungen deines Geräts.</string>
+    <string name="error_loading_timetable">Fehler bei der Zusammenstellung des Stundenplans</string>
+    <string name="intent_send_timetable">Stundenplan senden</string>
 
 </resources>
