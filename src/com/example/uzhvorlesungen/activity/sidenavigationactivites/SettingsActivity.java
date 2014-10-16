@@ -1,4 +1,4 @@
-package com.example.uzhvorlesungen.activity;
+package com.example.uzhvorlesungen.activity.sidenavigationactivites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -86,14 +86,6 @@ public class SettingsActivity extends PreferenceActivity implements ISideNavigat
             	vintent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
             	vintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             	startActivity(vintent);
-            	overridePendingTransition(0, 0);
-            	break;
-            
-            case R.id.side_navigation_menu_item4:
-            	Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            	settingsIntent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-            	settingsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            	startActivity(settingsIntent);
             	overridePendingTransition(0, 0);
             	break;
             	

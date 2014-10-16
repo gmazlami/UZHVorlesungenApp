@@ -1,4 +1,4 @@
-package com.example.uzhvorlesungen.activity;
+package com.example.uzhvorlesungen.activity.sidenavigationactivites;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ import com.devspark.sidenavigation.ISideNavigationCallback;
 import com.devspark.sidenavigation.SideNavigationView;
 import com.devspark.sidenavigation.SideNavigationView.Mode;
 import com.example.uzhvorlesungen.R;
+import com.example.uzhvorlesungen.activity.DetailsActivity;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.database.LecturesDAO;
 import com.example.uzhvorlesungen.model.Lecture;
@@ -138,14 +139,6 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
             	vintent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
             	vintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             	startActivity(vintent);
-            	overridePendingTransition(0, 0);
-            	break;
-            
-            case R.id.side_navigation_menu_item4:
-            	Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            	settingsIntent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
-            	settingsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            	startActivity(settingsIntent);
             	overridePendingTransition(0, 0);
             	break;
             	
