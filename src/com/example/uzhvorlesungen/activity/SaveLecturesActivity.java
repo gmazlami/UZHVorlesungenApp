@@ -176,7 +176,6 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
     private Lecture searchLecture(String title, Lecture[] array){
     	for (int i = 0; i < array.length; i++) {
 			if(array[i].getTitle().equals(title)){
-				System.out.println(array[i].getTitle());
 				return array[i];
 			}
 		}

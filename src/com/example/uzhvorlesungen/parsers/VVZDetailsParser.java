@@ -54,7 +54,7 @@ public class VVZDetailsParser {
 
 	private Object[] getDayBeginEndTimeLocation(Node trNode){
 		if(trNode == null || trNode.getFirstChild() == null){
-			Object[] array = {"Nach Ankündigung", new BeginEndLocation("", "", null)};
+			Object[] array = {"Nach AnkÃ¼ndigung", new BeginEndLocation("", "", null)};
 			return array;
 		}
 			
@@ -196,9 +196,8 @@ public class VVZDetailsParser {
 			node = nl.elementAt(2);
 		}
 
-		// TODO: implement Übungen crawling
+		// TODO: implement ï¿½bungen crawling
 		str = node.toPlainTextString().trim();
-		System.out.println(str);
 		String[] dayTime = str.split(" ");
 		String[] time = dayTime[1].split("-");
 		String[] dayBeginEndTime = { dayTime[0], time[0], time[1] };

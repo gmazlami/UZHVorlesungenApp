@@ -104,7 +104,6 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		String serializedMajorStudiesMap = gson.toJson(majorStudiesMap);
 		String serializedStudiesLinksMap = gson.toJson(studiesLinksMap);
 		
-		System.out.println(serializedStudiesLinksMap);
 		progress.dismiss();
 		
 		

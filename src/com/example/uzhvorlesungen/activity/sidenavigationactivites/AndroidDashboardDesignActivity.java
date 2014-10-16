@@ -60,7 +60,6 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         	progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
 	        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(AndroidDashboardDesignActivity.this);
 	        GlobalAppData.SEMESTER_PREFERENCE = sharedPref.getString("pref_semester", "HS14");
-	        System.out.println("Preference:   "+GlobalAppData.SEMESTER_PREFERENCE);
         	ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
         	task.execute();
         }

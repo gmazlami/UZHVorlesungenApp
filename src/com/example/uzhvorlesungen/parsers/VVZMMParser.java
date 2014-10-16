@@ -65,7 +65,7 @@ public class VVZMMParser {
 					}
 					if (link.contains("../../")) {
 						link = link.replace("../../", "");
-						linksMap.put(currentString + " " + postFix, URLPrefix + link);
+						linksMap.put(Utils.fixUmlauts(currentString + " " + postFix), URLPrefix + link);
 					}
 				}
 				current = current.getNextSibling();

@@ -38,7 +38,6 @@ public class LecturesDAO {
 		while(c.moveToNext()){
 			list.add(c.getString(0));
 		}
-		System.out.println(list);
 		return list;
 	}
 	
@@ -133,8 +132,6 @@ public class LecturesDAO {
 		values.put(UZHSQLiteOpenHelper.LECTURE_DOCENT, lecture.getDocent());
 		db.insert(UZHSQLiteOpenHelper.TABLE_LECTURE, null, values);
 		
-		System.out.println(values.toString());
-		
 		int id = getLectureId(lecture.getTitle());
 		
 		//insert termin for the current lecture into separate termin table
@@ -158,12 +155,16 @@ public class LecturesDAO {
 	
 	
 	private String constructLocations(List<String> list){
-		StringBuilder sb = new StringBuilder();
-		for(String s : list){
-			sb.append(s);
-			sb.append("@");
+		if(list == null || list.contains(null)){
+			return "Keine Raumangaben";
+		}else{
+			StringBuilder sb = new StringBuilder();
+			for(String s : list){
+				sb.append(s);
+				sb.append("@");
+			}
+			return sb.toString();
 		}
-		return sb.toString();
 	}
 	
 

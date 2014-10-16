@@ -375,6 +375,7 @@ int string mode 0x7f090008
 int string mode_left 0x7f090009
 int string mode_right 0x7f09000a
 int string no_info 0x7f090010
+int string no_room_info 0x7f090022
 int string please_wait 0x7f09000d
 int string storage_error 0x7f090012
 int string title1 0x7f090003

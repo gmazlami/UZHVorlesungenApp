@@ -75,7 +75,9 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         	HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();
         	for(String day : belMap.keySet()){
         		BeginEndLocation bel = belMap.get(day);
-        		addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end, lecture.getPoints(), lecture.getDocent());
+        		if(bel.begin != null && bel.end != null && !bel.begin.equals("") && !bel.end.equals("")){
+        			addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end, lecture.getPoints(), lecture.getDocent());
+        		}
         	}
         }
         

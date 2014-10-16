@@ -50,8 +50,6 @@ public class PassedDataContainer {
 			postFix = major.replace("Nebenfach", "NF");
 		}
 		study =  study + " " + postFix;
-		
-		
 		return studiesLinks.get(study);
 	}
 }

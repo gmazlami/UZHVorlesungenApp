@@ -40,7 +40,7 @@ public class VVZStudiesParser {
 			if(faculty.contains("&auml;")){
 				facName = faculty.replace("&auml;", "ä");
 			}else{
-				facName = faculty;
+				facName = Utils.fixUmlauts(faculty);
 			}
 			
 			if(!facName.contains("Weitere Angebote")){
@@ -58,9 +58,9 @@ public class VVZStudiesParser {
 					
 					if(str.contains("&auml;")){
 						name = str.replace("&auml;", "ä");
-						list.add(name);
+						list.add(Utils.fixUmlauts(name));
 					}else{
-						list.add(str);
+						list.add(Utils.fixUmlauts(str));
 					}
 					
 				}
@@ -102,7 +102,7 @@ public class VVZStudiesParser {
 							if(link.contains("../../")){
 								link = link.replace("../../", "");
 							}
-							studiesMap.put(str, URLPrefix + link);
+							studiesMap.put(Utils.fixUmlauts(str), URLPrefix + link);
 						}
 					}
 				}else{
@@ -111,7 +111,7 @@ public class VVZStudiesParser {
 						if(link.contains("../../")){
 							link = link.replace("../../", "");
 						}
-						studiesMap.put(str, URLPrefix + link);
+						studiesMap.put(Utils.fixUmlauts(str), URLPrefix + link);
 					}
 				}
 

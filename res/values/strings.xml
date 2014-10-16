@@ -35,5 +35,6 @@
     <string name="title_lecture">Vorlesung</string>
     <string name="title_timetable">Stundenplan</string>
     <string name="title_stored">Gespeicherte Vorlesungen</string>
+    <string name="no_room_info">Keine Raumangabe</string>
 
 </resources>

@@ -418,6 +418,7 @@ containing a value of this type.
         public static final int mode_left=0x7f090009;
         public static final int mode_right=0x7f09000a;
         public static final int no_info=0x7f090010;
+        public static final int no_room_info=0x7f090022;
         public static final int please_wait=0x7f09000d;
         public static final int storage_error=0x7f090012;
         public static final int title1=0x7f090003;
