@@ -25,9 +25,19 @@ public class VVZDetailsParser {
 
 	public Lecture parse() throws ParserException {
 
+		//check if there is a lehrveranstaltungen section
+		
 		Parser parser = new Parser();
 		parser.setResource(resourceURL);
-		String docent = parseDocent(parser);
+		boolean bottomExists = checkBottomSectionExists(parser);
+		String docent = null;
+		if(bottomExists){
+			parser = new Parser();
+			parser.setResource(resourceURL);
+			docent = parseDocent(parser);
+		}else{
+			docent = "";
+		}
 
 		parser = new Parser();
 		parser.setResource(resourceURL);
@@ -39,17 +49,31 @@ public class VVZDetailsParser {
 		title = Utils.fixUmlauts(title);
 
 		HashMap<String, BeginEndLocation> locationAndTime =  new HashMap<String, BeginEndLocation>();
-		if(!resourceURL.contains("details")){
-			parser = new Parser();
-			parser.setResource(resourceURL);
-			String link = parseDetailsLink(parser);
-			Parser locationParser = new Parser(correctDetailsLink(resourceURL, link));
-			locationAndTime = parseLocationAndTime(locationParser);
+		if(bottomExists){
+			if(!resourceURL.contains("details")){
+				parser = new Parser();
+				parser.setResource(resourceURL);
+				String link = parseDetailsLink(parser);
+				Parser locationParser = new Parser(correctDetailsLink(resourceURL, link));
+				locationAndTime = parseLocationAndTime(locationParser);
+			}else{
+				Parser locationParser = new Parser(correctAlreadyDetailsLink(resourceURL));
+				locationAndTime = parseLocationAndTime(locationParser);
+			}
 		}else{
-			Parser locationParser = new Parser(correctAlreadyDetailsLink(resourceURL));
-			locationAndTime = parseLocationAndTime(locationParser);
+			locationAndTime = parseEmptyLocationAndTime(parser);
 		}
 		return new Lecture(title, pointsDescExam[1], docent, pointsDescExam[2], pointsDescExam[0], locationAndTime);
+	}
+	
+	private boolean checkBottomSectionExists(Parser parser) throws ParserException{
+		HasAttributeFilter filter = new HasAttributeFilter("class","ornate vvzDetails");
+		NodeList nl = parser.parse(filter);
+		if(nl.size() == 0){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 	private Object[] getDayBeginEndTimeLocation(Node trNode){
@@ -103,6 +127,16 @@ public class VVZDetailsParser {
 		
 		return map;
 	}
+	
+	public HashMap<String, BeginEndLocation> parseEmptyLocationAndTime(
+			Parser parser) throws ParserException {
+		HashMap<String, BeginEndLocation> map = new HashMap<String, BeginEndLocation>();
+		Object[] array = getDayBeginEndTimeLocation(null);
+		map.put((String) array[0], (BeginEndLocation) array[1]);
+
+		return map;
+	}
+	
 
 	public String parseDetailsLink(Parser parser) throws ParserException {
 		TagNameFilter f = new TagNameFilter("acronym");
