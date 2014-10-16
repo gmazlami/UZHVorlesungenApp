@@ -126,7 +126,11 @@ public class VVZDetailsParser {
 			parser = new Parser(resourceURL);
 			TagNameFilter tagFilter = new TagNameFilter("tr");
 			NodeList nodeList = parser.parse(tagFilter);
-			return nodeList.elementAt(15).getFirstChild().getNextSibling().getFirstChild().toPlainTextString().trim();
+			if(nodeList.elementAt(15).toPlainTextString().contains("nein") || nodeList.elementAt(15).toPlainTextString().contains("ja")){
+				return nodeList.elementAt(16).getFirstChild().getNextSibling().getFirstChild().toPlainTextString().trim();
+			}else{
+				return nodeList.elementAt(15).getFirstChild().getNextSibling().getFirstChild().toPlainTextString().trim();
+			}
 		}else{
 			return Utils.fixUmlauts(nl.elementAt(0).getParent()
 					.getPreviousSibling().getFirstChild().getFirstChild()

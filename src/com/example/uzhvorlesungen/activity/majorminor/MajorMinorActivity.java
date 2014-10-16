@@ -75,6 +75,7 @@ public class MajorMinorActivity extends Activity implements LecturesCallbackInte
 					TextView textView = (TextView) view;
 					study = textView.getText().toString();
 					String link = studiesLinks.get(study);
+					System.out.println("----------studiesLinks: "+studiesLinks);
 					
 					if(PassedDataContainer.bscMscMed == true){
 						PassedDataContainer.bscMscMed = false;

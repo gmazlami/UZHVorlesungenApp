@@ -74,9 +74,9 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 				progress = ProgressDialog.show(TitlesActivity.this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
 				TextView textView = (TextView) view;
 				title = textView.getText().toString();
-				if(title.contains("Bachelor") && title.contains("Humanmedizin")){
+				if(title.contains("Bachelor") && title.contains("Humanmedizin") || title.contains("medizin")){
 					PassedDataContainer.bscMscMed = true;
-				}else if(title.contains("Master") && title.contains("Humanmedizin")){
+				}else if(title.contains("Master") && title.contains("Humanmedizin") || title.contains("medizin")){
 					PassedDataContainer.bscMscMed = true;
 				}
 				String link = mListLinks.get(position);
@@ -125,6 +125,7 @@ public class TitlesActivity extends Activity implements FacultiesCallbackInterfa
 		majorStudiesMap = facultiesMap;
 		majorList = faculties;
 		studiesLinksMap = titlesMap;
+
 		
 		PassedDataContainer.majors = faculties;
 		PassedDataContainer.studiesLinks = map;

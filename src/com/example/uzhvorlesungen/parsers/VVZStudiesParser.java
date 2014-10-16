@@ -95,7 +95,7 @@ public class VVZStudiesParser {
 					) {
 			
 				if(str.contains("Fakult&auml;t") || str.contains("&auml;")){
-					if(str.contains("Master") || str.contains("Bachelor") || str.contains("Doktor") || str.contains("PhD")){
+					if(str.contains("Master") || str.contains("Bachelor") || str.contains("Doktor") || str.contains("PhD") || str.contains("medizin")){
 						if(str.contains("&auml;")){str = str.replace("&auml;", "ä");}
 						if (node instanceof Tag) {
 							link = ((Tag) node).getAttribute("href");
