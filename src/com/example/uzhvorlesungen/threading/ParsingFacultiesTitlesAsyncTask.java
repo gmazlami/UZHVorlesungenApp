@@ -10,6 +10,7 @@ import org.htmlparser.util.ParserException;
 import android.os.AsyncTask;
 
 import com.example.uzhvorlesungen.callbacks.FacultiesCallbackInterface;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 
 public class ParsingFacultiesTitlesAsyncTask extends
@@ -25,8 +26,9 @@ public class ParsingFacultiesTitlesAsyncTask extends
 
 	@Override
 	protected ArrayList<String> doInBackground(String... params) {
-		String URL = "http://www.vorlesungen.uzh.ch/HS14/lehrangebot.html";
-		String URLPrefix = "www.vorlesungen.uzh.ch/HS14/";
+		String URL = "http://www.vorlesungen.uzh.ch/" + GlobalAppData.SEMESTER_PREFERENCE +"/lehrangebot.html";
+		String URLPrefix = "www.vorlesungen.uzh.ch/" + GlobalAppData.SEMESTER_PREFERENCE +"/";
+
 		// TODO: avoid hardcoding those links. Include config files instead.
 
 		try {

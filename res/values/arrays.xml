@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="semester_array">
+        <item>HS14</item>
+        <item>FS14</item>
+        <item>HS13</item>
+        <item>FS13</item>
+        <item>HS12</item>
+        <item>FS12</item>
+        <item>HS11</item>
+        <item>FS11</item>
+    </string-array>
+
+</resources>

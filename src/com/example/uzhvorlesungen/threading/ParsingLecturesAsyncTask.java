@@ -7,6 +7,7 @@ import org.htmlparser.util.ParserException;
 import android.os.AsyncTask;
 
 import com.example.uzhvorlesungen.callbacks.LecturesCallbackInterface;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.parsers.VVZLecturesParser;
 
 
@@ -14,7 +15,8 @@ public class ParsingLecturesAsyncTask extends AsyncTask<String, Void, Map<String
 
 	
 	private String URL;
-	private final String URLPrefix = "www.vorlesungen.uzh.ch/HS14/";
+	String URLPrefix = "www.vorlesungen.uzh.ch/" + GlobalAppData.SEMESTER_PREFERENCE +"/";
+
 	private LecturesCallbackInterface callback;
 	
 	public ParsingLecturesAsyncTask(String link, LecturesCallbackInterface callback){

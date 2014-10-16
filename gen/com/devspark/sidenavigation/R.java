@@ -16,36 +16,36 @@ public final class R {
 		public static final int side_navigation_out_to_right = 0x7f040005;
 	}
 	public static final class color {
-		public static final int side_navigation_background = 0x7f050000;
-		public static final int side_navigation_item_text_color = 0x7f050003;
-		public static final int side_navigation_list_divider_color = 0x7f050002;
-		public static final int side_navigation_outside_background = 0x7f050001;
+		public static final int side_navigation_background = 0x7f060000;
+		public static final int side_navigation_item_text_color = 0x7f060003;
+		public static final int side_navigation_list_divider_color = 0x7f060002;
+		public static final int side_navigation_outside_background = 0x7f060001;
 	}
 	public static final class dimen {
-		public static final int side_navigation_item_image_height = 0x7f060003;
-		public static final int side_navigation_item_image_padding = 0x7f060005;
-		public static final int side_navigation_item_image_width = 0x7f060004;
-		public static final int side_navigation_item_padding_leftright = 0x7f060002;
-		public static final int side_navigation_item_padding_topbottom = 0x7f060001;
-		public static final int side_navigation_item_text_padding_left = 0x7f060007;
-		public static final int side_navigation_item_text_size = 0x7f060006;
-		public static final int side_navigation_width = 0x7f060000;
+		public static final int side_navigation_item_image_height = 0x7f070003;
+		public static final int side_navigation_item_image_padding = 0x7f070005;
+		public static final int side_navigation_item_image_width = 0x7f070004;
+		public static final int side_navigation_item_padding_leftright = 0x7f070002;
+		public static final int side_navigation_item_padding_topbottom = 0x7f070001;
+		public static final int side_navigation_item_text_padding_left = 0x7f070007;
+		public static final int side_navigation_item_text_size = 0x7f070006;
+		public static final int side_navigation_width = 0x7f070000;
 	}
 	public static final class drawable {
 		public static final int side_navigation_shadow_left = 0x7f020034;
 		public static final int side_navigation_shadow_right = 0x7f020035;
 	}
 	public static final class id {
-		public static final int shadow = 0x7f0a0051;
-		public static final int side_navigation_item_icon = 0x7f0a004c;
-		public static final int side_navigation_item_text = 0x7f0a004d;
-		public static final int side_navigation_listview = 0x7f0a0050;
-		public static final int side_navigation_menu = 0x7f0a004f;
-		public static final int side_navigation_outside_view = 0x7f0a004e;
+		public static final int shadow = 0x7f0c0052;
+		public static final int side_navigation_item_icon = 0x7f0c004d;
+		public static final int side_navigation_item_text = 0x7f0c004e;
+		public static final int side_navigation_listview = 0x7f0c0051;
+		public static final int side_navigation_menu = 0x7f0c0050;
+		public static final int side_navigation_outside_view = 0x7f0c004f;
 	}
 	public static final class layout {
-		public static final int side_navigation_item = 0x7f030012;
-		public static final int side_navigation_left = 0x7f030013;
-		public static final int side_navigation_right = 0x7f030014;
+		public static final int side_navigation_item = 0x7f030013;
+		public static final int side_navigation_left = 0x7f030014;
+		public static final int side_navigation_right = 0x7f030015;
 	}
 }

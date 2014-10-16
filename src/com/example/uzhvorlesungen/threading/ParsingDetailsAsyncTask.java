@@ -3,6 +3,7 @@ package com.example.uzhvorlesungen.threading;
 import org.htmlparser.util.ParserException;
 
 import com.example.uzhvorlesungen.callbacks.DetailsCallbackInterface;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.model.Lecture;
 import com.example.uzhvorlesungen.parsers.VVZDetailsParser;
 
@@ -13,7 +14,7 @@ public class ParsingDetailsAsyncTask extends
 
 	private String URL;
 	private DetailsCallbackInterface callback;
-	private final String URLPrefix = "www.vorlesungen.uzh.ch/HS14/";
+	String URLPrefix = "www.vorlesungen.uzh.ch/" + GlobalAppData.SEMESTER_PREFERENCE +"/";
 	private Lecture lec;
 	
 	

@@ -11,6 +11,7 @@ import org.htmlparser.util.ParserException;
 import android.os.AsyncTask;
 
 import com.example.uzhvorlesungen.callbacks.MMCallBackInterface;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.parsers.VVZMMParser;
 import com.example.uzhvorlesungen.parsers.VVZStudiesParser;
 
@@ -29,7 +30,7 @@ public class ParsingMMAsyncTask extends AsyncTask<String, Void, HashMap<String,S
 	
 	@Override
 	protected HashMap<String,String> doInBackground(String... params) {
-		String URLPrefix = "www.vorlesungen.uzh.ch/HS14/";
+		String URLPrefix = "www.vorlesungen.uzh.ch/" + GlobalAppData.SEMESTER_PREFERENCE +"/";
 		// TODO: avoid hardcoding those links. Include config files instead.
 		HashMap<String,String> map = null;
 		try {

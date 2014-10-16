@@ -31,7 +31,8 @@
         <activity android:name="com.example.uzhvorlesungen.activity.majorminor.MajorMinorActivity" >
         </activity>
         <activity android:name="com.example.uzhvorlesungen.activity.DetailsActivity"></activity>
-        <activity android:name="com.example.uzhvorlesungen.activity.LecturesActivity"></activity>
+        <activity android:name="com.example.uzhvorlesungen.activity.LecturesActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name="com.example.uzhvorlesungen.activity.SaveLecturesActivity"></activity>
         <activity android:name="com.example.uzhvorlesungen.activity.TimeTableActivity"></activity>
         <activity android:name="com.example.uzhvorlesungen.activity.SettingsActivity"></activity>

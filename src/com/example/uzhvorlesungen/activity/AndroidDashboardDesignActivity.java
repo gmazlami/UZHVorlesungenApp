@@ -8,9 +8,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.devspark.sidenavigation.SideNavigationView.Mode;
 import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.callbacks.FacultiesCallbackInterface;
+import com.example.uzhvorlesungen.data.GlobalAppData;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 
 public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallbackInterface, ISideNavigationCallback{
@@ -52,9 +55,11 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         setContentView(R.layout.dashboard_layout);
         getActionBar().setTitle(getString(R.string.choose_faculty));
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        
         if(isInternetActive()){
         	progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
+	        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(AndroidDashboardDesignActivity.this);
+	        GlobalAppData.SEMESTER_PREFERENCE = sharedPref.getString("pref_semester", "HS14");
+	        System.out.println("Preference:   "+GlobalAppData.SEMESTER_PREFERENCE);
         	ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
         	task.execute();
         }
@@ -200,7 +205,6 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			Map<String, String> titlesMap) {
 		
 		facultiesMap = map;
-		System.out.println(facultiesMap);
 		titlesLinksMap = titlesMap;
 		progress.dismiss();
 	}

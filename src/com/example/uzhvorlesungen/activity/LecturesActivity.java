@@ -15,11 +15,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +31,8 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
 	Map<String, String> map;
 	ProgressDialog progress;
 	Gson gson;
-	
+	EditText searchText = null;
+	private ArrayAdapter<String> adapter;
 	@SuppressWarnings("unchecked")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
         String[] lectureArray = new String[map.keySet().size()];
         lectureArray = map.keySet().toArray(lectureArray);
         
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, lectureArray);
+        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_row_item, lectureArray);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -62,6 +66,29 @@ public class LecturesActivity extends Activity implements DetailsCallbackInterfa
 				asyncTask.execute();
 			}
         	
+		});
+        
+        searchText = (EditText) findViewById(R.id.searchText);
+        searchText.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				LecturesActivity.this.adapter.getFilter().filter(s);
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
 		});
 	}
 

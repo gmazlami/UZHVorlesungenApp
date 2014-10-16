@@ -1,17 +1,27 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.uzhvorlesungen.activity.MainActivity" >
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:divider="@color/DarkBlue"
-        android:dividerHeight="1sp">
-    </ListView>
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Vorlesungen suchen.."
+            android:inputType="text" >
 
-</RelativeLayout>
+            <requestFocus />
+        </EditText>
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/DarkBlue"
+            android:dividerHeight="1sp" >
+        </ListView>
+    </LinearLayout>
+

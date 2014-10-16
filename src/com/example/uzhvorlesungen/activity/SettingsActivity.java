@@ -1,8 +1,8 @@
 package com.example.uzhvorlesungen.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -11,7 +11,7 @@ import com.devspark.sidenavigation.SideNavigationView;
 import com.devspark.sidenavigation.SideNavigationView.Mode;
 import com.example.uzhvorlesungen.R;
 
-public class SettingsActivity extends Activity implements ISideNavigationCallback{
+public class SettingsActivity extends PreferenceActivity implements ISideNavigationCallback{
 
     public static final String EXTRA_TITLE = "com.devspark.sidenavigation.sample.extra.MTGOBJECT";
     public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
@@ -25,7 +25,9 @@ public class SettingsActivity extends Activity implements ISideNavigationCallbac
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setTitle(getString(R.string.title_stored));
-        setContentView(R.layout.activity_saved);
+        setContentView(R.layout.activity_settings);
+        addPreferencesFromResource(R.xml.settings);
+        
         icon = (ImageView) findViewById(android.R.id.icon);
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
         sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
