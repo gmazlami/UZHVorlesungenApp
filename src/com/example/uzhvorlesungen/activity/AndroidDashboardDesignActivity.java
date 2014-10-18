@@ -55,6 +55,8 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         setContentView(R.layout.dashboard_layout);
         getActionBar().setTitle(getString(R.string.choose_faculty));
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        PassedDataContainer.bscMscMed = false;
+        
         if(isInternetActive()){
         	progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
 	        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(AndroidDashboardDesignActivity.this);
