@@ -401,6 +401,10 @@ containing a value of this type.
         public static final int app_name=0x7f090000;
         public static final int as_instructed=0x7f090011;
         public static final int choose_faculty=0x7f090013;
+        public static final int disclaimer_accept=0x7f090025;
+        public static final int disclaimer_message=0x7f090026;
+        public static final int disclaimer_reject=0x7f090024;
+        public static final int disclaimer_title=0x7f090023;
         public static final int error_loading_lecture=0x7f09001c;
         public static final int error_loading_timetable=0x7f09001d;
         public static final int gathering_data=0x7f09000c;

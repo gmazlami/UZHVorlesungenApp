@@ -36,5 +36,9 @@
     <string name="title_timetable">Stundenplan</string>
     <string name="title_stored">Gespeicherte Vorlesungen</string>
     <string name="no_room_info">Keine Raumangabe</string>
+    <string name="disclaimer_title">NUTZUNGSBEDINGUNGEN</string>
+    <string name="disclaimer_reject">ABLEHNEN</string>
+    <string name="disclaimer_accept">ANNEHMEN</string>
+    <string name="disclaimer_message">Diese Anwendung ist in keinster Weise (juristisch oder wirtschaftlich) mit der Universität Zürich assoziiert. Diese Anwendung wurde von einem Studenten für Studenten entwickelt und nutzt lediglich das Vorlesungsverzeichnus der Universität als Datenquelle. Der Urheber dieser Anwendung lehnt jegliche Verantwortung für allfällige Folgen falscher Angaben bezüglich Vorlesungen, Prüfungen, Übungen, die in dieser Applikation auftreten, ab. Die Anwendung hat keinen Anspruch auf hunderprozentige Richtigkeit der angezeigten Daten und der Entwickler garantiert dies auch nicht.</string>
 
 </resources>

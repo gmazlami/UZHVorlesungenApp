@@ -27,14 +27,20 @@ import com.example.uzhvorlesungen.R;
 import com.example.uzhvorlesungen.activity.majorminor.PassedDataContainer;
 import com.example.uzhvorlesungen.callbacks.FacultiesCallbackInterface;
 import com.example.uzhvorlesungen.data.GlobalAppData;
+import com.example.uzhvorlesungen.fragments.DisclaimerDialogFragment;
+import com.example.uzhvorlesungen.fragments.DisclaimerDialogFragment.DisclaimerInterface;
 import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 
-public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallbackInterface, ISideNavigationCallback{
+public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallbackInterface, ISideNavigationCallback, DisclaimerInterface{
     
+	
 	//string keys for the passed extras, used by sidenav library
 	public static final String EXTRA_TITLE = "com.devspark.sidenavigation.sample.extra.MTGOBJECT";
 	public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
 	public static final String EXTRA_MODE = "com.devspark.sidenavigation.sample.extra.MODE";
+
+	//String key for sharedpref section used for firstrun
+	private static final String KEY_MPREFS = "ch.gmazlami.uzhvorlesungen.firstrun";
 
 	//title strings for the labels of the dashboard buttons
 	private static final String MNF = "Mathematisch-naturwissenschaftliche Fakultät";
@@ -48,11 +54,15 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 	//local data containers
 	private Map<String, List<String>> facultiesMap; //maps a faculty to a list of titles
 	private Map<String, String> titlesLinksMap; // maps a title to the link with the title's content
+	private boolean acceptedDisclaimer = false;
 	
 	//UI variables
 	private ProgressDialog progress; //progress dialog displayed when the asynctask loads data
     private ImageView icon;
     private SideNavigationView sideNavigationView;
+    
+    //android API fields
+    private SharedPreferences mPrefs = null;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +70,23 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         setContentView(R.layout.dashboard_layout);
         getActionBar().setTitle(getString(R.string.choose_faculty));
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        
         PassedDataContainer.bscMscMed = false; //initialize/reset the bscMscFlag, because here we start a new lecture lookup
+        
+        //initialize private prefs, used for first run notification of disclaimer
+        mPrefs = getApplicationContext().getSharedPreferences(KEY_MPREFS, MODE_PRIVATE);
+        
+//        //check for first run and show disclaimer if necessary
+//        if(getFirstRun()){
+//        	DisclaimerDialogFragment disclaimer = new DisclaimerDialogFragment();
+//        	disclaimer.show(getFragmentManager(), "DisclaimerFragment");
+//        	if(acceptedDisclaimer){
+//        		setRunned();
+//        	}else{
+//        		finish();
+//        	}
+//        	
+//        }
         
         //only download data if device has activated network access
         if(isInternetActive()){
@@ -226,6 +252,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 		facultiesMap = map; //maps faculties to a list of titles available in that faculty
 		titlesLinksMap = titlesMap; //maps each title to its URL/link
 		progress.dismiss(); // closes the progressbar popup
+		
 	}
 	
 	private void startTitlesActivity(String faculty){
@@ -336,6 +363,23 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     }
     
     /**
+     * Helper method which checks wether this is the first run of the application since installation
+     * @return true if this is the first run, false otherwise
+     */
+	private boolean getFirstRun() {
+		return mPrefs.getBoolean("firstRun", true);
+	}
+	
+	/**
+	 * Helper method to set the flag if the first run of the application has happened
+	 */
+	private void setRunned() {
+		SharedPreferences.Editor edit = mPrefs.edit();
+		edit.putBoolean("firstRun", false);
+		edit.commit();
+	}
+    
+    /**
      * Helper method to check if the device internet is activated at all
      * Note: this does not check wether the connection is slow or times out, only if internet is 
      * activated at all at device level
@@ -346,5 +390,15 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     	NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+	@Override
+	public void onAccept() {
+		acceptedDisclaimer = true;
+	}
+
+	@Override
+	public void onReject() {
+		acceptedDisclaimer = false;
+	}
     
 }
