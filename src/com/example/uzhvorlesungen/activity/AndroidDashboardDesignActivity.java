@@ -64,9 +64,16 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         
         //only download data if device has activated network access
         if(isInternetActive()){
+        	//disable the UI and show a progress popup while executing asynctask
         	progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
+        	
+        	//get reference to the preferences of this applications through android preference API 
 	        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(AndroidDashboardDesignActivity.this);
+	        
+	        //get the semester to use when gathering data, defined in sharedpreferences and set it globally
 	        GlobalAppData.SEMESTER_PREFERENCE = sharedPref.getString("pref_semester", "HS14");
+	        
+	        //start gathering data asynchronously
         	ParsingFacultiesTitlesAsyncTask task = new ParsingFacultiesTitlesAsyncTask(this);
         	task.execute();
         }
@@ -320,6 +327,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
     }
 
     private void invokeActivity(Class<AndroidDashboardDesignActivity> class1) {
+    	//TODO: refactor this helper method. It doesn't make sense with this parameter etc.
         Intent intent = new Intent(this, class1);
         intent.putExtra(EXTRA_MODE, sideNavigationView.getMode() == Mode.LEFT ? 0 : 1);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -327,6 +335,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         overridePendingTransition(0, 0);
     }
     
+    /**
+     * Helper method to check if the device internet is activated at all
+     * Note: this does not check wether the connection is slow or times out, only if internet is 
+     * activated at all at device level
+     * @return true if internet is activated, false otherwise
+     */
     private boolean isInternetActive(){
     	ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     	NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
