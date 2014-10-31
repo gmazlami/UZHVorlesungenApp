@@ -31,10 +31,12 @@ import com.example.uzhvorlesungen.threading.ParsingFacultiesTitlesAsyncTask;
 
 public class AndroidDashboardDesignActivity extends Activity implements FacultiesCallbackInterface, ISideNavigationCallback{
     
+	//string keys for the passed extras, used by sidenav library
 	public static final String EXTRA_TITLE = "com.devspark.sidenavigation.sample.extra.MTGOBJECT";
 	public static final String EXTRA_RESOURCE_ID = "com.devspark.sidenavigation.sample.extra.RESOURCE_ID";
 	public static final String EXTRA_MODE = "com.devspark.sidenavigation.sample.extra.MODE";
 
+	//title strings for the labels of the dashboard buttons
 	private static final String MNF = "Mathematisch-naturwissenschaftliche Fakultät";
 	private static final String WWF = "Wirtschaftswissenschaftliche Fakultät";
 	private static final String PHF = "Philosophische Fakultät";
@@ -43,9 +45,12 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 	private static final String MEDF = "Medizinische Fakultät";
 	private static final String VETF = "Vetsuisse-Fakultät";
 	
-	private Map<String, List<String>> facultiesMap;
-	private Map<String, String> titlesLinksMap;
-	private ProgressDialog progress;
+	//local data containers
+	private Map<String, List<String>> facultiesMap; //maps a faculty to a list of titles
+	private Map<String, String> titlesLinksMap; // maps a title to the link with the title's content
+	
+	//UI variables
+	private ProgressDialog progress; //progress dialog displayed when the asynctask loads data
     private ImageView icon;
     private SideNavigationView sideNavigationView;
 
@@ -55,8 +60,9 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         setContentView(R.layout.dashboard_layout);
         getActionBar().setTitle(getString(R.string.choose_faculty));
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        PassedDataContainer.bscMscMed = false;
+        PassedDataContainer.bscMscMed = false; //initialize/reset the bscMscFlag, because here we start a new lecture lookup
         
+        //only download data if device has activated network access
         if(isInternetActive()){
         	progress = ProgressDialog.show(this, getString(R.string.gathering_data),getString(R.string.please_wait), true);
 	        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(AndroidDashboardDesignActivity.this);
@@ -65,6 +71,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         	task.execute();
         }
 		
+        //initialize side navigation
         icon = (ImageView) findViewById(android.R.id.icon);
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
         sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
@@ -81,7 +88,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         
         
         /**
-         * Creating all buttons instances
+         * Creating all button instances
          * */
         
         Button btnMNF = (Button) findViewById(R.id.btn_mnf);
@@ -102,7 +109,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
          * Handling all button click events
          * */
         
-        // Listening to News Feed button click
+        // Listening to MNF button click
         btnMNF.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -116,7 +123,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			}
 		});
         
-       // Listening Friends button click
+       // Listening WWF button click
         btnWWF.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -130,7 +137,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			}
 		});
         
-        // Listening Messages button click
+        // Listening RWF button click
         btnRWF.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -144,7 +151,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			}
 		});
         
-        // Listening to Places button click
+        // Listening to MedF button click
         btnMedF.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -158,7 +165,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			}
 		});
         
-        // Listening to Events button click
+        // Listening to PhF button click
         btnPhF.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -172,7 +179,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			}
 		});
         
-        // Listening to Photos button click
+        // Listening to VetF button click
         btnVetF.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -186,6 +193,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			}
 		});
         
+        // Listening to ThF button click
         btnThF.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -200,32 +208,44 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 		});
     }
 
+	/**
+	 * callback method which is executed when the AsyncTask started in this activity finishes.
+	 */
 	@Override
 	public void onTaskCompleted(ArrayList<String> faculties,
 			Map<String, List<String>> map,
 			Map<String, String> titlesMap) {
 		
-		facultiesMap = map;
-		titlesLinksMap = titlesMap;
-		progress.dismiss();
+		facultiesMap = map; //maps faculties to a list of titles available in that faculty
+		titlesLinksMap = titlesMap; //maps each title to its URL/link
+		progress.dismiss(); // closes the progressbar popup
 	}
 	
 	private void startTitlesActivity(String faculty){
-		Intent intent = new Intent(getApplicationContext(),
-				TitlesActivity.class);
+		//create intent to launch next activity
+		Intent intent = new Intent(getApplicationContext(),TitlesActivity.class);
+		
+		//find the clicked faculty in the map, and get its list of titles
 		List<String> passedList = facultiesMap.get(faculty);
+		
+		//this list of Strings/URLS will contain all links for the titles we found in the code above
 		List<String> linksList = new ArrayList<String>();
 		
+		//populate the list of URLS with the links associated to the titles
 		for(int i =0; i < passedList.size(); i++){
 			String title = passedList.get(i);
 			linksList.add(titlesLinksMap.get(title));
 		}
 		
-		
+		//put the data in the global static container, in order to retrieve later in the next activity
+		// (this is done this way, because passing complex datastructures (collections) is not efficient through extras)
 		PassedDataContainer.passedTitles = passedList;
 		PassedDataContainer.passedTitlesLinks = linksList;
+		
+		//eventually start the new intent
 		startActivity(intent);
 	}
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
