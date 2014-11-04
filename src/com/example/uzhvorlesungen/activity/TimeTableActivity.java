@@ -9,6 +9,8 @@ import java.util.List;
 import main.java.com.u1aryz.android.lib.newpopupmenu.PopupMenu;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -71,17 +73,28 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         dao.openDataBase();
         List<Lecture> lectures = dao.getAllLectures(); 
         
-        for(Lecture lecture : lectures){
-        	HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();
-        	for(String day : belMap.keySet()){
-        		BeginEndLocation bel = belMap.get(day);
-        		if(bel.begin != null && bel.end != null && !bel.begin.equals("") && !bel.end.equals("")){
-        			addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end, lecture.getPoints(), lecture.getDocent());
+        if(lectures == null || lectures.size() == 0){
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	builder.setMessage(R.string.alert_nolectures_timetable)
+        	       .setCancelable(false)
+        	       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	                //do things
+        	           }
+        	       });
+        	AlertDialog alert = builder.create();
+        	alert.show();
+        }else{
+        	for(Lecture lecture : lectures){
+        		HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();
+        		for(String day : belMap.keySet()){
+        			BeginEndLocation bel = belMap.get(day);
+        			if(bel.begin != null && bel.end != null && !bel.begin.equals("") && !bel.end.equals("")){
+        				addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end, lecture.getPoints(), lecture.getDocent());
+        			}
         		}
         	}
         }
-        
-        
 	}
 	
 	private void addTerminTextView(String title, String location, String day, String begin, String end, String points, String docent){

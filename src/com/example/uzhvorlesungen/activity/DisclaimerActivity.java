@@ -24,15 +24,14 @@ public class DisclaimerActivity extends Activity {
         mPrefs = getApplicationContext().getSharedPreferences(KEY_MPREFS, MODE_PRIVATE);
 
         if(getFirstRun()){
-        	setRunned();
             Button declineButton = (Button) findViewById(R.id.declineDisclaimerButton);
             declineButton.setOnClickListener(new OnClickListener() {
     			
     			@Override
     			public void onClick(View v) {
     				new AlertDialog.Builder(DisclaimerActivity.this)
-    			    .setTitle("Delete entry")
-    			    .setMessage("Are you sure you want to delete this entry?")
+    			    .setTitle("")
+    			    .setMessage(R.string.areyousure)
     			    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
     			        public void onClick(DialogInterface dialog, int which) { 
     			            finish();
@@ -47,6 +46,19 @@ public class DisclaimerActivity extends Activity {
     			     .show();
     			}
     		});
+            
+            Button acceptButton = (Button) findViewById(R.id.acceptDisclaimerButton);
+            acceptButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					setRunned();
+		        	Intent dashboardIntent = new Intent(getApplicationContext(), AndroidDashboardDesignActivity.class);
+		        	startActivity(dashboardIntent);
+		        	finish();
+				}
+			});
+            
         }else{
         	Intent dashboardIntent = new Intent(getApplicationContext(), AndroidDashboardDesignActivity.class);
         	startActivity(dashboardIntent);

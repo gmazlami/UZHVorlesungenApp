@@ -360,7 +360,9 @@ int menu side_navigation_menu 0x7f0b0004
 int string action_settings 0x7f090002
 int string actionbar_majorminor 0x7f090017
 int string activate_internet 0x7f090016
+int string alert_nolectures_timetable 0x7f090028
 int string app_name 0x7f090000
+int string areyousure 0x7f090029
 int string as_instructed 0x7f090011
 int string choose_faculty 0x7f090013
 int string disclaimer_accept 0x7f090025

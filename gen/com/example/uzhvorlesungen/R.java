@@ -403,7 +403,9 @@ containing a value of this type.
         public static final int action_settings=0x7f090002;
         public static final int actionbar_majorminor=0x7f090017;
         public static final int activate_internet=0x7f090016;
+        public static final int alert_nolectures_timetable=0x7f090028;
         public static final int app_name=0x7f090000;
+        public static final int areyousure=0x7f090029;
         public static final int as_instructed=0x7f090011;
         public static final int choose_faculty=0x7f090013;
         public static final int disclaimer_accept=0x7f090025;
