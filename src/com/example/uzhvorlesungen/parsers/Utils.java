@@ -13,6 +13,7 @@ public class Utils {
 		newString = newString.replace("&ouml;", "ö");
 		newString = newString.replace("&nbsp;", " ");
 		newString = newString.replace("&amp;", "&");
+		newString = newString.replace("&quot;", "\"");
 		return newString;
 	}
 }
