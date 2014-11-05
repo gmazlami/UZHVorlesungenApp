@@ -394,9 +394,10 @@ containing a value of this type.
     public static final class menu {
         public static final int _actionbar=0x7f0b0000;
         public static final int actionbar=0x7f0b0001;
-        public static final int main=0x7f0b0002;
-        public static final int main_menu=0x7f0b0003;
-        public static final int side_navigation_menu=0x7f0b0004;
+        public static final int actionbar_timetable=0x7f0b0002;
+        public static final int main=0x7f0b0003;
+        public static final int main_menu=0x7f0b0004;
+        public static final int side_navigation_menu=0x7f0b0005;
     }
     public static final class string {
         public static final int action_settings=0x7f090002;

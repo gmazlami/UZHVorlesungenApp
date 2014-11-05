@@ -28,7 +28,6 @@ public class SettingsActivity extends PreferenceActivity implements ISideNavigat
         setContentView(R.layout.activity_settings);
         addPreferencesFromResource(R.xml.settings);
         
-        icon = (ImageView) findViewById(android.R.id.icon);
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
         sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
         sideNavigationView.setMenuClickCallback(this);

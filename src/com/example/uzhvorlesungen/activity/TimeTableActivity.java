@@ -57,7 +57,6 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         super.onCreate(savedInstanceState);
         getActionBar().setTitle(getString(R.string.title_timetable));
         setContentView(R.layout.activity_stundenplan);
-        icon = (ImageView) findViewById(android.R.id.icon);
         sideNavigationView = (SideNavigationView) findViewById(R.id.side_navigation_view);
         sideNavigationView.setMenuItems(R.menu.side_navigation_menu);
         sideNavigationView.setMenuClickCallback(this);
@@ -315,10 +314,6 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
             		Toast.makeText(this, getString(R.string.error_loading_timetable), Toast.LENGTH_LONG).show();
             	}
             	break;
-            case R.id.action_save:
-            	saveTimeTableBitMap();
-            	break;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -375,7 +370,7 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.actionbar, menu);
+	    inflater.inflate(R.menu.actionbar_timetable, menu);
         return super.onCreateOptionsMenu(menu);
     }
     
@@ -409,14 +404,6 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
         shareIntent.setType("image/jpeg");
         startActivity(Intent.createChooser(shareIntent, getString(R.string.intent_send_timetable)));
-    }
-    
-    /**
-     * wrapper method that computes and stores an image capture of the timetable
-     */
-    private void saveTimeTableBitMap(){
-    	Bitmap bitmap = loadBitmapFromView();
-        saveBitmap(bitmap);
     }
     
     @SuppressLint("WorldReadableFiles") 
