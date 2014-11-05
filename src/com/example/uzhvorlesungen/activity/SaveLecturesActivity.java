@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -66,35 +68,52 @@ public class SaveLecturesActivity extends Activity implements ISideNavigationCal
         final List<Lecture> lectures = dao.getAllLectures();
         dao.closeDataBase();
         
-        lectureArray = new Lecture[lectures.size()];
-        lectureArray = lectures.toArray(lectureArray);
-        
-        ArrayList<String> titlesList = new ArrayList<String>();
-        for(Lecture l : lectures){
-        	titlesList.add(l.getTitle());
+        if(lectures == null || lectures.size() == 0){
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	builder.setCancelable(false).setMessage(R.string.alert_nolectures_timetable).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+        	
+        	AlertDialog alert = builder.create();
+        	alert.show();
+        }else{
+            lectureArray = new Lecture[lectures.size()];
+            lectureArray = lectures.toArray(lectureArray);
+            
+            ArrayList<String> titlesList = new ArrayList<String>();
+            for(Lecture l : lectures){
+            	titlesList.add(l.getTitle());
+            }
+            
+            ListView listview = (ListView) findViewById(R.id.savedList);
+            listview.setAdapter(new SavedLecturesAdapter(getApplicationContext(), R.layout.saved_list_row_item,  titlesList));
+            listview.setOnItemClickListener(new OnItemClickListener() {
+
+    			@Override
+    			public void onItemClick(AdapterView<?> parent, View view,
+    					int position, long id) {
+    				String  lectureTitle = lectures.get(position).getTitle();
+    				Lecture lecture = searchLecture(lectureTitle, SaveLecturesActivity.this.lectureArray);
+    				if(lecture==null){
+    					Toast.makeText(getApplicationContext(), getString(R.string.error_loading_lecture), Toast.LENGTH_SHORT).show();
+    					return;
+    				}else{
+    					Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+    					intent.putExtra(EXTRA_SAVED_LECTURE,true);
+    					PassedDataContainer.passedLecture = lecture;
+    					startActivity(intent);
+    				}
+    			}
+            	
+    		});
         }
         
-        ListView listview = (ListView) findViewById(R.id.savedList);
-        listview.setAdapter(new SavedLecturesAdapter(getApplicationContext(), R.layout.saved_list_row_item,  titlesList));
-        listview.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				String  lectureTitle = lectures.get(position).getTitle();
-				Lecture lecture = searchLecture(lectureTitle, SaveLecturesActivity.this.lectureArray);
-				if(lecture==null){
-					Toast.makeText(getApplicationContext(), getString(R.string.error_loading_lecture), Toast.LENGTH_SHORT).show();
-					return;
-				}else{
-					Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
-					intent.putExtra(EXTRA_SAVED_LECTURE,true);
-					PassedDataContainer.passedLecture = lecture;
-					startActivity(intent);
-				}
-			}
-        	
-		});
 	}
 
     @Override

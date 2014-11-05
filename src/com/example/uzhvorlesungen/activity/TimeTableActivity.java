@@ -3,8 +3,10 @@ package com.example.uzhvorlesungen.activity;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import main.java.com.u1aryz.android.lib.newpopupmenu.PopupMenu;
 import android.annotation.SuppressLint;
@@ -48,6 +50,8 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
     private ImageView icon;
     private SideNavigationView sideNavigationView;
 
+    private List<LectureTitlePair> collidingLectureTitles = null;
+    
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,12 +83,13 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         	       .setCancelable(false)
         	       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
         	           public void onClick(DialogInterface dialog, int id) {
-        	                //do things
         	           }
         	       });
         	AlertDialog alert = builder.create();
         	alert.show();
         }else{
+        	
+        	collidingLectureTitles = getCollidingLectures(lectures);
         	for(Lecture lecture : lectures){
         		HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();
         		for(String day : belMap.keySet()){
@@ -128,8 +133,17 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 			color = colors[index];
 			index++;
 		}
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int)(time * 40 * d));
-		params.setMargins(0,marginTop, 0, 0);
+		RelativeLayout.LayoutParams params = null;
+		if(isFirstColliding(title)){
+			params = new RelativeLayout.LayoutParams(convertDpToPx(70), (int)(time * 40 * d));
+			params.setMargins(0,marginTop, 0, 0);
+		}else if(isSecondColliding(title)){
+			params = new RelativeLayout.LayoutParams(convertDpToPx(70), (int)(time * 40 * d));
+			params.setMargins(convertDpToPx(70),marginTop, 0, 0);
+		}else{
+			params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, (int)(time * 40 * d));
+			params.setMargins(0,marginTop, 0, 0);
+		}
 		TextView v = new TextView(this);
 		v.setText(computeCrop(title, (int)time));
 		v.setBackgroundColor(color);
@@ -164,6 +178,76 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 		
 	}
 	
+	private float computeTimeFloat(String time){
+		String[] a = time.split(":");
+		int beginHour = Integer.parseInt(a[0]);
+		int beginMinute = Integer.parseInt(a[1]);
+		
+		float tmp = (float) 60 / beginMinute;
+		float beginMinuteDecimal = 1.0f / tmp;
+		float beginTimeDec = (float) beginHour + beginMinuteDecimal;
+		return beginTimeDec;
+	}
+	
+	private boolean isFirstColliding(String title){
+		boolean isfirst = false;
+		for(LectureTitlePair pair : collidingLectureTitles){
+			if(pair.firstTitle.equals(title)){
+				return true;
+			}
+		}
+		return isfirst;
+	}
+	
+	private boolean isSecondColliding(String title){
+		boolean issecond = false;
+		for(LectureTitlePair pair : collidingLectureTitles){
+			if(pair.secondTitle.equals(title)){
+				return true;
+			}
+		}
+		return issecond;
+	}
+	
+	private boolean doesCollide(String startA, String endA, String startB, String endB){
+		float fstartA = computeTimeFloat(startA);
+		float fendA = computeTimeFloat(endA);
+		float fstartB = computeTimeFloat(startB);
+		float fendB = computeTimeFloat(endB);
+		
+		if((fstartA < fstartB) && (fendA > fstartB)){
+			return true;
+		}else if((fstartA < fendB) && (fendA > fendB)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private List<LectureTitlePair> getCollidingLectures(List<Lecture> lectureList){
+		List<LectureTitlePair> collidingLectures = new ArrayList<LectureTitlePair>();
+		for(Lecture currentLecture : lectureList){
+			for(Lecture comparedLecture : lectureList){
+				for(Map.Entry<String, BeginEndLocation> currentEntry : currentLecture.getDayBeginEndTime().entrySet()){
+					for(Map.Entry<String, BeginEndLocation> comparedEntry : comparedLecture.getDayBeginEndTime().entrySet()){
+						if(currentEntry.getKey().equals(comparedEntry.getKey())){ //both on the same day
+							String currentBegin = currentEntry.getValue().begin;
+							String currentEnd = currentEntry.getValue().end;
+							String comparedBegin = comparedEntry.getValue().begin;
+							String comparedEnd = comparedEntry.getValue().end;
+							
+							if(doesCollide(currentBegin, currentEnd, comparedBegin, comparedEnd)){
+								LectureTitlePair pair = new LectureTitlePair(currentLecture.getTitle(), comparedLecture.getTitle());
+								collidingLectures.add(pair);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return collidingLectures;
+	}
 	
 	private String computeCrop(String title, int time){
 		int textLines = title.length()/20;
@@ -310,6 +394,12 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         overridePendingTransition(0, 0);
     }
     
+    /**
+     * Method that opens a sharing intent to send the timetable image to other
+     * applications such as Whatsapp, Dropbox etc.
+     * 
+     * @throws FileNotFoundException
+     */
     private void shareTimeTable() throws FileNotFoundException{
     	FileOutputStream fos = new FileOutputStream(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +"/timetable.jpg" );
         loadBitmapFromView().compress(CompressFormat.JPEG, 100, fos);
@@ -321,12 +411,20 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         startActivity(Intent.createChooser(shareIntent, getString(R.string.intent_send_timetable)));
     }
     
+    /**
+     * wrapper method that computes and stores an image capture of the timetable
+     */
     private void saveTimeTableBitMap(){
     	Bitmap bitmap = loadBitmapFromView();
         saveBitmap(bitmap);
     }
     
     @SuppressLint("WorldReadableFiles") 
+    /**
+     * Helper method that stores an image to the filesystem
+     * 
+     * @param bitmap	the bitmap representation of the image we want to store on the filesystem
+     */
     public void saveBitmap(Bitmap bitmap) {
         try {
         	FileOutputStream fos = openFileOutput(GlobalAppData.PRIVATE_FILE_NAME, MODE_WORLD_READABLE);
@@ -339,7 +437,11 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         	e.printStackTrace();
         }
     }
-    
+    /**
+     * Helper method that computes a bitmap image of the timetable view
+     * 
+     * @return	the bitmap image of the timetableView
+     */
     private  Bitmap loadBitmapFromView() {
     	View v = findViewById(R.id.timetableView);
     	int width = v.getWidth();
@@ -349,6 +451,16 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         v.layout(0, 0, v.getWidth(), v.getHeight());
         v.draw(c);
         return b;
+    }
+    
+    private class LectureTitlePair{
+    	public String firstTitle;
+    	public String secondTitle;
+
+    	public LectureTitlePair(String first, String second){
+    		firstTitle = first;
+    		secondTitle = second;
+    	}
     }
 }
 
