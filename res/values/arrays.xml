@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="semester_array">
+        <item>FS15</item>
         <item>HS14</item>
         <item>FS14</item>
         <item>HS13</item>

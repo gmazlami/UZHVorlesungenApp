@@ -281,9 +281,9 @@ containing a value of this type.
         public static final int Wednesday=0x7f0c002b;
         public static final int WednesdayTextView=0x7f0c0020;
         public static final int acceptDisclaimerButton=0x7f0c0012;
-        public static final int action_save=0x7f0c0056;
-        public static final int action_settings=0x7f0c0058;
-        public static final int action_share=0x7f0c0057;
+        public static final int action_save=0x7f0c0055;
+        public static final int action_settings=0x7f0c0057;
+        public static final int action_share=0x7f0c0056;
         public static final int alternativeMajorsList=0x7f0c0017;
         public static final int btn_medf=0x7f0c0044;
         public static final int btn_mnf=0x7f0c0041;
@@ -317,10 +317,10 @@ containing a value of this type.
         public static final int linearLayout2=0x7f0c0024;
         public static final int linearLayout3=0x7f0c0028;
         public static final int listView1=0x7f0c0015;
-        public static final int mode=0x7f0c0059;
-        public static final int mode_group=0x7f0c005a;
-        public static final int mode_left=0x7f0c005b;
-        public static final int mode_right=0x7f0c005c;
+        public static final int mode=0x7f0c0058;
+        public static final int mode_group=0x7f0c0059;
+        public static final int mode_left=0x7f0c005a;
+        public static final int mode_right=0x7f0c005b;
         public static final int pointsTextView=0x7f0c0005;
         public static final int relativeLayout1=0x7f0c001c;
         public static final int relativeLayout10=0x7f0c003e;
@@ -338,16 +338,15 @@ containing a value of this type.
         public static final int savedList=0x7f0c0018;
         public static final int scrollView1=0x7f0c0000;
         public static final int searchText=0x7f0c0014;
-        public static final int shadow=0x7f0c0055;
-        public static final int side_navigation_item_icon=0x7f0c0050;
-        public static final int side_navigation_item_text=0x7f0c0051;
-        public static final int side_navigation_listview=0x7f0c0054;
-        public static final int side_navigation_menu=0x7f0c0053;
-        public static final int side_navigation_menu_item1=0x7f0c005d;
-        public static final int side_navigation_menu_item2=0x7f0c005e;
-        public static final int side_navigation_menu_item3=0x7f0c005f;
-        public static final int side_navigation_menu_item4=0x7f0c0060;
-        public static final int side_navigation_outside_view=0x7f0c0052;
+        public static final int shadow=0x7f0c0054;
+        public static final int side_navigation_item_text=0x7f0c0050;
+        public static final int side_navigation_listview=0x7f0c0053;
+        public static final int side_navigation_menu=0x7f0c0052;
+        public static final int side_navigation_menu_item1=0x7f0c005c;
+        public static final int side_navigation_menu_item2=0x7f0c005d;
+        public static final int side_navigation_menu_item3=0x7f0c005e;
+        public static final int side_navigation_menu_item4=0x7f0c005f;
+        public static final int side_navigation_outside_view=0x7f0c0051;
         public static final int side_navigation_view=0x7f0c0019;
         public static final int testTextView=0x7f0c002e;
         public static final int textDescription=0x7f0c0009;
@@ -395,9 +394,10 @@ containing a value of this type.
     public static final class menu {
         public static final int _actionbar=0x7f0b0000;
         public static final int actionbar=0x7f0b0001;
-        public static final int main=0x7f0b0002;
-        public static final int main_menu=0x7f0b0003;
-        public static final int side_navigation_menu=0x7f0b0004;
+        public static final int actionbar_timetable=0x7f0b0002;
+        public static final int main=0x7f0b0003;
+        public static final int main_menu=0x7f0b0004;
+        public static final int side_navigation_menu=0x7f0b0005;
     }
     public static final class string {
         public static final int action_settings=0x7f090002;
