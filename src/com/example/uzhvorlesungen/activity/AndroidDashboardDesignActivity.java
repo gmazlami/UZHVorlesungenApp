@@ -117,6 +117,8 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
         
         Button btnThF = (Button) findViewById(R.id.btn_thf);
         
+        Button btnSearch = (Button) findViewById(R.id.btn_search);
+        
         /**
          * Handling all button click events
          * */
@@ -213,6 +215,20 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 				if(isInternetActive()){
 					String faculty = THF;
 					startTitlesActivity(faculty);
+				}else{
+					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+        
+        // Listening to Search button click
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				if(isInternetActive()){
+					Intent intent = new Intent(getApplicationContext(), FreeSearchActivity.class);
+					startActivity(intent);
 				}else{
 					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
 				}

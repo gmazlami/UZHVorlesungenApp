@@ -75,6 +75,13 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         LecturesDAO dao = new LecturesDAO(getApplicationContext());
         dao.openDataBase();
         List<Lecture> lectures = dao.getAllLectures(); 
+        List<Lecture> regularLectures = new ArrayList<Lecture>();
+        for(Lecture l : lectures){
+        	if(l.getRegularity()){
+        		regularLectures.add(l);
+        	}
+        }
+        
         
         if(lectures == null || lectures.size() == 0){
         	AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -88,7 +95,7 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         	alert.show();
         }else{
         	
-        	collidingLectureTitles = getCollidingLectures(lectures);
+        	collidingLectureTitles = getCollidingLectures(regularLectures);
         	for(Lecture lecture : lectures){
         		if(lecture.getRegularity()){
         			HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();

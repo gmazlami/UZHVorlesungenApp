@@ -43,5 +43,7 @@
     <string name="title_disclaimer">Nutzungsbestimmungen</string>
     <string name="alert_nolectures_timetable">Du hast noch keine Vorlesungen gespeichert! Suche nach Vorlesungen, und speichere sie über das Speichern-Symbol in der Detailansicht, damit die App dir einen Stundenplan generiert.</string>
     <string name="areyousure">Bist du sicher?</string>
+    <string name="title_search">Vorlesungen suchen</string>
+    <string name="error_loading_data">Fehler beim Laden der Daten. Überprüfe deine Internetverbindung oder wende dich an den Entwickler.</string>
 
 </resources>

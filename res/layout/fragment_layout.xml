@@ -61,7 +61,13 @@
         android:drawableTop="@drawable/btn_thf"
         android:text="ThF" />
 
-    <TextView
+    <Button
+        android:id="@+id/btn_search"
+        style="@style/DashboardButton"
+        android:drawableTop="@drawable/btn_search"
+        android:text="Suche" />
+    
+<!--     <TextView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -69,6 +75,6 @@
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:paddingTop="5dp"
         android:textSize="25dp" >
-    </TextView>
+    </TextView> -->
 
 </com.example.uzhvorlesungen.activity.DashboardLayout>
