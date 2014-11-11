@@ -228,6 +228,7 @@ public class AndroidDashboardDesignActivity extends Activity implements Facultie
 			public void onClick(View view) {
 				if(isInternetActive()){
 					Intent intent = new Intent(getApplicationContext(), FreeSearchActivity.class);
+					intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY); // Adds the FLAG_ACTIVITY_NO_HISTORY flag
 					startActivity(intent);
 				}else{
 					Toast.makeText(getApplicationContext(), getString(R.string.activate_internet), Toast.LENGTH_LONG).show();
