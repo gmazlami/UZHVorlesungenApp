@@ -63,6 +63,7 @@ public class FreeSearchActivity extends Activity implements FreeSearchCallbackIn
 	@Override
 	public void onTaskCompleted(Map<String, String> lectureTitlesLinksMap) {
 		if(lectureTitlesLinksMap == null){ //if map is null this means the query failed --> show error message
+			progress.dismiss();
 			Toast.makeText(getApplicationContext(), R.string.error_loading_data, Toast.LENGTH_LONG).show();
 		}else{
 			Gson gson = new Gson();

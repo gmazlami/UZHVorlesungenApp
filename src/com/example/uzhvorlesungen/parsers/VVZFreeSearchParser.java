@@ -58,9 +58,11 @@ public class VVZFreeSearchParser {
 			NodeList nl = parser.parse(tagNameFilter);
 			Node node = nl.elementAt(15);
 			String trString = node.toHtml().trim();
-			String[] splitArray = trString.split("\"");
-			link = baseURL + semester + "/suche/" + splitArray[1];
-			resultMap.put(entry.getKey(), link);
+			if(trString.contains("Bestandteil")){
+				String[] splitArray = trString.split("\"");
+				link = baseURL + semester + "/suche/" + splitArray[1];
+				resultMap.put(Utils.fixUmlauts(entry.getKey()), link);
+			}
 		}
 		
 		return resultMap;
