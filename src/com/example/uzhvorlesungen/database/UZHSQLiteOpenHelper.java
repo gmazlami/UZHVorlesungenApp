@@ -16,6 +16,7 @@ public class UZHSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String LECTURE_DOCENT = "docent";
 	public static final String LECTURE_EXAM = "exam";
 	public static final String LECTURE_POINTS = "points";
+	public static final String LECTURE_REGULAR = "regular";
 	
 	public static final String TABLE_TERMIN = "termin";
 	public static final String TERMIN_ID = "_id";
@@ -31,7 +32,8 @@ public class UZHSQLiteOpenHelper extends SQLiteOpenHelper {
 																	"description TEXT,"+
 																	"docent TEXT,"+
 																	"exam TEXT,"+
-																	"points TEXT"+
+																	"points TEXT,"+
+																	"regular INTEGER"+
 																	");";
 	
 	private static final String DATABASE_CREATE_TERMIN_STATEMENT ="CREATE TABLE termin(" +

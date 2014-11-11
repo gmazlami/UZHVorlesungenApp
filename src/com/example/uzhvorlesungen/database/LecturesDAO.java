@@ -58,7 +58,7 @@ public class LecturesDAO {
 	}
 	
 	@SuppressLint("UseSparseArrays") public List<Lecture> getAllLectures(){
-		Cursor cursor = db.rawQuery("SELECT lecture._id,lecture.title,lecture.description, lecture.docent, lecture.exam, lecture.points, termin.day, termin.begintime, termin.endtime, termin.locations FROM lecture,termin WHERE lecture._id = termin.lecture_id; ",null);
+		Cursor cursor = db.rawQuery("SELECT lecture._id,lecture.title,lecture.description, lecture.docent, lecture.exam, lecture.points, termin.day, termin.begintime, termin.endtime, termin.locations, lecture.regular FROM lecture,termin WHERE lecture._id = termin.lecture_id; ",null);
 		HashMap<Integer, Lecture> lectureMap = new HashMap<Integer, Lecture>();
 		int lastId = -1;
 		while(cursor.moveToNext()){
@@ -92,6 +92,7 @@ public class LecturesDAO {
 				String terminBegin = cursor.getString(7);
 				String terminEnd = cursor.getString(8);
 				String terminLocations = cursor.getString(9);
+				int lectureRegular = cursor.getInt(10);
 				
 				HashMap<String, BeginEndLocation> belMap = new HashMap<String, BeginEndLocation>();
 				String[] locations = terminLocations.split("@");
@@ -101,8 +102,13 @@ public class LecturesDAO {
 				}
 				BeginEndLocation bel = new BeginEndLocation(terminBegin, terminEnd, locationsList);
 				belMap.put(terminDay, bel);
-				
-				lectureMap.put(id, new Lecture(lectureTitle, lectureDesc, lectureDocent, lectureExam, lecturePoints, belMap));
+				Lecture lecture = new Lecture(lectureTitle, lectureDesc, lectureDocent, lectureExam, lecturePoints, belMap);
+				if(lectureRegular == 1){
+					lecture.setRegular(true);
+				}else{
+					lecture.setRegular(false);
+				}
+				lectureMap.put(id, lecture);
 				lastId = id;
 			}
 
@@ -130,6 +136,11 @@ public class LecturesDAO {
 		values.put(UZHSQLiteOpenHelper.LECTURE_EXAM, lecture.getExam());
 		values.put(UZHSQLiteOpenHelper.LECTURE_POINTS, lecture.getPoints());
 		values.put(UZHSQLiteOpenHelper.LECTURE_DOCENT, lecture.getDocent());
+		if(lecture.getRegularity()){
+			values.put(UZHSQLiteOpenHelper.LECTURE_REGULAR, 1);
+		}else{
+			values.put(UZHSQLiteOpenHelper.LECTURE_REGULAR, 0);
+		}
 		db.insert(UZHSQLiteOpenHelper.TABLE_LECTURE, null, values);
 		
 		int id = getLectureId(lecture.getTitle());

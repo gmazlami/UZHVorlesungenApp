@@ -10,6 +10,7 @@ public class Lecture {
 	private String exam;
 	private String points;
 	private HashMap<String, BeginEndLocation> dayBeginEndTimeLocation;
+	private boolean regular = true;
 	
 	
 	public Lecture(String title, String description,String docent,String exam, String points, HashMap<String, BeginEndLocation> dayBeginEndTimeMap) {
@@ -30,6 +31,14 @@ public class Lecture {
 		this.title = title;
 	}
 
+	public boolean getRegularity(){
+		return this.regular;
+	}
+	
+	public void setRegular(boolean reg){
+		this.regular = reg;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -77,7 +86,7 @@ public class Lecture {
 		
 	}
 		
-		
+
 
 	
 

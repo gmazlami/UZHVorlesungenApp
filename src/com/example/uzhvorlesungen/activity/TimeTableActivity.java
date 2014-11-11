@@ -86,11 +86,13 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
         	alert.show();
         }else{
         	for(Lecture lecture : lectures){
-        		HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();
-        		for(String day : belMap.keySet()){
-        			BeginEndLocation bel = belMap.get(day);
-        			if(bel.begin != null && bel.end != null && !bel.begin.equals("") && !bel.end.equals("")){
-        				addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end, lecture.getPoints(), lecture.getDocent());
+        		if(lecture.getRegularity()){
+        			HashMap<String, BeginEndLocation> belMap = lecture.getDayBeginEndTime();
+        			for(String day : belMap.keySet()){
+        				BeginEndLocation bel = belMap.get(day);
+        				if(bel.begin != null && bel.end != null && !bel.begin.equals("") && !bel.end.equals("")){
+        					addTerminTextView(lecture.getTitle(), bel.locations.toString(), day, bel.begin, bel.end, lecture.getPoints(), lecture.getDocent());
+        				}
         			}
         		}
         	}
@@ -166,10 +168,14 @@ public class TimeTableActivity extends Activity  implements ISideNavigationCallb
 	
 	
 	private String computeCrop(String title, int time){
-		int textLines = title.length()/20;
-		int lines = time * 2;
-		if(textLines >lines){
-			return title.substring(0, (lines * 20) - 3) + "...";
+		if(time != 0){
+			int textLines = title.length()/20;
+			int lines = time * 2;
+			if(textLines >lines){
+				return title.substring(0, (lines * 20) - 3) + "...";
+			}else{
+				return title;
+			}
 		}else{
 			return title;
 		}

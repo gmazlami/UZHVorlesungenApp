@@ -41,6 +41,10 @@ public class VVZDetailsParser {
 
 		parser = new Parser();
 		parser.setResource(resourceURL);
+		boolean regular = parseRegularity(parser);
+		
+		parser = new Parser();
+		parser.setResource(resourceURL);
 		String[] pointsDescExam = parsePointsDescriptionExam(parser);
 
 		parser = new Parser();
@@ -63,7 +67,10 @@ public class VVZDetailsParser {
 		}else{
 			locationAndTime = parseEmptyLocationAndTime(parser);
 		}
-		return new Lecture(title, pointsDescExam[1], docent, pointsDescExam[2], pointsDescExam[0], locationAndTime);
+		Lecture lecture =  new  Lecture(title, pointsDescExam[1], docent, pointsDescExam[2], pointsDescExam[0], locationAndTime);
+		lecture.setRegular(regular);
+		return lecture;
+	
 	}
 	
 	private boolean checkBottomSectionExists(Parser parser) throws ParserException{
@@ -138,6 +145,18 @@ public class VVZDetailsParser {
 	}
 	
 
+	private boolean parseRegularity(Parser parser) throws ParserException{
+		TagNameFilter f = new TagNameFilter("acronym");
+		NodeList nl = parser.parse(f);
+		Node reguralityNode = nl.elementAt(0).getParent().getNextSibling().getFirstChild();
+		String regularity = Utils.fixUmlauts(reguralityNode.toPlainTextString());
+		if(regularity.contains("unregelmässig")){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	public String parseDetailsLink(Parser parser) throws ParserException {
 		TagNameFilter f = new TagNameFilter("acronym");
 		NodeList nl = parser.parse(f);
@@ -173,7 +192,6 @@ public class VVZDetailsParser {
 		
 	}
 
-	//TODO: fix the desc and exam parsing for medical faculty (hint: there is NO desc and exam info for medical faculty)
 	public String[] parsePointsDescriptionExam(Parser parser)
 			throws ParserException {
 		TagNameFilter f = new TagNameFilter("td");
